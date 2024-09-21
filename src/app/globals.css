@@ -27,19 +27,11 @@ body {
 
 body{
     min-height: 100vh;
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', sans-serif;
     background: linear-gradient(to right, #C4B5FD, #D8B4FE, #F0ABFC);
     background: #c6ffdd;
     background: -webkit-linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
     background: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d); 
-
-    /* Dark Mode BG Gradient */
-    /* background: linear-gradient(to right, #022C22, #422006, #431407);  */
-
-    /* background-image: url(./meshy1.png);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center; */
 }
 
 .font-cursive{
