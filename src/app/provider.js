@@ -12,9 +12,9 @@ function Provider({children}) {
   return (
     <NextUIProvider>
       <StyledEngineProvider injectFirst>
-        <WebinarSocketProvider>
+        {/* <WebinarSocketProvider> */}
           {children}
-        </WebinarSocketProvider>
+        {/* </WebinarSocketProvider> */}
         <ToastContainer />  
       </StyledEngineProvider>
     </NextUIProvider>
