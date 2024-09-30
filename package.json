@@ -60,6 +60,7 @@
     "react-query": "^3.39.3",
     "react-toastify": "^10.0.5",
     "socket.io-client": "^4.8.0",
+    "uuid": "^10.0.0",
     "zustand": "^4.5.5"
   },
   "devDependencies": {
