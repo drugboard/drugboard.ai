@@ -15,6 +15,9 @@ import {
   DropdownItem
 } from "@nextui-org/react";
 
+// Every draft has an unique id...
+import { v4 as uuidv4 } from 'uuid';
+
 const ResearchPaperEditor = () => {
   
   const [title, setTitle] = useState("");
@@ -22,6 +25,8 @@ const ResearchPaperEditor = () => {
   const [tags, setTags] = useState([]);
 
   const [content, setContent] = useState([]);
+
+
 
   const addParagraph = () => {
     const newContent = [...content];
@@ -39,17 +44,24 @@ const ResearchPaperEditor = () => {
     setContent(newContent);
   }
 
+  const deleteSection = (indexToDelete) => {
+    const newContent = content?.filter((_, index) => index !== indexToDelete);
+    setContent(newContent);
+  }
+
   return (
-    <div className='flex flex-col items-start gap-3 p-3'>
-      <header className='w-full flex items-center justify-between'>
+    <div className='h-screen flex flex-col items-start gap-3 p-3'>
+      <header className='h-w-full flex items-center justify-between'>
         <div className='flex items-center gap-3 text-white'>
           <SquareActivity />
           <h1 className="text-white font-cursive text-xl font-bold">Research Pulse <span className='text-black/45'>/</span> <span className='text-[#052E16]'>Paper Publication</span></h1>
         </div>
         
       </header>
-      <div className="flex flex-row gap-3 w-full">
-        <nav className='flex flex-col items-start gap-3 w-[20%] rounded-md'>
+      <main className="flex flex-row gap-3 w-full">
+        <section className='flex flex-col items-start gap-3 w-[20%] rounded-md'>
+
+
           <div className='w-full'>  
             <Accordion isCompact className='bg-white/80 backdrop-blur-md' variant="shadow">
               <AccordionItem key="frequently-edited"
@@ -83,8 +95,8 @@ const ResearchPaperEditor = () => {
               
             </Accordion>
           </div>
-        </nav>
-        <div className='w-[80%] flex flex-col items-start gap-4 border border-white rounded-lg p-3 bg-white/80 backdrop-blur-md'>
+        </section>
+        <section className='w-[80%] flex flex-col items-start gap-4 border border-white rounded-lg p-3 bg-white/80 backdrop-blur-md'>
           <form className='flex flex-col items-start gap-4 my-2 rounded-lg w-full'>
             <Textarea
                 key={"title"}
@@ -126,7 +138,7 @@ const ResearchPaperEditor = () => {
                 onValueChange={setSubtitle}
               />
 
-              <ContentEditor content={content} onParagraphContentChange={onParagraphContentChange} />
+              <ContentEditor content={content} onParagraphContentChange={onParagraphContentChange} deleteSection={deleteSection} />
           </form>
           <Dropdown>
             <DropdownTrigger>
@@ -175,8 +187,8 @@ const ResearchPaperEditor = () => {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
-        </div>
-      </div>
+        </section>
+      </main>
     </div>
   )
 }

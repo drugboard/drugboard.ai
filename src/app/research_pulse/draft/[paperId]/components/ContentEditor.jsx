@@ -3,7 +3,7 @@ import { Button, Textarea, Tooltip } from '@nextui-org/react';
 import { Brain, Trash2 } from 'lucide-react';
 import React from 'react';
 
-const ContentEditor = ({content, onParagraphContentChange}) => {
+const ContentEditor = ({content, onParagraphContentChange, deleteSection}) => {
   return (
     <> {
        content.length !==0 
@@ -39,14 +39,14 @@ const ContentEditor = ({content, onParagraphContentChange}) => {
                     />
 
                     <div className="flex items-center gap-3 px-3 transition-opacity duration-150 ease-in-out opacity-0 group-hover:opacity-100 absolute -right-2 -top-2 z-10">
-                        <Tooltip className="font-semibold" key={index} showArrow={true} placement="top-end" content="Enhance with AI" color='secondary'>
-                            <Button key={index} isIconOnly color="secondary" aria-label="Delete">
+                        <Tooltip className="font-semibold" showArrow={true} placement="top-end" content="Enhance with AI" color='secondary'>
+                            <Button isIconOnly color="secondary" aria-label="Enhance with AI Button">
                                 <Brain size={24} className="opacity-0 group-hover:opacity-100 cursor-pointer text-white" />
                             </Button>
                         </Tooltip>
 
-                        <Tooltip className="font-semibold" key={index} showArrow={true} placement="top-end" content="Delete Section" color='danger'>
-                            <Button key={index} isIconOnly color="danger" aria-label="Delete">
+                        <Tooltip className="font-semibold" showArrow={true} placement="top-end" content="Delete Section" color='danger'>
+                            <Button onClick={()=>deleteSection(index)} isIconOnly color="danger" aria-label="Delete Button">
                                 <Trash2 size={24} className="opacity-0 group-hover:opacity-100 cursor-pointer text-white" />
                             </Button>
                         </Tooltip>
