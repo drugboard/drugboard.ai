@@ -27,6 +27,21 @@ const ResearchPaperEditor = () => {
   const [content, setContent] = useState([]);
 
 
+  const addChemicalReaction = () => {
+    const newContent = [...content];
+    const newReaction = {
+      type: "chemical-reaction",
+      content: {
+        reactants: [],
+        products: [],
+        catalysts: []
+      }
+    }
+    newContent.push(newReaction);
+    setContent(newContent);
+  }
+
+
 
   const addParagraph = () => {
     const newContent = [...content];
@@ -49,8 +64,12 @@ const ResearchPaperEditor = () => {
     setContent(newContent);
   }
 
+  const previewAndPublishArticle = (event) => {
+    event.preventDefault();
+  }
+
   return (
-    <div className='h-screen flex flex-col items-start gap-3 p-3'>
+    <div className='overflow-scroll flex flex-col items-start gap-3 p-3'>
       <header className='h-w-full flex items-center justify-between'>
         <div className='flex items-center gap-3 text-white'>
           <SquareActivity />
@@ -97,7 +116,7 @@ const ResearchPaperEditor = () => {
           </div>
         </section>
         <section className='w-[80%] flex flex-col items-start gap-4 border border-white rounded-lg p-3 bg-white/80 backdrop-blur-md'>
-          <form className='flex flex-col items-start gap-4 my-2 rounded-lg w-full'>
+          <form onSubmit={previewAndPublishArticle} className='flex flex-col items-start gap-4 my-2 rounded-lg w-full'>
             <Textarea
                 key={"title"}
                 label="Paper Title"
@@ -151,7 +170,7 @@ const ResearchPaperEditor = () => {
               </Button>
             </DropdownTrigger>
             <DropdownMenu aria-label="Static Actions">
-              <DropdownItem key="chemical-reaction">
+              <DropdownItem onClick={addChemicalReaction} key="chemical-reaction">
                 <article className='flex items-center gap-3 text-black font-semibold text-md'>
                   <Atom />
                   <span>Chemical Reaction</span>
