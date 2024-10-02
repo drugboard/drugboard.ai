@@ -1,4 +1,5 @@
 "use client";
+import KetcherEditor from '@/components/global/KetcherEditor';
 import { Button, Textarea, Tooltip } from '@nextui-org/react';
 import { Brain, Trash2 } from 'lucide-react';
 import React from 'react';
@@ -9,7 +10,8 @@ const ContentEditor = ({content, onParagraphContentChange, deleteSection}) => {
        content.length !==0 
        ?<>
         {
-            content?.map((contentItem, index)=>(
+            content?.map((contentItem, index)=>{
+                return(
                 <>
                 {
                 contentItem.type==="paragraph" &&
@@ -55,8 +57,16 @@ const ContentEditor = ({content, onParagraphContentChange, deleteSection}) => {
 
                 </article>
                 }
+                {
+                    contentItem.type==="chemical-reaction" &&
+                    <div className='w-full flex flex-col gap-2'>
+                        <p className='font-semibold text-gray-600 text-md'>Draw the chemical reaction on drawing board below...</p>
+                        <KetcherEditor />
+                    </div>
+                }
                 </>
-            ))
+                )
+            })
         }
        </>
        : <p className='text-gray-500 font-bold p-3 w-full text-center uppercase'>No Content...</p> 

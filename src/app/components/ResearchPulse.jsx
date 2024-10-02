@@ -6,9 +6,16 @@ import {useDisclosure} from "@nextui-org/react";
 import PostEditorModal from '@/components/PostEditorModal';
 import Diversity3RoundedIcon from '@mui/icons-material/Diversity3Rounded';
 import {Ampersand} from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const ResearchPulse = () => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
+  const navigate = useRouter();
+
+  const goToResearchModal = () => {
+    return navigate.push("/research_pulse/draft/123");
+  }
   return (
     <section className='z-10 h-[100vh] w-full bg-white/60 backdrop-blur-3xl rounded-xl border-2 border-white'>
         <div className="px-3 py-2 flex items-center justify-between border-b-2 border-white">
@@ -24,7 +31,7 @@ const ResearchPulse = () => {
               </div>
             </div>
 
-            <Button onPress={onOpen} color="secondary">Open Modal</Button>
+            <Button onClick={goToResearchModal} color="secondary">Write Paper</Button>
             <PostEditorModal isOpen={isOpen} onOpenChange={onOpenChange} />
         </div>
     </section>
