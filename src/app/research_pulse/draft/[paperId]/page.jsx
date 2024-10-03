@@ -30,32 +30,57 @@ const ResearchPaperEditor = () => {
   const addChemicalReaction = () => {
     const newContent = [...content];
     const newReaction = {
+      id: uuidv4(),
       type: "chemical-reaction",
       content: {
         reactants: [],
         products: [],
-        catalysts: []
+        catalysts: [],
+        smarts: "",
+        smiles: ""
       }
     }
     newContent.push(newReaction);
     setContent(newContent);
   }
 
+  const addHeading2 = () => {
+    const newContent = [...content];
+    const newHeading2 = {
+      id: uuidv4(),
+      type: "h2",
+      content: ""
+    };
+    newContent.push(newHeading2);
+    setContent(newContent);
+  }
+
+  const addHeading3 = () => {
+    const newContent = [...content];
+    const newHeading3 = {
+      id: uuidv4(),
+      type: "h3",
+      content: ""
+    };
+    newContent.push(newHeading3);
+    setContent(newContent);
+  }
 
 
   const addParagraph = () => {
     const newContent = [...content];
     const newParagraph = {
+      id: uuidv4(),
       type: "paragraph",
-      paragraphContent: ""
+      content: ""
     };
     newContent.push(newParagraph);
     setContent(newContent);
   }
 
-  const onParagraphContentChange = (event, index) => {
+  const onTextualContentChange = (event, index) => {
     const newContent = [...content];
-    newContent[index].paragraphContent = event.target.value;
+    newContent[index].content = event.target.value;
     setContent(newContent);
   }
 
@@ -157,7 +182,7 @@ const ResearchPaperEditor = () => {
                 onValueChange={setSubtitle}
               />
 
-              <ContentEditor content={content} onParagraphContentChange={onParagraphContentChange} deleteSection={deleteSection} />
+              <ContentEditor content={content} onTextualContentChange={onTextualContentChange} deleteSection={deleteSection} />
           </form>
           <Dropdown>
             <DropdownTrigger>
@@ -177,14 +202,14 @@ const ResearchPaperEditor = () => {
                 </article>
               </DropdownItem>
 
-              <DropdownItem key="sub-heading-1">
+              <DropdownItem onClick={addHeading2} key="sub-heading-1">
                 <article className='flex items-center gap-3 text-black font-semibold text-md'>
                   <Heading2 />
                   <span>Sub Heading 1</span>
                 </article>
               </DropdownItem>
 
-              <DropdownItem key="sub-heading-2">
+              <DropdownItem onClick={addHeading3} key="sub-heading-2">
                 <article className='flex items-center gap-3 text-black font-semibold text-md'>
                   <Heading3 />
                   <span>Sub Heading 2</span>
