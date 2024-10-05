@@ -17,6 +17,8 @@ class Cloudinary{
             api_key: this.CLOUDINARY_API_KEY,
             api_secret: this.CLOUDINARY_API_SECRET
         });
+        
+        return cloudinary;
     }
 
     async uploadOnCloudinary(cloudinary, localFilePath){
