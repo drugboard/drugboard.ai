@@ -14,7 +14,7 @@ const launchDrugboardServer = async () => {
         if(mongoDBInstance?.connection?.host){
             const port = PORT || 8001;
             drugboardServer.listen(port, async()=>{
-                console.log(`🚀 HTTP Server is running on the port ${port}`)
+                console.log(`🚀 HTTP Server is running on the port ${port}\n`)
             })
         }
     }catch(error){
