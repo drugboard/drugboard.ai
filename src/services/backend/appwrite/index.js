@@ -1,5 +1,5 @@
 import { Client } from "appwrite";
-import { endpoint, projectId } from "./constants";
+import { endpoint, projectId } from "../constants";
 
 const appwriteClient = new Client();
 

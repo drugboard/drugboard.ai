@@ -3,7 +3,7 @@ import React from 'react'
 const Onboarding = () => {
   return (
     <div className='h-screen w-full flex items-center justify-center'>
-        <main className='bg-white/70 rounded-3xl bg-transparent backdrop-blur-xl p-3 flex items-stretch gap-3 w-[750px] h-[600px]'>
+        <main className='bg-white/70 rounded-3xl backdrop-blur-xl p-3 flex items-stretch gap-3 w-[750px] h-[600px]'>
             <section className='relative w-[250px] h-full '>
                 <img className='rounded-xl w-full h-full object-cover object-right' src="/macBgThree.jpg" alt="onboarding-carousel" />
                 <div className='p-3 flex flex-col justify-evenly z-10 absolute inset-x-0 inset-y-0 bg-white/20 backdrop-blur-lg rounded-xl'>
