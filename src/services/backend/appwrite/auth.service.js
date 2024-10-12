@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 
 class AppWriteAuth {
     auth;
-    navigate;
     constructor() {
         this.auth = new Account(appwriteClient);
     }

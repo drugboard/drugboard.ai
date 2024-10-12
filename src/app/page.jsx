@@ -6,9 +6,7 @@ import SmartStream from './components/SmartStream';
 import EurekaMoments from './components/EurekaMoments';
 import SynergyFinder from './components/SynergyFinder';
 import ResearchPulse from './components/ResearchPulse';
-import {Tabs, Tab, Input, Link, Button, Card, CardBody, CardHeader} from "@nextui-org/react";
-import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
-import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
+import {Tabs, Tab} from "@nextui-org/react";
 import TipsAndUpdatesRoundedIcon from '@mui/icons-material/TipsAndUpdatesRounded';
 import {Newspaper} from 'lucide-react';
 import {GraduationCap} from 'lucide-react';
@@ -23,6 +21,7 @@ const Home = () => {
 
 
   React.useEffect(() => {
+    
 
     const user = "sundeep";
     setCurrentUser(user);

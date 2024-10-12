@@ -3,7 +3,7 @@ import React from 'react'
 import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
 import { Button } from '@nextui-org/button';
 import {useDisclosure} from "@nextui-org/react";
-import PostEditorModal from '@/components/PostEditorModal';
+import PostEditorModal from '@/components/ui/ResearchPulse/PostEditorModal';
 import Diversity3RoundedIcon from '@mui/icons-material/Diversity3Rounded';
 import {Ampersand} from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -13,9 +13,10 @@ const ResearchPulse = () => {
 
   const navigate = useRouter();
 
-  const goToResearchModal = () => {
+  const goToResearchPublishing = () => {
     return navigate.push("/research_pulse/draft/123");
   }
+
   return (
     <section className='z-10 h-[100vh] w-full bg-white/60 backdrop-blur-3xl rounded-xl border-2 border-white'>
         <div className="px-3 py-2 flex items-center justify-between border-b-2 border-white">
@@ -31,7 +32,11 @@ const ResearchPulse = () => {
               </div>
             </div>
 
-            <Button onClick={goToResearchModal} color="secondary">Write Paper</Button>
+            <div className='flex items-center gap-3'>
+              <Button onClick={goToResearchPublishing} color="secondary">Write Paper</Button>
+              <Button onClick={onOpen} color="success">Create Post</Button>
+            </div>
+
             <PostEditorModal isOpen={isOpen} onOpenChange={onOpenChange} />
         </div>
     </section>

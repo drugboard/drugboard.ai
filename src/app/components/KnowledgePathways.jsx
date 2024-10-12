@@ -1,7 +1,7 @@
 import React from 'react'
 import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
 import {GraduationCap} from 'lucide-react';
-import ProgressCard from '@/components/ProgressCard';
+import ProgressCard from '@/components/ui/KnowledgePathways/ProgressCard';
 
 const KnowledgePathways = () => {
   const [user, setUser] = React.useState(null);
