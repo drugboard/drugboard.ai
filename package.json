@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@monaco-editor/react": "^4.6.0",
     "@mui/icons-material": "^6.0.0",
     "@mui/material": "^6.0.0",
     "@nextui-org/accordion": "^2.0.38",
@@ -51,6 +52,7 @@
     "@nextui-org/theme": "^2.2.9",
     "@nextui-org/tooltip": "^2.0.39",
     "@nextui-org/user": "^2.0.33",
+    "emmet-monaco-es": "^5.4.0",
     "framer-motion": "^11.3.30",
     "ketcher-core": "^2.24.0",
     "ketcher-react": "^2.24.0",

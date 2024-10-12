@@ -13,10 +13,11 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
+        "devGarrageBGImage": "url('/macBgThree.jpg')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
         "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "macBgOne": "url('./public/macBgOne.jpg')",
+        "macBgOne": "url('/macBgOne.jpg')",
       },
     },
   },
