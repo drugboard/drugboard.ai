@@ -1,6 +1,9 @@
 export const endpoint = process.env.NEXT_PUBLIC_APPWRITE_API_ENDPOINT;
 export const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 
+//appwrite databases
+export const databaseID = process.env.NEXT_PUBLIC_DRUGBOARD_AI_DBID
+
 //appwrite tables
 export const postsID = process.env.NEXT_PUBLIC_POSTS_TABLE;
 export const postLinksID = process.env.NEXT_PUBLIC_POSTLINKS_TABLE;

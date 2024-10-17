@@ -34,23 +34,16 @@ class AppWriteAuth {
         return response;
         } catch (error) {
         console.log("ERROR in creatSession():: ", error.response);
-        toast.error(error.message);
         }
     }
 
     async SignInWithGoogle(SUCCESS_URL, FAILURE_URL) {
-        try {
         const response = await this.auth.createOAuth2Session(
             "google",
             SUCCESS_URL,
             FAILURE_URL
         );
-        
-            return response;  
-        } catch (error) {
-        console.log("ERROR in SignInWithGoogle():: ", error.response);
-        toast.error(error.message);
-        }
+        return response;
     }
 
     async createMagicSession(PAYLOAD) {
@@ -97,6 +90,16 @@ class AppWriteAuth {
     async updatePrefs(prefs) {
         const response = await this.auth.updatePrefs(prefs)
         return response;
+    }
+
+    async signUpWithPhone(userId=ID.unique(), phoneNumber){
+        const token = await this.auth.createPhoneToken(userId, '+916305309431');
+        return token
+    }
+
+    async createUserSession(userId, secret){
+        const session = await this.auth.createSession(userId, secret);
+        return session;
     }
 }
 
