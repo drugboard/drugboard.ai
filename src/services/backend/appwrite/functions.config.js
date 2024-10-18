@@ -1,8 +1,8 @@
-"use client";
-import { Functions, Client, ExecutionMethod } from "appwrite";
+import { Functions, ExecutionMethod } from "appwrite";
 import { getAllUsersFuncID, getUserByIDFuncID } from "../constants";
+import { appwriteClient } from ".";
 
-const functions = new Functions(Client);
+const functions = new Functions(appwriteClient);
 
 const funcs = [
     {
@@ -20,20 +20,20 @@ const awFuncs = {};
 
 funcs.forEach((func)=>{
     awFuncs[func.name] = {
-        execute: async (BODY, isAsync=false, PATH="/", METHOD="GET", HEADERS={}, scheduledAt='' ) => {
+        get: async (BODY="", isAsync=false, PATH="/", HEADERS={}) => {
             const response = await functions.createExecution(
                 func.functionID,
                 BODY,
                 isAsync, 
                 PATH,
-                METHOD==="GET" && ExecutionMethod.GET, 
-                METHOD==="POST" && ExecutionMethod.POST, 
-                METHOD==="PUT" && ExecutionMethod.PUT, 
-                METHOD==="DELETE" && ExecutionMethod.DELETE, 
-                HEADERS, 
-                scheduledAt
+                ExecutionMethod.GET,
+                HEADERS
             );
-            return response;
+            const body = response.responseBody;
+            // console.log("body: ", body);
+            const data = JSON.parse(body);
+            // console.log("Data: ", data);
+            return data;
         }
     }
 })
