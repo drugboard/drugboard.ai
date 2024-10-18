@@ -1,8 +1,9 @@
 "use client";
-import { Databases, Client, ID } from "appwrite";
+import { Databases, ID } from "appwrite";
 import { databaseID, postDraftsID, postFilesID, postLinksID, postsID, postTagsID } from "../constants";
+import { appwriteClient } from ".";
 
-const databases = new Databases(Client);
+const databases = new Databases(appwriteClient);
 
 const collections = [
     {
@@ -66,4 +67,6 @@ collections.forEach((collection)=>{
             return doc;
         },
     }
-})
+});
+
+export default db;
