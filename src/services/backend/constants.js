@@ -14,3 +14,6 @@ export const postTagsID = process.env.NEXT_PUBLIC_POSTTAGS_TABLE;
 //appwrite functions
 export const getAllUsersFuncID = process.env.NEXT_PUBLIC_GETALLUSERS_FUNCID;
 export const getUserByIDFuncID = process.env.NEXT_PUBLIC_GETUSERBYID_FUNCID;
+
+export const srcURL = process.env.NEXT_PUBLIC_SRC_URL;
+export const destURL = process.env.NEXT_PUBLIC_DEST_URL;
