@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Tooltip, Textarea} from "@nextui-org/react";
+import React, { useState } from "react";
+import {Modal, ModalContent, ModalBody, Tooltip, Textarea} from "@nextui-org/react";
 import PrimaryButton from "../../global/PrimaryButton";
 import {Tabs, Tab} from "@nextui-org/react";
 import { BookOpenCheck } from 'lucide-react';
@@ -187,111 +187,111 @@ const PostEditorModal = ({isOpen, onOpenChange}) => {
                             <ModalBody>
                                 <form className="flex gap-3">
                                 
-                                <div className="flex flex-col gap-3 h-[500px] w-[500px] rounded-lg border-2 border-white bg-white backdrop-blur-lg">
-                                    <div className="flex-1 flex flex-col gap-3 p-3 overflow-y-scroll">
-                                        <Textarea
-                                            key={"postTitle"}
-                                            label="Post Title"
-                                            labelPlacement="inside"
-                                            isRequired
-                                            minRows={2}
-                                            placeholder="Write the post title..."
-                                            className="break-words w-full mb-6 md:mb-0"
-                                            classNames={{
-                                            base: "",
-                                            label: "font-bold uppercase",
-                                            innerWrapper: "bg-transparent",
-                                            input: [ "bg-transparent","text-xl font-bold break-words","placeholder:text-default-700/50"],
-                                            inputWrapper: ["bg-transparent"],
+                                  <div className="flex flex-col gap-3 h-[500px] w-[500px] rounded-lg border-2 border-white bg-white backdrop-blur-lg">
+                                      <div className="flex-1 flex flex-col gap-3 p-3 overflow-y-scroll">
+                                          <Textarea
+                                              key={"postTitle"}
+                                              label="Post Title"
+                                              labelPlacement="inside"
+                                              isRequired
+                                              minRows={2}
+                                              placeholder="Write the post title..."
+                                              className="break-words w-full mb-6 md:mb-0"
+                                              classNames={{
+                                              base: "",
+                                              label: "font-bold uppercase",
+                                              innerWrapper: "bg-transparent",
+                                              input: [ "bg-transparent","text-xl font-bold break-words","placeholder:text-default-700/50"],
+                                              inputWrapper: ["bg-transparent"],
 
-                                            }}
-                                            value={postTitle}
-                                            onValueChange={setPostTitle}
-                                        />
+                                              }}
+                                              value={postTitle}
+                                              onValueChange={setPostTitle}
+                                          />
 
-                                        <Textarea
-                                            key={"postContent"}
-                                            label="Post Content"
-                                            labelPlacement="inside"
-                                            isRequired
-                                            minRows={30}
-                                            placeholder="Write your elloborative post Content..."
-                                            className="break-words w-full mb-6 md:mb-0"
-                                            classNames={{
-                                            base: "",
-                                            label: "font-bold uppercase",
-                                            innerWrapper: "bg-transparent",
-                                            input: [ "bg-transparent","text-md font-semibold break-words", "placeholder:text-default-700/50"],
-                                            inputWrapper: ["bg-transparent"],
+                                          <Textarea
+                                              key={"postContent"}
+                                              label="Post Content"
+                                              labelPlacement="inside"
+                                              isRequired
+                                              minRows={30}
+                                              placeholder="Write your elloborative post Content..."
+                                              className="break-words w-full mb-6 md:mb-0"
+                                              classNames={{
+                                              base: "",
+                                              label: "font-bold uppercase",
+                                              innerWrapper: "bg-transparent",
+                                              input: [ "bg-transparent","text-md font-semibold break-words", "placeholder:text-default-700/50"],
+                                              inputWrapper: ["bg-transparent"],
 
-                                            }}
-                                            value={postContent}
-                                            onValueChange={setPostContent}
-                                        />
-                                    </div>
-                                    <footer className="z-10 bg-white sticky bottom-0 inset-x-0 w-full p-3 rounded-lg border-t-2 border-t-white flex items-center justify-end">
-                                        <PrimaryButton onClick={()=>createPost(onClose)} isLoading={isCreatingPost}>Create Post</PrimaryButton>
-                                    </footer>
-                                </div>
+                                              }}
+                                              value={postContent}
+                                              onValueChange={setPostContent}
+                                          />
+                                      </div>
+                                      <footer className="z-10 bg-white sticky bottom-0 inset-x-0 w-full p-3 rounded-lg border-t-2 border-t-white flex items-center justify-end">
+                                          <PrimaryButton onClick={()=>createPost(onClose)} isLoading={isCreatingPost}>Create Post</PrimaryButton>
+                                      </footer>
+                                  </div>
 
-                                <div className="flex flex-col gap-3 items-stretch p-3 h-[500px] w-[300px] rounded-lg border-2 border-white bg-white backdrop-blur-lg">
-                                    <Tabs
-                                        color="secondary" variant="bordered"
-                                        radius="full"
-                                        className="flex items-center justify-center w-full"
-                                        size="lg"
-                                        aria-label="Tabs form"
-                                        selectedKey={selected}
-                                        onSelectionChange={setSelected}
-                                        >
-                                        
-                                        <Tab key={"donate-files"} title={<Tooltip showArrow={true} content="Uploads PDFs" color='success' className='font-semibold'>
-                                            <div className="flex items-center justify-center">
-                                            <BookOpenCheck/>
-                                            </div></Tooltip>
-                                        }>
-                                        </Tab>
+                                  <div className="flex flex-col gap-3 items-stretch p-3 h-[500px] w-[300px] rounded-lg border-2 border-white bg-white backdrop-blur-lg">
+                                      <Tabs
+                                          color="secondary" variant="bordered"
+                                          radius="full"
+                                          className="flex items-center justify-center w-full"
+                                          size="lg"
+                                          aria-label="Tabs form"
+                                          selectedKey={selected}
+                                          onSelectionChange={setSelected}
+                                          >
+                                          
+                                          <Tab key={"donate-files"} title={<Tooltip showArrow={true} content="Uploads PDFs" color='success' className='font-semibold'>
+                                              <div className="flex items-center justify-center">
+                                              <BookOpenCheck/>
+                                              </div></Tooltip>
+                                          }>
+                                          </Tab>
 
-                                        <Tab key={"add-external-links"} title={<Tooltip showArrow={true} content="Add external website links" color='success' className='font-semibold'>
-                                            <div className="flex items-center justify-center">
-                                            <Link/>
-                                            </div></Tooltip>
-                                        }>
-                                        </Tab>
+                                          <Tab key={"add-external-links"} title={<Tooltip showArrow={true} content="Add external website links" color='success' className='font-semibold'>
+                                              <div className="flex items-center justify-center">
+                                              <Link/>
+                                              </div></Tooltip>
+                                          }>
+                                          </Tab>
 
-                                        
-                                        <Tab key={"add-tags"} title={<Tooltip showArrow={true} content="Add tags" color='success' className='font-semibold'>
-                                            <div className="flex items-center justify-center">
-                                            <Hash/>
-                                            </div></Tooltip>
-                                        }>
-                                        </Tab>
-                                        
+                                          
+                                          <Tab key={"add-tags"} title={<Tooltip showArrow={true} content="Add tags" color='success' className='font-semibold'>
+                                              <div className="flex items-center justify-center">
+                                              <Hash/>
+                                              </div></Tooltip>
+                                          }>
+                                          </Tab>
+                                          
 
-                                         
-                                        <Tab key={"mention-people"} title={<Tooltip showArrow={true} content="Mention some awesome peers!" color='success' className='font-semibold'> 
-                                            <div className="flex items-center justify-center">
-                                            <AtSign/>
-                                            </div></Tooltip>
-                                        }>
-                                        </Tab>
-                                    </Tabs>  
+                                          
+                                          <Tab key={"mention-people"} title={<Tooltip showArrow={true} content="Mention some awesome peers!" color='success' className='font-semibold'> 
+                                              <div className="flex items-center justify-center">
+                                              <AtSign/>
+                                              </div></Tooltip>
+                                          }>
+                                          </Tab>
+                                      </Tabs>  
 
-                                    <div className="flex-1 flex flex-col items-stretch rounded-lg overflow-y-auto">
-                                        {
-                                            selected==="donate-files" && <FileUploader files={files} setFiles={setFiles}/>
-                                        }
-                                        {
-                                            selected==="add-external-links" && <LinkUploader links={links} setLinks={setLinks}/>
-                                        }
-                                        {
-                                            selected==="add-tags" && <Tagger tags={tags} setTags={setTags} selectedTags={selectedTags} setSelectedTags={setSelectedTags}/>
-                                        }
-                                        {
-                                            selected==="mention-people" && <UserMentioner mentionedUsers={mentionedUsers} setMentionedUsers={setMentionedUsers} usersMentioned={usersMentioned} setUsersMentioned={setUsersMentioned}/>
-                                        }
-                                    </div>  
-                                </div>   
+                                      <div className="flex-1 flex flex-col items-stretch rounded-lg overflow-y-auto">
+                                          {
+                                              selected==="donate-files" && <FileUploader files={files} setFiles={setFiles}/>
+                                          }
+                                          {
+                                              selected==="add-external-links" && <LinkUploader links={links} setLinks={setLinks}/>
+                                          }
+                                          {
+                                              selected==="add-tags" && <Tagger tags={tags} setTags={setTags} selectedTags={selectedTags} setSelectedTags={setSelectedTags}/>
+                                          }
+                                          {
+                                              selected==="mention-people" && <UserMentioner mentionedUsers={mentionedUsers} setMentionedUsers={setMentionedUsers} usersMentioned={usersMentioned} setUsersMentioned={setUsersMentioned}/>
+                                          }
+                                      </div>  
+                                  </div>   
                                 </form>
                             </ModalBody>
                         </>
