@@ -1,6 +1,5 @@
 "use client";
-import React from 'react'
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react'
 import KnowledgePathways from './components/KnowledgePathways';
 import SmartStream from './components/SmartStream';
 import EurekaMoments from './components/EurekaMoments';
@@ -11,34 +10,42 @@ import TipsAndUpdatesRoundedIcon from '@mui/icons-material/TipsAndUpdatesRounded
 import {Newspaper} from 'lucide-react';
 import {GraduationCap} from 'lucide-react';
 import Header from './components/Header';
+import AppWriteAuth from '@/services/backend/appwrite/auth.service';
 
 const Home = () => {
-  const [currentUser, setCurrentUser] = React.useState(null);
-  const [pageLoading, setPageLoading] = React.useState(true);
-  const [selected, setSelected] = React.useState("smartstream");
+  const [currentUser, setCurrentUser] = useState(null);
+  const [pageLoading, setPageLoading] = useState(true);
+  const [selected, setSelected] = useState("smartstream");
+
+  useEffect(()=>{
+    const getCurrentUser = async() => {
+      try {
+        const auth = new AppWriteAuth();
+        const user = await auth.getUser();
+        if(user){
+          setCurrentUser(user);
+          setPageLoading(false);
+          console.log(user);
+        }
+      } catch (error) {
+        // navigate.push("/onboarding");
+        setPageLoading(false);
+        console.log("Error Type: ",error.type);
+        console.log("Error: ",error);
+      }
+   }
+    getCurrentUser();
+  }, [])
   
-  const navigate = useRouter();
-
-
-  React.useEffect(() => {
-    
-
-    const user = "sundeep";
-    setCurrentUser(user);
-    if(!user){
-      navigate.push('/login');
-    }
-    setPageLoading(false);
-  }, []);
 
     return (
       <>
         {
-          currentUser && !pageLoading?(
+          !pageLoading?(
             <div className="w-full flex flex-col items-stretch p-[12px] gap-[12px]">
-              <Header />     
+              <Header setCurrentUser={setCurrentUser} currentUser={currentUser}/>     
               <main className='w-full flex flex-col items-center justify-center gap-[12px]'>
-                <section className='h-[100vh] w-full flex flex-row gap-[12px]'>
+                {/* <section className='h-[100vh] w-full flex flex-row gap-[12px]'>
                   <div className='h-[100vh] w-1/2 rounded-lg border-2 border-white bg-white/60 backdrop-blur-3xl p-2'>
                     <Tabs
                       color="secondary" variant="bordered"
@@ -75,8 +82,8 @@ const Home = () => {
                           </div>
                     </div>
                   </div>
-                </section>
-                <ResearchPulse />
+                </section> */}
+                <ResearchPulse currentUserData={currentUser} setCurrentUserData={setCurrentUser}/>
               </main>
             </div>
           ):
