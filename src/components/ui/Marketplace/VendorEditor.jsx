@@ -1,171 +1,12 @@
 "use client";
-import React, { useState } from "react";
-import {Modal, ModalContent, ModalBody, Tooltip, Textarea} from "@nextui-org/react";
-import PrimaryButton from "../../global/PrimaryButton";
-import {Tabs, Tab} from "@nextui-org/react";
-import { BookOpenCheck, NotebookPen } from 'lucide-react';
-import { Link } from 'lucide-react';
-import { AtSign } from 'lucide-react';
-import { Hash } from 'lucide-react';
-import FileUploader from "./FileUploader";
-import LinkUploader from "./LinkUploader";
-import Tagger from "./Tagger";
-import UserMentioner from "./UserMentioner";
 import AppWriteStorage from "@/services/backend/appwrite/storage.service";
 import AppWriteAuth from "@/services/backend/appwrite/auth.service";
 import db from "@/services/backend/appwrite/database.config";
 import { toast } from "react-toastify";
-
-const PostEditorModal = ({isOpen, onOpenChange}) => {
-
-    const [postTitle, setPostTitle] = useState("");
-    const [postContent, setPostContent] = useState("");
-
-    const [files, setFiles] = useState([]);
-    const [links, setLinks] = useState([]);
-
-    const [tags, setTags] = useState([]);
-    const [selectedTags, setSelectedTags] = useState([]);
-    
-    const [usersMentioned, setUsersMentioned] = useState([]);
-    const [mentionedUsers, setMentionedUsers] = useState([]);
+import {Modal, ModalContent, ModalBody, Tooltip, Textarea} from "@nextui-org/react";
 
 
-    const [selected, setSelected] = React.useState("donate-files");
-    const [isCreatingPost, setIsCreatingPost] = useState(false);
-
-    const saveFiles = async () => {
-        if (!files || files.length === 0) {
-          return [];
-        }
-    
-        const fileIDs = [];
-        const storage = new AppWriteStorage();
-        const auth = new AppWriteAuth();
-    
-        const filePromises = files.map(async (file) => {
-          try {
-            const user = await auth.getCurrentUserSession();
-            if (!user) throw new Error("User not authenticated");
-
-            // console.log(file.file);
-    
-            const [fileID, fileURL] = await storage.uploadFile(
-              "user-post-files",
-              file.file
-            );
-    
-            const newFile = {
-              fileURL,
-              fileTitle: file.fileTitle,
-              fileID,
-              storageBucketID: "user-post-files",
-              storageName: "APPWRITE",
-            };
-    
-            const response = await db.postFiles.createDoc(newFile);
-            fileIDs.push(response.$id);
-          } catch (err) {
-            //TODO: Toast the error message.
-              console.error("Error during file upload:", err);
-          }
-        });
-    
-        await Promise.all(filePromises);
-        return fileIDs;
-      };
-    
-    
-      const saveLinks = async () => {
-        if (!links || links.length === 0) {
-          return [];
-        }
-    
-        const linkIDs = [];
-        const auth = new AppWriteAuth();
-    
-        const linkPromises = links.map(async (link) => {
-          try {
-            const user = await auth.getCurrentUserSession();
-            if (!user) throw new Error("User not authenticated");
-    
-            const newLink = {
-              externalLink: link.link,
-              linkTitle: link.linkTitle,
-            };
-    
-            const response = await db.postLinks.createDoc(newLink);
-            linkIDs.push(response.$id);
-          } catch (err) {
-            console.error("Error in saving link:", err.message);
-          }
-        });
-    
-        await Promise.all(linkPromises);
-        return linkIDs;
-      };
-    
-    
-      //Creating the New Post.
-      const createPost = async (closePostEditorModal) => {
-        setIsCreatingPost(true);
-
-        //TODO: Disable all the Input Fields and Buttons in the Post Editor!
-
-        const auth = new AppWriteAuth();
-    
-        try {
-          const user = await auth.getCurrentUserSession();
-          if (!user) throw new Error("User not authenticated");
-    
-          const [postFiles, postLinks] = await Promise.all([
-            saveFiles(),
-            saveLinks(),
-          ]);
-    
-          const newPost = {
-            postTitle,
-            postContent,
-            postTags: tags,
-            postFiles,
-            postLinks,
-            postedByUserID: user.userId,
-            postMentions: usersMentioned,
-          };
-
-          if(!postContent){
-            toast.error("Post Content can't be empty.");
-            setIsCreatingPost(false);
-          }else{
-              const post = await db.posts.createDoc(newPost);
-              if(post){
-                console.log("Saved post:", post);
-                clearPostEditor();
-                setIsCreatingPost(false);
-                closePostEditorModal();
-                toast.success("New Post is created. ✨");
-              } 
-          }
-
-        } catch (err) {
-            setIsCreatingPost(false);
-            toast.error("Sorry! Something went wrong.");
-            toast.info("Please try creating post again!");
-            console.error("Error in saving post:", err.message);
-        }
-      };
-
-      const clearPostEditor = () => {
-        setPostTitle("");
-        setPostContent("");
-        setFiles([]);
-        setLinks([]);
-        setTags([]);
-        setSelectedTags([]);
-        setUsersMentioned([]);
-        setMentionedUsers([]);
-      }
-
+const VendorEditor = ({isOpen, onOpenChange}) => {
 
     return(
         <Modal
@@ -305,4 +146,4 @@ const PostEditorModal = ({isOpen, onOpenChange}) => {
     )
 }
 
-export default PostEditorModal;
+export default VendorEditor;

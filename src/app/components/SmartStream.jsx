@@ -4,7 +4,7 @@ import React from 'react'
 const SmartStream = () => {
 
   return (
-    <section className='w-full h-[90vh] bg-white rounded-lg'>
+    <section className='w-full rounded-lg'>
 
     </section>
   )
