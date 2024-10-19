@@ -12,6 +12,8 @@ import db from '@/services/backend/appwrite/database.config';
 import { appwriteClient } from '@/services/backend/appwrite';
 import { databaseID, postsID } from '@/services/backend/constants';
 import PostCard from '@/components/ui/ResearchPulse/PostCard';
+import PrimaryButton from '@/components/global/PrimaryButton';
+import { NotebookPen } from 'lucide-react';
 
 const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -85,8 +87,9 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
             </div>
 
             <div className='flex items-center gap-3'>
-              <Button onClick={goToResearchPublishing} color="secondary">Write Paper</Button>
-              <Button onClick={onOpen} color="success">Create Post</Button>
+              <PrimaryButton onClick={onOpen} startContent={<NotebookPen size={20}/>} radius="full" className="font-semibold bg-gradient-to-tr from-[#7E22CE] via-[#C026D3] to-[#DB2777] text-white shadow-lg">
+                Create Post
+              </PrimaryButton>
             </div>
 
             <PostEditorModal isOpen={isOpen} onOpenChange={onOpenChange} />
