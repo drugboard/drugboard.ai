@@ -38,7 +38,7 @@ const db = {};
 collections.forEach((collection)=>{
     db[collection.name] = {
         createDoc: async (PAYLOAD={}, PERMISSIONS=[]) => {
-            const newDoc = await this.db.createDocument(
+            const newDoc = await databases.createDocument(
               collection.databaseID,
               collection.$id,
               ID.unique(),
@@ -54,7 +54,7 @@ collections.forEach((collection)=>{
                 collection.$id,
                 QUERIES
             );
-            return docs;
+            return docs?.documents;
         },
 
         getDoc: async (DOCUMENT_ID, QUERIES=[]) => {
