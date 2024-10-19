@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import PrimaryButton from '@/components/global/PrimaryButton';
 import { Key } from 'lucide-react';
 import AppWriteAuth from '@/services/backend/appwrite/auth.service';
+import { destURL, srcURL } from '@/services/backend/constants';
 
 const Header = ({setCurrentUser, currentUser}) => {
   const [isUnlockingDrugboard, setIsUnlockingDrugboard] = useState(false);
@@ -19,8 +20,8 @@ const Header = ({setCurrentUser, currentUser}) => {
     try {
       setIsUnlockingDrugboard(true);
       await auth.SignInWithGoogle(
-        "http://localhost:3000/",
-        "http://localhost:3000/"
+        srcURL,
+        destURL
       )
       setIsUnlockingDrugboard(false);
     } catch (error) {
