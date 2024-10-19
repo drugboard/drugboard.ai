@@ -18,7 +18,12 @@ class AppWriteStorage {
       // console.log(response);
       if (response) {
         const FileURL = await this.showFile(BUCKET_ID, response.$id);
-        if (FileURL) return [response.$id, FileURL?.href];
+        // console.log(FileURL);
+        if(FileURL){
+          return [response.$id, FileURL];
+        }else{
+          throw new Error("File URL is not created in getFileView Function!");
+        }
       }
     } catch (error) {
       console.log(error);

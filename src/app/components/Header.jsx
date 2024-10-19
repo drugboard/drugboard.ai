@@ -1,20 +1,42 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import FloatingNavBar from '@/components/ui/Home/FloatingNavBar';
 import ProfileCard from '@/components/ui/Home/ProfileCard';
 import {BellRing, MessageCircleMore} from 'lucide-react';
 import {Button, Tooltip} from "@nextui-org/react";
 import { useRouter } from 'next/navigation'
+import PrimaryButton from '@/components/global/PrimaryButton';
+import { Key } from 'lucide-react';
+import AppWriteAuth from '@/services/backend/appwrite/auth.service';
 
-const Header = () => {
+const Header = ({setCurrentUser, currentUser}) => {
+  const [isUnlockingDrugboard, setIsUnlockingDrugboard] = useState(false);
   const router = useRouter();
+  const auth = new AppWriteAuth();
+
+  const unlockDrugboard = async() => {
+
+    try {
+      setIsUnlockingDrugboard(true);
+      await auth.SignInWithGoogle(
+        "http://localhost:3000/",
+        "http://localhost:3000/"
+      )
+      setIsUnlockingDrugboard(false);
+    } catch (error) {
+      setIsUnlockingDrugboard(false)
+      console.log("Error Type: ",error.type);
+      console.log("Error: ",error);
+    }
+  }
+
   return (
     <header className='bg-white/60 backdrop-blur-3xl border-2 border-white rounded-lg flex items-center justify-between w-full'>
         {/* <h1 className='font-bold font-cursive text-3xl text-black '>Sciency.ai</h1> */}
         <button type='button' onClick={()=>router.push("/")} className='px-3'>
           <img src="/drugboardLogo.png" alt="drugboard.ai" className='h-[70px]' />
         </button>
-        <FloatingNavBar />
+        <FloatingNavBar setCurrentUser={setCurrentUser}/>
         <div className='flex items-center gap-8 py-1 px-[12px]'>
           <Tooltip showArrow={true} content="Messages" color='secondary' className='font-semibold'>
             <Button className="group relative overflow-visible" variant="flat" isIconOnly color="secondary" aria-label="Messages">
@@ -34,7 +56,14 @@ const Header = () => {
             </Button>
           </Tooltip>
 
-          <ProfileCard />
+          {currentUser
+          ? <ProfileCard setCurrentUser={setCurrentUser} currentUser={currentUser}/>
+          : <div>
+          <PrimaryButton isLoading={isUnlockingDrugboard} color='secondary' startContent={<Key />} onClick={unlockDrugboard}>Unlock</PrimaryButton>
+          </div>
+          }
+
+          
         </div>
     </header>
   )
