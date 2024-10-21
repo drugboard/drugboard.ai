@@ -33,7 +33,7 @@ const Header = ({setCurrentUser, currentUser}) => {
   }
 
   return (
-    <header className='bg-white/60 backdrop-blur-3xl border-2 border-white rounded-lg flex items-center justify-between w-full'>
+    <header className='bg-white/90 backdrop-blur-3xl border-1 border-white rounded-lg flex items-center justify-between w-full'>
         {/* <h1 className='font-bold font-cursive text-3xl text-black '>Sciency.ai</h1> */}
         <button type='button' onClick={()=>router.push("/")} className='px-3'>
           <img src="/drugboardLogo.png" alt="drugboard.ai" className='h-[70px]' />

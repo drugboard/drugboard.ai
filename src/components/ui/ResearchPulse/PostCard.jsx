@@ -43,20 +43,20 @@ const PostCard = ({post}) => {
     },[]);
 
     return (
-        <article className='flex gap-3 items-start p-3' key={post?.$id}>
-            <div className="flex flex-col gap-3 h-[500px] w-[500px] rounded-lg border-2 border-white bg-white backdrop-blur-lg">
-                <div className="flex-1 flex flex-col gap-2 p-3 overflow-y-scroll">
+        <article className='flex gap-3 items-start tansition-all duration-500 ease-in-out' key={post?.$id}>
+            <div className="flex flex-col gap-3 h-[500px] w-[500px] rounded-lg border-2 border-white bg-white backdrop-blur-lg tansition-all duration-500 ease-in-out">
+                <div className="flex-1 flex flex-col gap-2 p-3 overflow-y-scroll tansition-all duration-500 ease-in-out">
 
-                    <h3 className="text-[#475569] text-[18px] font-bold">
+                    <h3 className="text-[#475569] text-[18px] font-bold tansition-all duration-500 ease-in-out">
                         {postTitle}
                     </h3>
 
                     {postDate && (
-                        <p className="text-[14px] font-semibold text-[#64748B]">
+                        <p className="text-[14px] font-semibold text-[#64748B] tansition-all duration-500 ease-in-out">
                         6 min read ~ Posted on {postDate}
                         </p>
                     )}
-                    <p className="flex-1 text-[#020617] text-[15px] font-semibold leading-md overflow-y-scroll">
+                    <p className="flex-1 text-[#020617] text-[15px] font-semibold leading-md overflow-y-scroll tansition-all duration-500 ease-in-out">
                     {postContent}
                     </p>    
 
@@ -66,8 +66,8 @@ const PostCard = ({post}) => {
                     
                 </footer> */}
             </div>
-            <div className="flex flex-col gap-3 items-stretch max-h-[500px] w-[300px] rounded-lg">
-                <div className="flex flex-col gap-3 items-stretch p-3 h-full w-full rounded-lg border-2 border-white bg-white backdrop-blur-lg">
+            <div className="flex flex-col gap-3 items-stretch max-h-[500px] w-[300px] rounded-lg tansition-all duration-500 ease-in-out">
+                <div className="flex flex-col gap-3 items-stretch p-3 h-full w-full rounded-lg border-2 border-white bg-white backdrop-blur-lg tansition-all duration-500 ease-in-out">
                     <Tabs
                         color="secondary" variant="bordered"
                         radius="full"
@@ -79,7 +79,7 @@ const PostCard = ({post}) => {
                     >
                                                 
                         <Tab key={"donate-files"} title={
-                            <Tooltip showArrow={true} content="Uploads PDFs" color='success' className='font-semibold'>
+                            <Tooltip showArrow={true} content="Files" color='success' className='font-semibold'>
                                 <div className="flex items-center justify-center">
                                     <BookOpenCheck/>
                                 </div>
@@ -88,7 +88,7 @@ const PostCard = ({post}) => {
                         </Tab>
 
                         <Tab key={"add-external-links"} title={
-                            <Tooltip showArrow={true} content="Add external website links" color='success' className='font-semibold'>
+                            <Tooltip showArrow={true} content="External Links" color='success' className='font-semibold'>
                                 <div className="flex items-center justify-center">
                                     <Link/>
                                 </div>
@@ -98,7 +98,7 @@ const PostCard = ({post}) => {
 
                                                 
                         <Tab key={"add-tags"} title={
-                            <Tooltip showArrow={true} content="Add tags" color='success' className='font-semibold'>
+                            <Tooltip showArrow={true} content="Tags" color='success' className='font-semibold'>
                                 <div className="flex items-center justify-center">
                                     <Hash/>
                                 </div>
@@ -109,7 +109,7 @@ const PostCard = ({post}) => {
 
                                                 
                         <Tab key={"mention-people"} title={
-                            <Tooltip showArrow={true} content="Mention some awesome peers!" color='success' className='font-semibold'> 
+                            <Tooltip showArrow={true} content="Users Mentioned" color='success' className='font-semibold'> 
                                 <div className="flex items-center justify-center">
                                     <AtSign/>
                                 </div>
@@ -119,7 +119,7 @@ const PostCard = ({post}) => {
 
                     </Tabs>  
 
-                    <div className="flex-1 flex flex-col items-stretch justify-between rounded-lg overflow-y-auto">
+                    <div className="h-full flex flex-col items-stretch justify-between rounded-lg overflow-y-auto tansition-all duration-500 ease-in-out">
                         {
                         selected==="donate-files" && <FilesListing files={postFiles}/>
                         }

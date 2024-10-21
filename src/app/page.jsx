@@ -11,6 +11,7 @@ import {Newspaper} from 'lucide-react';
 import {GraduationCap} from 'lucide-react';
 import Header from './components/Header';
 import AppWriteAuth from '@/services/backend/appwrite/auth.service';
+import { isObjEmpty } from '@/utils/Obj.util';
 
 const Home = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -22,11 +23,22 @@ const Home = () => {
       try {
         const auth = new AppWriteAuth();
         const user = await auth.getUser();
-        if(user){
+        if(!isObjEmpty(user)){
+          // if(!isObjEmpty(user) && !user?.prefs?.username) {
+          //   const prefs = {
+          //     username: user.email.replace("@gmail.com", ""),
+          //     profileImage: "https://cdn-icons-png.flaticon.com/512/7725/7725433.png",
+          //     displayName: user.name
+          //   }
+          //   const response = await auth.updatePrefs(prefs);
+          //   console.log("User Prefs: ", user?.prefs);
+          //   console.log("updatePrefs Res: ", response);
+          //   user?.prefs = prefs;
+          // }
           setCurrentUser(user);
-          setPageLoading(false);
           console.log(user);
         }
+        setPageLoading(false);
       } catch (error) {
         // navigate.push("/onboarding");
         setPageLoading(false);
@@ -41,7 +53,7 @@ const Home = () => {
     return (
       <>
         {
-          !pageLoading?(
+          !pageLoading ? (
             <div className="w-full flex flex-col items-stretch p-[12px] gap-[12px]">
               <Header setCurrentUser={setCurrentUser} currentUser={currentUser}/>     
               <main className='w-full flex flex-col items-center justify-center gap-[12px]'>
@@ -99,4 +111,4 @@ const Home = () => {
   
 }
 
-export default Home
+export default Home;

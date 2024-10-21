@@ -72,7 +72,8 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
   }
 
   return (
-    <section className='z-10 flex flex-col justify-center w-full bg-white/60 backdrop-blur-3xl rounded-xl border-2 border-white'>
+    <section className='lg:h-screen z-10 flex flex-col w-full bg-white/90 backdrop-blur-3xl rounded-xl border-1 border-white'>
+
         <div className="px-3 py-2 flex items-center justify-between border-b-2 border-white">
             <div className="flex items-center gap-6 text-black">
               <div className='flex items-center gap-2 text-black'>
@@ -95,8 +96,8 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
             <PostEditorModal isOpen={isOpen} onOpenChange={onOpenChange} />
         </div>
 
-        <div className='flex-1 flex gap-3 p-3'>
-          <div className='flex flex-col gap-3 h-full rounded-md w-[60%] overflow-y-auto px-[8px] py-[8px]'>
+        <div className='flex gap-3 p-3 h-full w-full overflow-y-auto'>
+          <div className='w-full flex flex-col gap-3 h-full rounded-md overflow-y-auto'>
             {posts
               ?
                   posts?.map((post) => (
@@ -108,13 +109,14 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
                   {/* TODO: Skeleton UI for Post Cards... */}
           </div>
 
-          <div className='bg-white h-full w-[40%]'>
+          <div className='bg-white h-[500px] w-full'>
 
           </div>
-        </div>
+        </div> 
+
     </section>
 
   )
 }
 
-export default ResearchPulse
+export default ResearchPulse;
