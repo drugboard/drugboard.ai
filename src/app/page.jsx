@@ -54,7 +54,7 @@ const Home = () => {
       <>
         {
           !pageLoading ? (
-            <div className="w-full flex flex-col items-stretch p-[12px] gap-[12px]">
+            <div className="w-full flex flex-col items-stretch p-3 gap-3">
               <Header setCurrentUser={setCurrentUser} currentUser={currentUser}/>     
               <main className='w-full flex flex-col items-center justify-center gap-[12px]'>
                 {/* <section className='h-[100vh] w-full flex flex-row gap-[12px]'>

@@ -1,6 +1,5 @@
 "use client";
-import React from 'react'
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User} from "@nextui-org/react";
+import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, User} from "@nextui-org/react";
 import { toast } from 'react-toastify';
 import AppWriteAuth from '@/services/backend/appwrite/auth.service';
 
@@ -31,9 +30,9 @@ const ProfileCard = ({setCurrentUser, currentUser}) => {
           <User
             as="button"
             avatarProps={{
-              radius: "md",
+              radius: "full",
               color: "default",
-              size: "lg",
+              size: "md",
               isBordered: true,
               src: `${profileImage ? profileImage:"https://cdn-icons-png.flaticon.com/512/7725/7725433.png"}`
             }}
