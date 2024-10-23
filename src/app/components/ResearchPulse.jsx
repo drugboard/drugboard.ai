@@ -104,7 +104,7 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
             {posts
               ?
                   posts?.map((post) => (
-                    <PostCard post={post} key={post?.$id} />
+                    <PostCard post={post} key={post?.$id} currentUserData={currentUserData} />
                   ))
               :
                   <img src="/noposts.png" alt="No Posts" className='w-full rounded-2xl object-contain' />

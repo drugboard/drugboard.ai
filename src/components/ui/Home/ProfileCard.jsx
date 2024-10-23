@@ -38,12 +38,12 @@ const ProfileCard = ({setCurrentUser, currentUser}) => {
             }}
             className="transition-transform text-black"
             description={(
-              <p className='w-[100px] line-clamp-1 text-sm transition-all duration-750 ease-in-out text-[#C026D3] hover:text-[#C026D3] hover:underline font-semibold hover:font-bold'>
+              <p className='text-left w-[100px] line-clamp-1 text-sm transition-all duration-750 ease-in-out text-[#C026D3] hover:text-[#C026D3] hover:underline font-semibold hover:font-bold'>
                 @{username ? username : email}
               </p>
             )}
             name={(
-              <h1 className="font-bold transition-all duration-750 ease-in-out line-clamp-1">{displayName ? displayName: name}</h1>
+              <h1 className="w-[100px] text-left font-bold transition-all duration-750 ease-in-out line-clamp-1">{displayName ? displayName: name}</h1>
             )}
           />
         </DropdownTrigger>

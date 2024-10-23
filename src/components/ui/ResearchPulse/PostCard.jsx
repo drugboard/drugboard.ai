@@ -10,7 +10,7 @@ import awFuncs from '@/services/backend/appwrite/functions.config';
 import { ShieldHalf } from 'lucide-react';
 import { UserPlus } from 'lucide-react';
 
-const PostCard = ({post}) => {
+const PostCard = ({post, currentUserData}) => {
 
     const {postTitle, postContent, postedByUserID, postFiles, postLinks, postTags, postMentions} = post;
 
@@ -140,25 +140,31 @@ const PostCard = ({post}) => {
                 <footer className='flex flex-col gap-2 rounded-3xl'>
                     {/* User who posted */}
                     {postOwner && 
-                        <article className='rounded-3xl border border-white bg-white/80 flex items-center justify-around gap-2 p-1'>
+                        <article className='rounded-full border border-white bg-white/80 flex items-center justify-start gap-2 p-1'>
                             <Avatar src={postOwner?.prefs?.profileImage} size="md" />
-                            <div className='flex flex-col items-start'>
+                            <div className='flex-1 flex flex-col items-start pr-3'>
                                 <h5 className='font-semibold line-clamp-1'>{postOwner?.prefs?.displayName}</h5>
                                 <p className='font-bold text-sm line-clamp-1 text-purple-700'>@{postOwner?.prefs?.username}</p>
                             </div>
                             {/* Actions on Post Owner */}
-                            <div className='flex items-center gap-2'>
-                                <Tooltip showArrow={true} content={`Follow @${postOwner?.prefs?.username}`} color='secondary' className='font-semibold'>
-                                    <Button isIconOnly color="secondary" radius='full' aria-label={`Follow @${postOwner?.prefs?.username}`}>
-                                        <UserPlus size={20}/>
-                                    </Button>
-                                </Tooltip>
-                                <Tooltip showArrow={true} content={`Block @${postOwner?.prefs?.username}`} color='danger' className='font-semibold'>
-                                    <Button isIconOnly color="danger" radius='full' aria-label={`Block @${postOwner?.prefs?.username}`}>
-                                        <ShieldHalf size={20}/>
-                                    </Button>
-                                </Tooltip>
-                            </div>
+
+                            {
+                                currentUserData?.$id !== postOwner?.$id ?
+                                <div className='flex items-center gap-2'>
+                                    <Tooltip showArrow={true} content={`Follow @${postOwner?.prefs?.username}`} color='secondary' className='font-semibold'>
+                                        <Button isIconOnly color="secondary" radius='full' aria-label={`Follow @${postOwner?.prefs?.username}`}>
+                                            <UserPlus size={20}/>
+                                        </Button>
+                                    </Tooltip>
+                                    <Tooltip showArrow={true} content={`Block @${postOwner?.prefs?.username}`} color='danger' className='font-semibold'>
+                                        <Button isIconOnly color="danger" radius='full' aria-label={`Block @${postOwner?.prefs?.username}`}>
+                                            <ShieldHalf size={20}/>
+                                        </Button>
+                                    </Tooltip>
+                                </div>
+                                : <p className='mr-2 bg-purple-700 text-white text-sm font-semibold px-3 py-1 rounded-full'>You</p>
+                            }
+
                         </article>
                     }
                 </footer>
