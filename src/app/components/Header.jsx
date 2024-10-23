@@ -36,7 +36,7 @@ const Header = ({setCurrentUser, currentUser}) => {
   return (
     <header className='flex items-center justify-between w-full'>
 
-      <div className='p-1 text-black flex items-center gap-3 bg-white/80 rounded-xl border borer-white'>
+      <div className='p-1 text-[#020617] flex items-center gap-3 bg-white/80 rounded-3xl border borer-white'>
         <button className='px-3 flex items-center justify-center' type='button' onClick={()=>router.push("/")} >
           <img src="/drugboardLogo.png" alt="drugboard.ai" className='h-[90px]' />
         </button>

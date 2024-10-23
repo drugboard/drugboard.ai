@@ -74,13 +74,13 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
       {/* Research Pulse Header Band */}
         <div className="flex items-center justify-between rounded-xl">
 
-            <div className="px-5 py-3 flex items-center gap-6 text-black border border-white rounded-full bg-white/80 backdrop-blur-3xl">
-              <div className='flex items-center gap-2 text-black'>
+            <div className="px-5 py-3 flex items-center gap-6 text-[#020617] border border-white rounded-full bg-white/80 backdrop-blur-3xl">
+              <div className='flex items-center gap-2 text-[#020617]'>
                 <ScienceRoundedIcon />
                 <h1 className="font-bold font-cursive">Research Pulse</h1>
               </div>
               <Ampersand />
-              <div className='flex items-center gap-2 text-black'>
+              <div className='flex items-center gap-2 text-[#020617]'>
                 <Diversity3RoundedIcon />
                 <h1 className='font-bold font-cursive'>Synergy Finder</h1>
               </div>
@@ -100,21 +100,19 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
 
         <div className='flex items-start justify-between gap-3 h-full w-full overflow-y-auto'>
           
-          <div className='flex flex-col gap-3 h-full rounded-md w-[50%] overflow-y-auto'>
+          <div className='flex flex-col justify-start gap-3 h-full rounded-md w-[50%] overflow-y-auto'>
             {posts
               ?
                   posts?.map((post) => (
                     <PostCard post={post} key={post?.$id} />
                   ))
               :
-                  <div className='flex items-center justify-center p-3 w-full radius-xl bg-white/80 border border-white h-[60vh]'>
-                    <img src="/noposts.png" alt="No Posts" className='h-[80%] rounded-2xl object-contain' />
-                  </div>
+                  <img src="/noposts.png" alt="No Posts" className='w-full rounded-2xl object-contain' />
               }  
                   {/* TODO: Skeleton UI for Post Cards... */}
           </div>
 
-          <div className='border border-white bg-white/80 h-[500px] w-[50%] rounded-lg'>
+          <div className='border border-white bg-white/80 h-[500px] w-[50%] rounded-2xl'>
 
           </div>
         </div> 
