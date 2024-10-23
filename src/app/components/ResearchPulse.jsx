@@ -11,33 +11,39 @@ import { appwriteClient } from '@/services/backend/appwrite';
 import { databaseID, postsID } from '@/services/backend/constants';
 import PostCard from '@/components/ui/ResearchPulse/PostCard';
 import PrimaryButton from '@/components/global/PrimaryButton';
+import { Query } from 'appwrite';
 
 const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
   const [posts, setPosts] = useState(null);
+
   
   useEffect(() => {
     if(currentUserData){
-      console.log(currentUserData)
+      // console.log(currentUserData)
       fetchPostsData();
     }
     const unsubscribe = appwriteClient.subscribe(
       `databases.${databaseID}.collections.${postsID}.documents`,
-      (response) => {
+      async (response) => {
         if (
           response?.events?.includes(
             "databases.*.collections.*.documents.*.create"
           )
         ) {
-          response?.payload &&
-            setPosts((previousState) => {
-              if (previousState == null) {
-                return [response?.payload];
-              } else {
-                return [response?.payload, ...previousState];
-              }
-          });
+          if(response?.payload?.$id){
+            const newlyAddedPostId = response?.payload?.$id;
+            const newlyAddedPost = await db.posts.getDoc(newlyAddedPostId);
+              setPosts((previousState) => {
+                if (previousState == null) {
+                  return [newlyAddedPost];
+                } else {
+                  console.log("Newly Added Post: ",newlyAddedPost);
+                  return [newlyAddedPost, ...previousState];
+                }
+            });
+          }
         }
       }
     );
@@ -49,9 +55,9 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
 
   const fetchPostsData = async () => {
       if(currentUserData){
-        const postsData = await db.posts.getAllDocs();
+        const postsData = await db.posts.getAllDocs([Query.orderDesc('$createdAt')]);
         postsData?.length > 0 && setPosts(postsData);
-        postsData?.length > 0 && console.log(postsData);
+        // postsData?.length > 0 && console.log(postsData);
       }
   };
 
@@ -101,7 +107,7 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
         <div className='flex items-start justify-between gap-3 h-full w-full overflow-y-auto'>
           
           <div className='flex flex-col justify-start gap-3 h-full rounded-md w-[50%] overflow-y-auto'>
-            {posts
+            {posts?.length
               ?
                   posts?.map((post) => (
                     <PostCard post={post} key={post?.$id} currentUserData={currentUserData} />
