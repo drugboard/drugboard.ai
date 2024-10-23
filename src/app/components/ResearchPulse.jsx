@@ -14,9 +14,11 @@ import PrimaryButton from '@/components/global/PrimaryButton';
 import { Query } from 'appwrite';
 
 const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [posts, setPosts] = useState(null);
+  const [isPostsLoading, setIsPostsLoading] = useState(false);
+
 
   
   useEffect(() => {
@@ -55,8 +57,14 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
 
   const fetchPostsData = async () => {
       if(currentUserData){
+        setTimeout(()=>setIsPostsLoading(true),100);
         const postsData = await db.posts.getAllDocs([Query.orderDesc('$createdAt')]);
-        postsData?.length > 0 && setPosts(postsData);
+        if(postsData?.length){
+          setIsPostsLoading(false);
+        !isPostsLoading && setTimeout(()=>setPosts(postsData), 200);
+        }
+
+        // setTimeout(()=>setIsPostsLoading(false),100);
         // postsData?.length > 0 && console.log(postsData);
       }
   };
@@ -107,15 +115,18 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
         <div className='flex items-start justify-between gap-3 h-full w-full overflow-y-auto'>
           
           <div className='flex flex-col justify-start gap-3 h-full rounded-md w-[50%] overflow-y-auto'>
-            {posts?.length
-              ?
+
+            {(posts?.length)
+                ?
                   posts?.map((post) => (
                     <PostCard post={post} key={post?.$id} currentUserData={currentUserData} />
                   ))
-              :
-                  <img src="/noposts.png" alt="No Posts" className='w-full rounded-2xl object-contain' />
-              }  
-                  {/* TODO: Skeleton UI for Post Cards... */}
+
+                :
+                  <img src="/noposts.png" alt="No Posts" className={`transition-all duration-300 ease-in-out w-full rounded-2xl object-contain ${isPostsLoading ? 'opacity-100 transform traslate-y-0' : 'opacity-0 transform translate-y-0'}`} />
+            }
+
+
           </div>
 
           <div className='border border-white bg-white/80 h-[500px] w-[50%] rounded-2xl'>

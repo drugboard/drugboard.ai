@@ -58,7 +58,7 @@ const PostCard = ({post, currentUserData}) => {
     }, [postedByUserID]);
 
     return (
-        <article className='flex gap-2 items-start rounded-3xl tansition-all duration-500 ease-in-out' key={post?.$id}>
+        <article className={`flex gap-2 items-start rounded-3xl tansition-all duration-100 ease-in-out ${isPostVisible ? 'opacity-100' : 'opacity-0'}`} key={post?.$id}>
             <div className={`relative flex flex-col h-[500px] w-[60%] rounded-3xl border border-white bg-white/80 tansition-all duration-500 ease-in-out
              ${isPostVisible ? 'opacity-100 transform translate-x-0' : 'opacity-0 transform -translate-x-4'}
                         `}>
@@ -160,7 +160,7 @@ const PostCard = ({post, currentUserData}) => {
                     {/* User who posted */}
                     {postOwner && 
                         <article className={`
-                            transition-all duration-700 ease-in-out
+                            transition-all duration-500 ease-in-out
                             rounded-full border border-white bg-white/80 
                             flex items-center justify-start gap-2 p-1
                             ${isPostOwnerVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-4'}
