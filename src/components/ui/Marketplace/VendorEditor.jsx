@@ -28,52 +28,20 @@ const VendorEditor = ({isOpen, onOpenChange}) => {
                             <ModalBody>
                                 <form className="flex gap-3">
                                 
-                                  <div className="flex flex-col gap-3 h-[500px] w-[500px] rounded-lg border-2 border-white bg-white backdrop-blur-lg">
+                                  <div className="flex flex-col gap-3 h-[500px] w-[300px] rounded-lg border-2 border-white bg-white backdrop-blur-lg">
                                       <div className="flex-1 flex flex-col gap-3 p-3 overflow-y-scroll">
-                                          <Textarea
-                                              key={"postTitle"}
-                                              label="Post Title"
-                                              labelPlacement="inside"
-                                              isRequired
-                                              minRows={2}
-                                              placeholder="Write the post title..."
-                                              className="break-words w-full mb-6 md:mb-0"
-                                              classNames={{
-                                              base: "",
-                                              label: "font-bold uppercase",
-                                              innerWrapper: "bg-transparent",
-                                              input: [ "bg-transparent","text-xl font-bold break-words","placeholder:text-default-700/50"],
-                                              inputWrapper: ["bg-transparent"],
-
-                                              }}
-                                              value={postTitle}
-                                              onValueChange={setPostTitle}
-                                          />
-
-                                          <Textarea
-                                              key={"postContent"}
-                                              label="Post Content"
-                                              labelPlacement="inside"
-                                              isRequired
-                                              minRows={30}
-                                              placeholder="Write your elloborative post Content..."
-                                              className="break-words w-full mb-6 md:mb-0"
-                                              classNames={{
-                                              base: "",
-                                              label: "font-bold uppercase",
-                                              innerWrapper: "bg-transparent",
-                                              input: [ "bg-transparent","text-md font-semibold break-words", "placeholder:text-default-700/50"],
-                                              inputWrapper: ["bg-transparent"],
-
-                                              }}
-                                              value={postContent}
-                                              onValueChange={setPostContent}
-                                          />
+                                          {/**
+                                           * Business Name
+                                           * Business Owner Name
+                                           * Address
+                                           *    (DoorNo/FlatNo, StreetName, Area, City, District, PinCode, State, Country)
+                                           * Contact Number
+                                           **/}
                                       </div>
                                       <footer className="z-10 bg-white sticky bottom-0 inset-x-0 w-full p-3 rounded-lg border-t-2 border-t-white flex items-center justify-end">
 
-                                          <PrimaryButton onClick={()=>createPost(onClose)} isLoading={isCreatingPost} startContent={<NotebookPen />} radius="full" className="font-semibold bg-gradient-to-tr from-[#A855F7] via-[#D946EF] to-[#EC4899] text-white shadow-lg">
-                                            Create Post
+                                          <PrimaryButton isLoading={isCreatingPost} startContent={<NotebookPen />} radius="full" className="font-semibold bg-gradient-to-tr from-[#A855F7] via-[#D946EF] to-[#EC4899] text-white shadow-lg">
+                                            Save Details
                                           </PrimaryButton>
                                       </footer>
                                   </div>
