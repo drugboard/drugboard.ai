@@ -36,7 +36,7 @@ const Home = () => {
           //   user?.prefs = prefs;
           // }
           setCurrentUser(user);
-          // console.log(user);
+          console.log(user);
         }
         setPageLoading(false);
       } catch (error) {
