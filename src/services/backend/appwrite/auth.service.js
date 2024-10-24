@@ -64,7 +64,6 @@ class AppWriteAuth {
 
     async createJWT() {
         const response = await this.auth.createJWT();
-        // console.log(response)
         return response;
     }
 

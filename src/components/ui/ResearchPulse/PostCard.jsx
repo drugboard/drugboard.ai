@@ -4,11 +4,12 @@ import {Tabs, Tab, Tooltip, Button, Avatar} from "@nextui-org/react";
 import FilesListing from './FilesListing';
 import LinksListing from './LinksListing';
 import TagsListing from './TagsListing';
-import { AtSign, BookOpenCheck, Hash, Link } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { AtSign, BookOpenCheck, Hash, Link as LinkIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import awFuncs from '@/services/backend/appwrite/functions.config';
 import { ShieldHalf } from 'lucide-react';
 import { UserPlus } from 'lucide-react';
+import Link from "next/link";
 
 const PostCard = ({post, currentUserData}) => {
 
@@ -110,7 +111,7 @@ const PostCard = ({post, currentUserData}) => {
                         <Tab key={"add-external-links"} title={
                             <Tooltip showArrow={true} content="External Links" color='success' className='font-semibold'>
                                 <div className="flex items-center justify-center">
-                                    <Link/>
+                                    <LinkIcon/>
                                 </div>
                             </Tooltip>
                             }>
@@ -161,15 +162,16 @@ const PostCard = ({post, currentUserData}) => {
                     {postOwner && 
                         <article className={`
                             transition-all duration-500 ease-in-out
-                            rounded-full border border-white bg-white/80 
+                            cursor-grab rounded-full border border-white bg-white/80 
                             flex items-center justify-start gap-2 p-1
                             ${isPostOwnerVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-4'}
                         `}>
                             <Avatar src={postOwner?.prefs?.profileImage} size="md" />
                             <div className='flex-1 flex flex-col items-start pr-3'>
                                 <h5 className='font-semibold line-clamp-1'>{postOwner?.prefs?.displayName}</h5>
-                                <p className='font-bold text-sm line-clamp-1 text-purple-700'>@{postOwner?.prefs?.username}</p>
+                                <Link href={`/${postOwner?.prefs?.username}`} target='_blank' className='transition-all duration-500 ease-in-out delay-150 cursor-pointer hover:underline font-bold text-sm line-clamp-1 text-purple-700'>@{postOwner?.prefs?.username}</Link>
                             </div>
+
                             {/* Actions on Post Owner */}
 
                             {

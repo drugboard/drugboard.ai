@@ -11,6 +11,8 @@ export const postLinksID = process.env.NEXT_PUBLIC_POSTLINKS_TABLE;
 export const postFilesID = process.env.NEXT_PUBLIC_POSTFILES_TABLE;
 export const postTagsID = process.env.NEXT_PUBLIC_POSTTAGS_TABLE;
 
+export const usersID = process.env.NEXT_PUBLIC_USERS_TABLE;
+
 //appwrite functions
 export const getAllUsersFuncID = process.env.NEXT_PUBLIC_GETALLUSERS_FUNCID;
 export const getUserByIDFuncID = process.env.NEXT_PUBLIC_GETUSERBYID_FUNCID;

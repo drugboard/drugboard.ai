@@ -71,7 +71,7 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
 
   useEffect(()=>{
     if(!currentUserData){
-      console.log(currentUserData)
+      setIsPostsLoading(true);
       setPosts(null);
     }
   }, [currentUserData])
