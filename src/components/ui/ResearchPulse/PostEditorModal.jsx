@@ -135,10 +135,9 @@ const PostEditorModal = ({isOpen, onOpenChange}) => {
 
           if(!postContent){
             toast.error("Post Content can't be empty.");
-            setIsCreatingPost(false);
+            return setIsCreatingPost(false);
           }
 
-          if(newPost?.postFiles && newPost?.postLinks){
             const post = await db.posts.createDoc(newPost);
             if(post){
               console.log("Saved post:", post);
@@ -147,8 +146,6 @@ const PostEditorModal = ({isOpen, onOpenChange}) => {
               closePostEditorModal();
               toast.success("New Post is created. ✨");
             }
-          }
-
         } catch (err) {
             setIsCreatingPost(false);
             toast.error("Sorry! Something went wrong.");
