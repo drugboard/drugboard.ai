@@ -122,31 +122,30 @@ const PostEditorModal = ({isOpen, onOpenChange}) => {
             saveFiles(),
             saveLinks(),
           ]);
-    
-          const newPost = {
+
+          let newPost = {
             postTitle,
             postContent,
             postTags: tags,
-            postFiles,
-            postLinks,
+            postFiles: postFiles?.length ? postFiles : files,
+            postLinks: postLinks?.length ? postLinks : links,
             postedByUserID: user.userId,
             postMentions: usersMentioned,
           };
 
           if(!postContent){
             toast.error("Post Content can't be empty.");
-            setIsCreatingPost(false);
-          }else{
-              const post = await db.posts.createDoc(newPost);
-              if(post){
-                console.log("Saved post:", post);
-                clearPostEditor();
-                setIsCreatingPost(false);
-                closePostEditorModal();
-                toast.success("New Post is created. ✨");
-              } 
+            return setIsCreatingPost(false);
           }
 
+            const post = await db.posts.createDoc(newPost);
+            if(post){
+              console.log("Saved post:", post);
+              clearPostEditor();
+              setIsCreatingPost(false);
+              closePostEditorModal();
+              toast.success("New Post is created. ✨");
+            }
         } catch (err) {
             setIsCreatingPost(false);
             toast.error("Sorry! Something went wrong.");
