@@ -168,8 +168,8 @@ const PostCard = ({post, currentUserData}) => {
                         `}>
                             <Avatar src={postOwner?.prefs?.profileImage} size="md" />
                             <div className='flex-1 flex flex-col items-start pr-3'>
-                                <h5 className='font-semibold line-clamp-1'>{postOwner?.prefs?.displayName}</h5>
-                                <Link href={`/${postOwner?.prefs?.username}`} target='_blank' className='transition-all duration-500 ease-in-out delay-150 cursor-pointer hover:underline font-bold text-sm line-clamp-1 text-purple-700'>@{postOwner?.prefs?.username}</Link>
+                                <h5 className='font-semibold line-clamp-1'>{postOwner?.prefs?.displayName ? postOwner?.prefs?.displayName : postOwner.name}</h5>
+                                <Link href={`/${postOwner?.prefs?.username}`} target='_blank' className='transition-all duration-500 ease-in-out delay-150 cursor-pointer hover:underline font-bold text-sm line-clamp-1 text-purple-700'>@{postOwner?.prefs?.username ? postOwner?.prefs?.username : postOwner?.email.replace("@gmail.com", "")}</Link>
                             </div>
 
                             {/* Actions on Post Owner */}

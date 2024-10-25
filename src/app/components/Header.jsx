@@ -56,20 +56,16 @@ const Header = ({setCurrentUser, currentUser}) => {
 
           <div className='flex items-center gap-3'>
             <Tooltip showArrow={true} content="Messages" color='secondary' className='font-semibold'>
-              <Button className="group relative overflow-visible" isIconOnly radius='full' color="secondary" aria-label="Messages">
-                <MessageCircleMore size={24} className="cursor-pointer text-white" />
-                <div className='absolute -right-2 -top-2 flex items-center justify-center h-2 w-2 p-3 rounded-full bg-[#4ADE80]'>
-                  <span className='font-semibold text-xs text-black'>5</span>
-                </div>
+              <Button isIconOnly radius='full' variant="bordered" color="secondary" aria-label="Messages">
+                <MessageCircleMore size={24} className="cursor-pointer text-purple-700" />
+
               </Button>
             </Tooltip>
 
             <Tooltip showArrow={true} content="Notifications" color='secondary' className='font-semibold'>
-              <Button className="group relative overflow-visible" isIconOnly radius='full' color="secondary" aria-label="Notifications">
-                <BellRing size={24} className="cursor-pointer text-white" /> 
-                <div className='absolute -right-2 -top-2 flex items-center justify-center h-2 w-2 p-3 rounded-full bg-[#4ADE80]'>
-                  <span className='font-semibold text-xs text-black'>25</span>
-                </div>
+              <Button isIconOnly radius='full' variant='bordered' color="secondary" aria-label="Notifications">
+                <BellRing size={24} className="cursor-pointer text-purple-700" /> 
+                
               </Button>
             </Tooltip>
           </div>
