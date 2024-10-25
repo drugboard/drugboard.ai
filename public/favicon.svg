@@ -1,7 +1,11 @@
-<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect x="0.5" y="0.5" width="35" height="35" rx="10.5" fill="black"/>
-<rect x="0.5" y="0.5" width="35" height="35" rx="10.5" stroke="white"/>
-<rect x="2" y="6" width="32.5737" height="23" fill="url(#pattern0_202_4)"/>
+<svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<mask id="path-1-outside-1_202_4" maskUnits="userSpaceOnUse" x="0" y="0" width="38" height="38" fill="black">
+<rect fill="white" width="38" height="38"/>
+<path d="M3 9C3 4.58172 6.58172 1 11 1H29C33.4183 1 37 4.58172 37 9V27C37 31.4183 33.4183 35 29 35H11C6.58172 35 3 31.4183 3 27V9Z"/>
+</mask>
+<path d="M3 9C3 4.58172 6.58172 1 11 1H29C33.4183 1 37 4.58172 37 9V27C37 31.4183 33.4183 35 29 35H11C6.58172 35 3 31.4183 3 27V9Z" fill="black"/>
+<path d="M0 9C0 4.02944 4.02944 0 9 0H29C33.9706 0 38 4.02944 38 9H36C36 5.13401 32.866 2 29 2H11C8.23858 2 6 5.13401 6 9H0ZM38 29C38 33.9706 33.9706 38 29 38H11C4.92487 38 0 33.0751 0 27H6C6 29.7614 8.23858 32 11 32H29C32.866 32 36 29.7614 36 27L38 29ZM11 38C4.92487 38 0 33.0751 0 27V9C0 4.02944 4.02944 0 9 0L11 2C8.23858 2 6 5.13401 6 9V27C6 29.7614 8.23858 32 11 32V38ZM29 0C33.9706 0 38 4.02944 38 9V29C38 33.9706 33.9706 38 29 38V32C32.866 32 36 29.7614 36 27V9C36 5.13401 32.866 2 29 2V0Z" fill="white" mask="url(#path-1-outside-1_202_4)"/>
+<rect x="4" y="7" width="31.665" height="22.3584" fill="url(#pattern0_202_4)"/>
 <defs>
 <pattern id="pattern0_202_4" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_202_4" transform="scale(0.000507614 0.000718907)"/>

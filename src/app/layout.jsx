@@ -8,7 +8,6 @@ export const metadata = {
   icons: {
     icon: [
       { rel: 'icon', type: 'image/svg+xml', url: '/favicon.svg' },
-      { rel: 'icon', type: 'image/png', url: '/favicon.png' },
     ]
   }
 };
