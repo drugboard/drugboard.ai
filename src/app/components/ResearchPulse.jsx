@@ -92,8 +92,8 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
             <div className="z-20 px-3 py-2 flex items-center rounded-t-2xl justify-between text-[#020617] bg-white/80 border border-white shadow-xl">
               
               <div className='flex items-center gap-2 text-[#020617]'>
-                <Brain strokeWidth={3}/>
-                <h1 className="text-2xl font-heading">Research Pulse</h1>
+                <Brain strokeWidth={2}/>
+                <h1 className="text-2xl !font-semibold">Research Pulse</h1>
               </div>
 
               <PrimaryButton onClick={onOpen} startContent={<NotebookPen size={20}/>} radius="full" className="text-lg p-6 font-semibold bg-[#7E22CE] text-white shadow-lg">

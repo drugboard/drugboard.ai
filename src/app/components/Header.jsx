@@ -43,7 +43,7 @@ const Header = ({setCurrentUser, currentUser}) => {
 
       <div className='title-card ml-28 pl-8 px-6 py-3 text-[#020617] flex items-center justify-center gap-1 bg-white/80 rounded-full border-3 border-b-8 border-r-8 border-black'>
         <BrainCircuit size={32} strokeWidth={3} />
-        <h2 className='font-heading uppercase text-2xl text-black font-bold px-3'>Scientific <span className='!font-black bg-gradient-to-r from-[#C026D3] to-purple-600 bg-clip-text text-transparent'>Colloboration</span></h2>
+        <h2 className='font-heading uppercase text-2xl text-black !font-semibold px-3'>Scientific <span className='!font-black bg-gradient-to-r from-[#C026D3] to-purple-600 bg-clip-text text-transparent'>Collaboration</span></h2>
       </div>
 
         {/* <FloatingNavBar setCurrentUser={setCurrentUser}/> */}
