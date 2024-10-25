@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -39,4 +40,13 @@ html, body{
 
 .font-cursive{
     font-family: 'Playwrite CU', cursive;
+}
+
+.font-heading{
+    font-family: 'Montserrat', 'Open Sans', sans-serif;
+    font-weight: 700;
+}
+
+.title-card{
+    background: linear-gradient(to right, #f1dcdd,  #e7e2d5, #d5e3db);
 }
