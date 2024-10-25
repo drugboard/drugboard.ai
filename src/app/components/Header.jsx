@@ -38,12 +38,12 @@ const Header = ({setCurrentUser, currentUser}) => {
     <header className='flex justify-between w-full'>
 
       <Link href="/" className='cursor-grab px-3 flex items-center justify-center z-50 fixed top-2 left-2 p-1  bg-black rounded-3xl border border-t-4 border-r-4 borer-white' >
-        <img src="/drugboardLogoCapsule.png" alt="drugboard.ai" className='h-[90px]' />
+        <img src="/drugboardLogoCapsule.png" alt="drugboard.ai" className='h-[80px]' />
       </Link>
 
       <div className='title-card ml-28 pl-8 px-6 py-3 text-[#020617] flex items-center justify-center gap-1 bg-white/80 rounded-full border-3 border-b-8 border-r-8 border-black'>
-        <BrainCircuit size={32} strokeWidth={3} />
-        <h2 className='font-heading uppercase text-2xl text-black !font-semibold px-3'>Scientific <span className='!font-black bg-gradient-to-r from-[#C026D3] to-purple-600 bg-clip-text text-transparent'>Collaboration</span></h2>
+        <BrainCircuit size={32} strokeWidth={2} className='rotate-180' />
+        <h2 className='font-heading uppercase text-lg text-black !font-semibold px-3'>Scientific <span className='!font-black bg-gradient-to-r from-[#C026D3] to-purple-600 bg-clip-text text-transparent'>Collaboration <span className='!font-semibold text-black'>&</span> Connect✨</span></h2>
       </div>
 
         {/* <FloatingNavBar setCurrentUser={setCurrentUser}/> */}

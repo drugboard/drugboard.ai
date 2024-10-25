@@ -101,7 +101,7 @@ const Home = () => {
           ):
             (
               <div className='h-screen w-full flex items-center justify-center'>
-                <h1 className='text-white font-bold text-2xl'>Page is Loading...</h1>
+                <h1 className='text-white !font-black !text-5xl'>Page is Loading...</h1>
               </div>
             )
         }

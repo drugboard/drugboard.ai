@@ -65,7 +65,7 @@ const PostCard = ({post, currentUserData}) => {
                         `}>
                 <div className="flex-1 flex flex-col gap-2 pt-5 px-5 pb-0 overflow-y-scroll">
 
-                    <h3 className="text-[#020617] text-[18px] font-bold tansition-all duration-500 ease-in-out">
+                    <h3 className="text-[#020617] text-lg font-semibold tansition-all duration-500 ease-in-out">
                         {postTitle}
                     </h3>
 
@@ -74,7 +74,7 @@ const PostCard = ({post, currentUserData}) => {
                         6 min read ~ Posted on {postDate}
                         </p>
                     )}
-                    <p className="flex-1 text-[#020617] text-md leading-md overflow-y-scroll tansition-all duration-500 ease-in-out">
+                    <p className="flex-1 text-[#020617] mb-2 leading-md overflow-y-scroll tansition-all duration-500 ease-in-out">
                     {postContent}
                     </p>    
 

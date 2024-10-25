@@ -93,10 +93,10 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
               
               <div className='flex items-center gap-2 text-[#020617]'>
                 <Brain strokeWidth={2}/>
-                <h1 className="text-2xl !font-semibold">Research Pulse</h1>
+                <h1 className="text-lg !font-bold">Research Pulse</h1>
               </div>
 
-              <PrimaryButton onClick={onOpen} startContent={<NotebookPen size={20}/>} radius="full" className="text-lg p-6 font-semibold bg-[#7E22CE] text-white shadow-lg">
+              <PrimaryButton onClick={onOpen} startContent={<NotebookPen size={20}/>} radius="full" className="px-6 py-3 font-semibold bg-[#7E22CE] text-white shadow-lg">
                 Create Post
               </PrimaryButton>
 
@@ -110,8 +110,8 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
                     ))
 
                   :
-                  <div className='rounded-b-2xl h-full w-full bg-white/80 flex items-center justify-center'>
-                    <img src="/noposts.png" alt="No Posts" className={`transition-all duration-300 ease-in-out h-full w-full rounded-b-2xl object-cover ${isPostsLoading ? 'opacity-100 transform traslate-y-0' : 'opacity-0 transform translate-y-0'}`} />
+                  <div className='rounded-2xl h-full w-full bg-white/80 flex items-center justify-center'>
+                    <img src="/noposts.png" alt="No Posts" className={`transition-all duration-300 ease-in-out h-full w-full rounded-2xl object-cover ${isPostsLoading ? 'opacity-100 transform traslate-y-0' : 'opacity-0 transform translate-y-0'}`} />
                   </div>
               }
 
