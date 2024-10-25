@@ -177,13 +177,13 @@ const PostCard = ({post, currentUserData}) => {
                             {
                                 currentUserData?.$id !== postOwner?.$id ?
                                 <div className='flex items-center gap-2'>
-                                    <Tooltip showArrow={true} content={`Follow @${postOwner?.prefs?.username}`} color='secondary' className='font-semibold'>
-                                        <Button isIconOnly color="secondary" radius='full' aria-label={`Follow @${postOwner?.prefs?.username}`}>
+                                    <Tooltip showArrow={true} content={`Follow @${postOwner?.prefs?.username ? postOwner?.prefs?.username : postOwner?.email.replace("@gmail.com", "")}`} color='secondary' className='font-semibold'>
+                                        <Button isIconOnly color="secondary" radius='full' aria-label={`Follow @${postOwner?.prefs?.username ? postOwner?.prefs?.username : postOwner?.email.replace("@gmail.com", "")}`}>
                                             <UserPlus size={20}/>
                                         </Button>
                                     </Tooltip>
-                                    <Tooltip showArrow={true} content={`Block @${postOwner?.prefs?.username}`} color='danger' className='font-semibold'>
-                                        <Button isIconOnly color="danger" radius='full' aria-label={`Block @${postOwner?.prefs?.username}`}>
+                                    <Tooltip showArrow={true} content={`Block @${postOwner?.prefs?.username ? postOwner?.prefs?.username : postOwner?.email.replace("@gmail.com", "")}`} color='danger' className='font-semibold'>
+                                        <Button isIconOnly color="danger" radius='full' aria-label={`Block @${postOwner?.prefs?.username ? postOwner?.prefs?.username : postOwner?.email.replace("@gmail.com", "")}`}>
                                             <ShieldHalf size={20}/>
                                         </Button>
                                     </Tooltip>
