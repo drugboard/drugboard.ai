@@ -60,23 +60,23 @@ const PostCard = ({post, currentUserData}) => {
 
     return (
         <article className={`flex gap-2 items-start rounded-3xl tansition-all duration-100 ease-in-out ${isPostVisible ? 'opacity-100' : 'opacity-0'}`} key={post?.$id}>
-            <div className={`relative flex flex-col h-[500px] w-[60%] rounded-3xl border border-white bg-white/80 tansition-all duration-500 ease-in-out
+            <div className={`relative flex flex-col max-h-[500px] w-[60%] rounded-3xl border border-white bg-white/80 tansition-all duration-500 ease-in-out
              ${isPostVisible ? 'opacity-100 transform translate-x-0' : 'opacity-0 transform -translate-x-4'}
                         `}>
                 <div className="flex-1 flex flex-col gap-2 pt-5 px-5 pb-0 overflow-y-scroll">
 
-                    <h3 className="text-[#020617] text-lg font-semibold tansition-all duration-500 ease-in-out">
-                        {postTitle}
+                    <h3 className="text-[#020617] text-md font-semibold tansition-all duration-500 ease-in-out">
+                    {`${postTitle}`.trim()}
                     </h3>
 
                     {postDate && (
-                        <p className="text-xs text-[#64748B] font-bold tansition-all duration-500 ease-in-out">
+                        <p className="text-xs text-[#64748B] font-semibold tansition-all duration-500 ease-in-out">
                         6 min read ~ Posted on {postDate}
                         </p>
                     )}
-                    <p className="flex-1 text-[#020617] mb-2 leading-md overflow-y-scroll tansition-all duration-500 ease-in-out">
-                    {postContent}
-                    </p>    
+                    <pre className="break-words whitespace-pre-wrap flex-1 text-[#020617] font-primary font-medium text-sm mb-2 leading-relaxed overflow-y-scroll tansition-all duration-500 ease-in-out">
+                    {`${postContent}`.trim()}
+                    </pre>    
 
                 </div>
 
