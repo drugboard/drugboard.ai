@@ -74,7 +74,7 @@ const PostCard = ({post, currentUserData}) => {
                         6 min read ~ Posted on {postDate}
                         </p>
                     )}
-                    <pre className="break-words whitespace-pre-wrap flex-1 text-[#020617] font-primary font-medium text-sm mb-2 leading-relaxed overflow-y-scroll tansition-all duration-500 ease-in-out">
+                    <pre className="break-words whitespace-pre-wrap flex-1 text-[#020617] font-primary  text-sm mb-2 leading-relaxed overflow-y-scroll tansition-all duration-500 ease-in-out">
                     {`${postContent}`.trim()}
                     </pre>    
 
@@ -85,7 +85,7 @@ const PostCard = ({post, currentUserData}) => {
                 </footer>
             </div>
 
-            <div className="flex flex-col gap-2 items-stretch justify-between h-[500px] w-[40%] rounded-3xl tansition-all duration-500 ease-in-out">
+            <div className="flex flex-col gap-2 items-stretch  max-h-[500px] w-[40%] rounded-3xl tansition-all duration-500 ease-in-out">
 
                 <div className={`flex flex-col gap-3 items-stretch p-3 max-h-[250px] w-full rounded-3xl border border-white bg-white/80 tansition-all duration-500 ease-in-out ${isPostVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform -translate-y-4'}
                         `}>
@@ -193,11 +193,6 @@ const PostCard = ({post, currentUserData}) => {
 
                         </article>
                     }
-
-
-                    <div className='p-1 rounded-3xl border bg-white/80'>
-
-                    </div>
                 </footer>
             </div>
 

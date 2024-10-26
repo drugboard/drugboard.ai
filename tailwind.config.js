@@ -13,7 +13,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        primary: ['Montserrat', 'sans-serif'], 
+        primary: ['Roboto', 'sans-serif'], 
       },
       backgroundImage: {
         "devGarrageBGImage": "url('/macBgThree.jpg')",
