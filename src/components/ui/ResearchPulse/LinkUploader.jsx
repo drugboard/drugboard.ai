@@ -38,7 +38,7 @@ const LinkUploader = ({links, setLinks}) => {
 
   return (
     <div className="relative flex flex-col gap-3">
-      <Popover isOpen={isLinkUploaderOpen} backdrop="blur" placement="bottom">
+      <Popover isOpen={isLinkUploaderOpen} placement="bottom">
           <PopoverTrigger onClick={openLinkUploader}>
             <Button className="z-10 sticky top-0" radius="full" color="secondary" startContent={<Plus/>}>Add Link</Button>
           </PopoverTrigger>
