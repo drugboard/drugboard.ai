@@ -12,6 +12,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        primary: ['Montserrat', 'sans-serif'], 
+      },
       backgroundImage: {
         "devGarrageBGImage": "url('/macBgThree.jpg')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

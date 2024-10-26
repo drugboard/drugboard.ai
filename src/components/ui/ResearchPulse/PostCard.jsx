@@ -4,11 +4,12 @@ import {Tabs, Tab, Tooltip, Button, Avatar} from "@nextui-org/react";
 import FilesListing from './FilesListing';
 import LinksListing from './LinksListing';
 import TagsListing from './TagsListing';
-import { AtSign, BookOpenCheck, Hash, Link } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { AtSign, BookOpenCheck, Hash, Link as LinkIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import awFuncs from '@/services/backend/appwrite/functions.config';
 import { ShieldHalf } from 'lucide-react';
 import { UserPlus } from 'lucide-react';
+import Link from "next/link";
 
 const PostCard = ({post, currentUserData}) => {
 
@@ -59,23 +60,23 @@ const PostCard = ({post, currentUserData}) => {
 
     return (
         <article className={`flex gap-2 items-start rounded-3xl tansition-all duration-100 ease-in-out ${isPostVisible ? 'opacity-100' : 'opacity-0'}`} key={post?.$id}>
-            <div className={`relative flex flex-col h-[500px] w-[60%] rounded-3xl border border-white bg-white/80 tansition-all duration-500 ease-in-out
+            <div className={`relative flex flex-col max-h-[500px] w-[60%] rounded-3xl border border-white bg-white/80 tansition-all duration-500 ease-in-out
              ${isPostVisible ? 'opacity-100 transform translate-x-0' : 'opacity-0 transform -translate-x-4'}
                         `}>
                 <div className="flex-1 flex flex-col gap-2 pt-5 px-5 pb-0 overflow-y-scroll">
 
-                    <h3 className="text-[#020617] text-[18px] font-bold tansition-all duration-500 ease-in-out">
-                        {postTitle}
+                    <h3 className="text-[#020617] text-md font-semibold tansition-all duration-500 ease-in-out">
+                    {`${postTitle}`.trim()}
                     </h3>
 
                     {postDate && (
-                        <p className="text-xs text-[#64748B] font-bold tansition-all duration-500 ease-in-out">
+                        <p className="text-xs text-[#64748B] font-semibold tansition-all duration-500 ease-in-out">
                         6 min read ~ Posted on {postDate}
                         </p>
                     )}
-                    <p className="flex-1 text-[#020617] text-md leading-md overflow-y-scroll tansition-all duration-500 ease-in-out">
-                    {postContent}
-                    </p>    
+                    <pre className="break-words whitespace-pre-wrap flex-1 text-[#020617] font-primary font-medium text-sm mb-2 leading-relaxed overflow-y-scroll tansition-all duration-500 ease-in-out">
+                    {`${postContent}`.trim()}
+                    </pre>    
 
                 </div>
 
@@ -110,7 +111,7 @@ const PostCard = ({post, currentUserData}) => {
                         <Tab key={"add-external-links"} title={
                             <Tooltip showArrow={true} content="External Links" color='success' className='font-semibold'>
                                 <div className="flex items-center justify-center">
-                                    <Link/>
+                                    <LinkIcon/>
                                 </div>
                             </Tooltip>
                             }>
@@ -161,27 +162,28 @@ const PostCard = ({post, currentUserData}) => {
                     {postOwner && 
                         <article className={`
                             transition-all duration-500 ease-in-out
-                            rounded-full border border-white bg-white/80 
+                            cursor-grab rounded-full border border-white bg-white/80 
                             flex items-center justify-start gap-2 p-1
                             ${isPostOwnerVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-4'}
                         `}>
                             <Avatar src={postOwner?.prefs?.profileImage} size="md" />
                             <div className='flex-1 flex flex-col items-start pr-3'>
-                                <h5 className='font-semibold line-clamp-1'>{postOwner?.prefs?.displayName}</h5>
-                                <p className='font-bold text-sm line-clamp-1 text-purple-700'>@{postOwner?.prefs?.username}</p>
+                                <h5 className='font-semibold line-clamp-1'>{postOwner?.prefs?.displayName ? postOwner?.prefs?.displayName : postOwner.name}</h5>
+                                <Link href={`/${postOwner?.prefs?.username}`} target='_blank' className='transition-all duration-500 ease-in-out delay-150 cursor-pointer hover:underline font-bold text-sm line-clamp-1 text-purple-700'>@{postOwner?.prefs?.username ? postOwner?.prefs?.username : postOwner?.email.replace("@gmail.com", "")}</Link>
                             </div>
+
                             {/* Actions on Post Owner */}
 
                             {
                                 currentUserData?.$id !== postOwner?.$id ?
                                 <div className='flex items-center gap-2'>
-                                    <Tooltip showArrow={true} content={`Follow @${postOwner?.prefs?.username}`} color='secondary' className='font-semibold'>
-                                        <Button isIconOnly color="secondary" radius='full' aria-label={`Follow @${postOwner?.prefs?.username}`}>
+                                    <Tooltip showArrow={true} content={`Follow @${postOwner?.prefs?.username ? postOwner?.prefs?.username : postOwner?.email.replace("@gmail.com", "")}`} color='secondary' className='font-semibold'>
+                                        <Button isIconOnly color="secondary" radius='full' aria-label={`Follow @${postOwner?.prefs?.username ? postOwner?.prefs?.username : postOwner?.email.replace("@gmail.com", "")}`}>
                                             <UserPlus size={20}/>
                                         </Button>
                                     </Tooltip>
-                                    <Tooltip showArrow={true} content={`Block @${postOwner?.prefs?.username}`} color='danger' className='font-semibold'>
-                                        <Button isIconOnly color="danger" radius='full' aria-label={`Block @${postOwner?.prefs?.username}`}>
+                                    <Tooltip showArrow={true} content={`Block @${postOwner?.prefs?.username ? postOwner?.prefs?.username : postOwner?.email.replace("@gmail.com", "")}`} color='danger' className='font-semibold'>
+                                        <Button isIconOnly color="danger" radius='full' aria-label={`Block @${postOwner?.prefs?.username ? postOwner?.prefs?.username : postOwner?.email.replace("@gmail.com", "")}`}>
                                             <ShieldHalf size={20}/>
                                         </Button>
                                     </Tooltip>

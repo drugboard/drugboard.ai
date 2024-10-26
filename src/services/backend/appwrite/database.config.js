@@ -1,11 +1,15 @@
-"use client";
 import { Databases, ID } from "appwrite";
-import { databaseID, postDraftsID, postFilesID, postLinksID, postsID, postTagsID } from "../constants";
+import { databaseID, postDraftsID, postFilesID, postLinksID, postsID, postTagsID, usersID } from "../constants";
 import { appwriteClient } from ".";
 
 const databases = new Databases(appwriteClient);
 
 const collections = [
+    {
+        'databaseID': databaseID,
+        '$id': usersID,
+        'name': 'users'
+    },
     {
         'databaseID': databaseID,
         '$id': postsID,

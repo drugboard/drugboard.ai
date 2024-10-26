@@ -12,7 +12,7 @@ const KnowledgePathways = () => {
         <div className="w-full px-3 py-2 flex items-center justify-between border-b-2 border-white">
             <div className="flex items-center gap-2 text-black">
                 <GraduationCap />
-                <h1 className="font-bold font-cursive text-lg">Knowledge Pathways</h1>
+                <h1 className="font-bold font-heading text-lg">Knowledge Pathways</h1>
             </div>
        </div>
 
