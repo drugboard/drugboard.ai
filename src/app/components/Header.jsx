@@ -54,21 +54,25 @@ const Header = ({setCurrentUser, currentUser}) => {
             Become Vendor
           </PrimaryButton> */}
 
-          <div className='flex items-center gap-3'>
-            <Tooltip showArrow={true} content="Messages" color='secondary' className='font-semibold'>
-              <Button isIconOnly radius='full' variant="bordered" color="secondary" aria-label="Messages">
-                <MessageCircleMore size={24} className="cursor-pointer text-purple-700" />
+          {
+            currentUser &&
+            <div className='flex items-center gap-3'>
+              <Tooltip showArrow={true} content="Messages" color='secondary' className='font-semibold'>
+                <Button isIconOnly radius='full' variant="bordered" color="secondary" aria-label="Messages">
+                  <MessageCircleMore size={24} className="cursor-pointer text-purple-700" />
 
-              </Button>
-            </Tooltip>
+                </Button>
+              </Tooltip>
 
-            <Tooltip showArrow={true} content="Notifications" color='secondary' className='font-semibold'>
-              <Button isIconOnly radius='full' variant='bordered' color="secondary" aria-label="Notifications">
-                <BellRing size={24} className="cursor-pointer text-purple-700" /> 
-                
-              </Button>
-            </Tooltip>
-          </div>
+              <Tooltip showArrow={true} content="Notifications" color='secondary' className='font-semibold'>
+                <Button isIconOnly radius='full' variant='bordered' color="secondary" aria-label="Notifications">
+                  <BellRing size={24} className="cursor-pointer text-purple-700" /> 
+                  
+                </Button>
+              </Tooltip>
+            </div>
+          }
+
 
           <div className='px-2 flex items-center justify-center gap-2'>
             {currentUser
