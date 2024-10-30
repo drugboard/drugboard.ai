@@ -1,8 +1,8 @@
 "use client";
 import PrimaryButton from '@/components/global/PrimaryButton';
-import { Award } from 'lucide-react';
 import { BadgeCheck } from 'lucide-react';
 import { PhoneOutgoing } from 'lucide-react';
+import ProfileHighlights from './ProfileHighlights';
 
 const HeroSection = ({user}) => {
   return (
@@ -13,7 +13,7 @@ const HeroSection = ({user}) => {
           <img className="rounded-3xl object-contain" src="/Prasad.jpg" alt="" />
 
           <div className="flex flex-col gap-3 items-start">
-            <h1 className="flex items-center gap-2 text-[#1E293B] line-clamp-1 text-3xl font-black">Dr. Prasad Atmuri, Ph.D.
+            <h1 className="flex items-center gap-2 text-[#1E293B] line-clamp-1 text-3xl font-black">{user.displayName}
               <span>
                 <BadgeCheck size={38} className='text-[#9333EA]'/>
               </span>
@@ -32,12 +32,7 @@ const HeroSection = ({user}) => {
 
           <div className='flex gap-3 h-[50%] w-full'>
             {/* Profile Highlights ✨ */}
-            <div className="flex flex-col items-stretchbg-white w-[50%]  border-2 border-[#FACC15] rounded-3xl backdrop-blur-xl">
-              <div className='flex items-center justify-start gap-3 p-3 rounded-t-3xl border-b-2 border-b-[#FACC15] bg-white'>
-                <Award className='text-[#FACC15]'/>
-                <p className='text-[#1E293B] text-xl font-semibold'>Profile Highlights</p>
-              </div>
-            </div>
+            <ProfileHighlights />
 
             {/*  */}
             <div className='h-full w-[50%] rounded-3xl border-2 border-[#A855F7] backdrop-blur-xl'>
