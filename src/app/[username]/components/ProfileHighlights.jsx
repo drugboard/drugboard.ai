@@ -4,7 +4,7 @@ import { Sparkles } from 'lucide-react';
 
 const ProfileHighlights = () => {
 
-    let phWithLink = 'Iodonium ion cyclization at Chem. help ASAP, https://youtube/P7dxSZUJ02A';
+    let phWithLink = 'Iodonium ion cyclization at Chem. help ASAP, https://youtu.be/P7dxSZUJ02A';
 
     const parseTextWithLinks = (text) => {
         const words = text.split(' ');
@@ -31,7 +31,7 @@ const ProfileHighlights = () => {
           }else{
               return index > 0 ? ` ${word}` : word;
           }
-          
+
         });
       };
       
