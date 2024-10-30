@@ -3,7 +3,7 @@ import Provider from "./provider";
 import Head from 'next/head';
 
 export const metadata = {
-  title: "Scientific Collaboration & Connection | drugboard.ai",
+  title: "Scientific Collaboration ✨ Connection · drugboard.ai",
   description: "AI Assitant App for Science People",
   icons: {
     icon: [
