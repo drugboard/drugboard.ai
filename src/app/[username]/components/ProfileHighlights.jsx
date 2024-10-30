@@ -1,4 +1,5 @@
 "use client";
+import { parseTextWithLinks } from "@/utils/parseTextWithLinks.util";
 import { Award } from "lucide-react";
 import { Sparkles } from 'lucide-react';
 
@@ -6,34 +7,6 @@ const ProfileHighlights = () => {
 
     let phWithLink = 'Iodonium ion cyclization at Chem. help ASAP, https://youtu.be/P7dxSZUJ02A';
 
-    const parseTextWithLinks = (text) => {
-        const words = text.split(' ');
-        
-        return words.map((word, index) => {
-
-          if ((word.startsWith('http://') || word.startsWith('https://')) && 
-            word.includes('.') && // Must have a dot for domain
-            word.split('/')[2]?.includes('.')) {
-            return (
-              <>
-                {index > 0 ? ' ' : ''}
-                <a
-                  key={index}
-                  href={word}
-                  className="text-blue-600 hover:text-blue-800 underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {word}
-                </a>
-              </>
-            );
-          }else{
-              return index > 0 ? ` ${word}` : word;
-          }
-
-        });
-      };
       
   return (
     <div className="flex flex-col items-stretchbg-white w-[50%]  border-2 border-[#FACC15] rounded-3xl backdrop-blur-xl">
