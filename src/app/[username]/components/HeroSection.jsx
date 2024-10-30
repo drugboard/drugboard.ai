@@ -1,6 +1,8 @@
 "use client";
+import PrimaryButton from '@/components/global/PrimaryButton';
 import { Award } from 'lucide-react';
 import { BadgeCheck } from 'lucide-react';
+import { PhoneOutgoing } from 'lucide-react';
 
 const HeroSection = ({user}) => {
   return (
@@ -22,6 +24,8 @@ const HeroSection = ({user}) => {
               My core competencies include research and development, HPLC-MS, NMR, organic synthesis, scientific writing, and presentation. I have contributed to multiple publications, patents, and book chapters in the field of peptide and peptidomimetic therapeutics. I also enjoy collaborating with multidisciplinary teams, mentoring junior colleagues, and participating in professional networks and conferences.
             </p>
           </div>
+          
+          <PrimaryButton className="text-lg" startContent={<PhoneOutgoing />} size='lg'>Book a Call</PrimaryButton>
         </div>
 
         <div className="w-[70%] h-full flex flex-col gap-3 p-3 rounded-3xl">
@@ -36,11 +40,14 @@ const HeroSection = ({user}) => {
             </div>
 
             {/*  */}
-            <div className='h-full w-[50%] rounded-3xl border-2 border-white backdrop-blur-xl'></div>
+            <div className='h-full w-[50%] rounded-3xl border-2 border-[#A855F7] backdrop-blur-xl'>
+
+            </div>
           </div>
 
-          <div className='w-full h-[50%] border-2 border-white backdrop-blur-xl rounded-3xl'></div>
+          <div className='w-full h-[50%] border-2 border-[#EC4899] backdrop-blur-xl rounded-3xl'>
 
+          </div>
 
         </div>
     </section>
