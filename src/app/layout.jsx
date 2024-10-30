@@ -1,6 +1,5 @@
 import "./globals.css";
 import Provider from "./provider";
-import Head from 'next/head';
 
 export const metadata = {
   title: "Scientific Collaboration ✨ Connection · drugboard.ai",
@@ -16,9 +15,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-      </Head>
       <body>
         <Provider>
             {children}

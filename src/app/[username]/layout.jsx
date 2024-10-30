@@ -18,7 +18,12 @@ export const generateMetadata = async (
 
     return {
       title: `${username} 🌟 drugboard.ai`,
-      description: `The CV, Resume and Research work of Mr.${displayName}`
+      description: `The CV, Resume and Research work of Mr.${displayName}`,
+      icons: {
+        icon: [
+          { rel: 'icon', type: 'image/svg+xml', url: user.profileImage ? user.profileImage : '/favicon.svg' },
+        ]
+      }
     }
   }
   
