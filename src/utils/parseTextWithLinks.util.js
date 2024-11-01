@@ -3,9 +3,10 @@ export const parseTextWithLinks = (text) => {
     
     return words.map((word, index) => {
 
-      if ((word.startsWith('http://') || word.startsWith('https://')) && 
-        word.includes('.') && // Must have a dot for domain
-        word.split('/')[2]?.includes('.')) {
+      if ((word.startsWith('http://') || word.startsWith('https://')) 
+        && word.includes('.') 
+        && word.split('/')[2]?.includes('.')) {
+          
         return (
           <>
             {index > 0 ? ' ' : ''}

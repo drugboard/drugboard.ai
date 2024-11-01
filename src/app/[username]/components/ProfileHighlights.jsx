@@ -37,4 +37,4 @@ const ProfileHighlights = () => {
   )
 }
 
-export default ProfileHighlights
+export default ProfileHighlights;
