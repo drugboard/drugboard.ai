@@ -18,13 +18,18 @@ export const generateMetadata = async (
 
     return {
       title: `${username} 🌟 drugboard.ai`,
-      description: `The CV, Resume and Research work of Mr.${displayName}`
+      description: `The CV, Resume and Research work of Mr.${displayName}`,
+      icons: {
+        icon: [
+          { rel: 'icon', type: 'image/svg+xml', url: user.profileImage ? user.profileImage : '/favicon.svg' },
+        ]
+      }
     }
   }
   
   export default function UserProfileLayout({ children }) {
     return (
-      <div className="bg-devGarrageBGImage bg-cover bg-center bg-fixed h-screen w-full overflow-auto">
+      <div className="p-2 flex flex-col gap-2 bg-devGarrageBGImage bg-cover bg-center bg-fixed min-h-screen w-full overflow-auto">
           {children}
       </div>
     );
