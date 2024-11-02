@@ -96,7 +96,7 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
                 <h1 className="text-lg !font-bold">Research Pulse</h1>
               </div>
 
-              <PrimaryButton onClick={onOpen} startContent={<NotebookPen size={20}/>} radius="full" className="px-6 py-3 font-semibold bg-[#7E22CE] text-white shadow-lg">
+              <PrimaryButton onClick={onOpen} color="secondary" startContent={<NotebookPen size={20}/>} radius="full" className="text-lg border-2 border-[#5B21B6] hover:bg-[#5B21B6] px-6 py-3 text-white shadow-lg">
                 Create Post
               </PrimaryButton>
 

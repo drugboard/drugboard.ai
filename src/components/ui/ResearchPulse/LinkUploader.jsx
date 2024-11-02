@@ -40,7 +40,7 @@ const LinkUploader = ({links, setLinks}) => {
     <div className="relative flex flex-col gap-3">
       <Popover isOpen={isLinkUploaderOpen} placement="bottom">
           <PopoverTrigger onClick={openLinkUploader}>
-            <Button className="z-10 sticky top-0" radius="full" color="secondary" startContent={<Plus/>}>Add Link</Button>
+            <Button className="text-lg z-10 sticky top-0" radius="full" color="secondary" startContent={<Plus/>}>Add Link</Button>
           </PopoverTrigger>
           <PopoverContent className="p-0">
             {(titleProps) => (
@@ -63,7 +63,7 @@ const LinkUploader = ({links, setLinks}) => {
                     description="Paste the ethical and whitelist links here..."
                 />
 
-                <PrimaryButton onClick={addLink} startContent={<Plus />}>Add Link</PrimaryButton>
+                <PrimaryButton className="text-lg" onClick={addLink} startContent={<Plus />}>Add Link</PrimaryButton>
               </form>
             )}
           </PopoverContent>
