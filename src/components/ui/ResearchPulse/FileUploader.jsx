@@ -55,7 +55,7 @@ const FileUploader = ({files, setFiles}) => {
       <div className="relative flex flex-col gap-3">
         <Popover isOpen={isFileUploaderOpen}  placement="bottom">
           <PopoverTrigger onClick={openFileUploader}>
-            <Button className="z-10 sticky top-0" radius="full" color="secondary" startContent={<FilePlus2/>}>Add File</Button>
+            <Button className="text-lg z-10 sticky top-0" radius="full" color="secondary" startContent={<FilePlus2/>}>Add File</Button>
           </PopoverTrigger>
           <PopoverContent className="p-0">
             {(titleProps) => (
@@ -91,7 +91,7 @@ const FileUploader = ({files, setFiles}) => {
                   }
                 </div>
 
-                <PrimaryButton onClick={addFile} startContent={<FilePlus2 />}>Add File</PrimaryButton>
+                <PrimaryButton className="text-lg" onClick={addFile} startContent={<FilePlus2 />}>Add File</PrimaryButton>
               </form>
             )}
           </PopoverContent>

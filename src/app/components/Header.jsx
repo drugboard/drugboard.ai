@@ -9,9 +9,9 @@ import PrimaryButton from '@/components/global/PrimaryButton';
 import { Key } from 'lucide-react';
 import AppWriteAuth from '@/services/backend/appwrite/auth.service';
 import { destURL, srcURL } from '@/services/backend/constants';
-import { Store } from 'lucide-react';
-import { BrainCircuit } from 'lucide-react';
+import { Atom } from 'lucide-react';
 import Link from 'next/link';
+import { Sparkles } from 'lucide-react';
 
 const Header = ({setCurrentUser, currentUser}) => {
   const [isUnlockingDrugboard, setIsUnlockingDrugboard] = useState(false);
@@ -35,24 +35,21 @@ const Header = ({setCurrentUser, currentUser}) => {
   }
 
   return (
-    <header className='flex justify-between w-full'>
+    <header className='flex items-center justify-between w-full'>
 
-      {/* <Link href="/" className='cursor-grab px-3 flex items-center justify-center z-50 fixed top-2 left-2 p-1  bg-black rounded-3xl border border-t-4 border-r-4 borer-white' >
-        <img src="/drugboardLogoCapsule.png" alt="drugboard.ai" className='h-[80px] object-cover' />
-      </Link>
+        <div className='flex items-center justify-center gap-6 px-3 border-2 border-white bg-white/80 rounded-3xl'>
+          <Link href="/" className='cursor-grab'>
+            <img className='h-[80px] object-contain' src="/drugboardLogo.png" alt="drugboard.ai" />
+          </Link>
 
-      <div className='title-card ml-28 pl-8 px-6 py-3 text-[#020617] flex items-center justify-center gap-1 bg-white/80 rounded-full border-3 border-b-8 border-r-8 border-black'>
-        <BrainCircuit size={32} strokeWidth={2} className='rotate-180' />
-        <h2 className='font-heading uppercase text-lg text-black !font-semibold px-3'>Scientific <span className='!font-black bg-gradient-to-r from-[#C026D3] to-purple-600 bg-clip-text text-transparent'>Collaboration <span className='!font-semibold text-black'>&</span> Connect✨</span></h2>
-      </div> */}
+          <div className='flex items-center gap-1 mt-2'>
+            <Atom strokeWidth={3} className='mt-0.5'/>
+            <h2 className='font-bold text-2xl'>Scientific Collaboration</h2>
+            <Sparkles strokeWidth={3} className='mt-0.5'/>
+          </div>
+        </div>
 
-        {/* <FloatingNavBar setCurrentUser={setCurrentUser}/> */}
-
-        <div className='flex items-center gap-5 p-3 bg-white/80 border-1 border-white rounded-full'>
-
-          {/* <PrimaryButton startContent={<Store size={20}/>} radius="full" className="font-semibold bg-gradient-to-tr from-[#7E22CE] via-[#C026D3] to-[#DB2777] shadow-lg">
-            Become Vendor
-          </PrimaryButton> */}
+        <div className='flex items-center gap-5 p-3 bg-white/80 border-2 border-white rounded-full'>
 
           {
             currentUser &&

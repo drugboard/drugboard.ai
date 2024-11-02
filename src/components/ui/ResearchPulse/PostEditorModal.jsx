@@ -231,7 +231,7 @@ const PostEditorModal = ({isOpen, onOpenChange}) => {
                                       </div>
                                       <footer className="z-10 bg-white sticky bottom-0 inset-x-0 w-full p-3 rounded-b-3xl border-t flex items-center justify-end">
 
-                                          <PrimaryButton onClick={()=>createPost(onClose)} isLoading={isCreatingPost} startContent={<NotebookPen />} radius="full" className="font-semibold bg-gradient-to-tr from-[#A855F7] via-[#D946EF] to-[#EC4899] text-white shadow-lg">
+                                          <PrimaryButton onClick={()=>createPost(onClose)} isLoading={isCreatingPost} startContent={<NotebookPen />} radius="full" className="text-lg font-semibold bg-gradient-to-tr from-[#A855F7] via-[#D946EF] to-[#EC4899] text-white shadow-lg">
                                             Create Post
                                           </PrimaryButton>
                                       </footer>
