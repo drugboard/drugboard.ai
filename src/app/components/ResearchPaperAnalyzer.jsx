@@ -3,10 +3,12 @@
 import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { WandSparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 const ResearchPaperAnalyzer = () => {
   const [file, setFile] = useState(null);
-  const [analysis, setAnalysis] = useState(null);
+  const [analysis, setAnalysis] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -107,18 +109,20 @@ const ResearchPaperAnalyzer = () => {
   };
 
   return (
-    <div className="w-[50%] h-screen bg-gradient-to-br from-purple-50/80 to-blue-50/80 p-6 rounded-3xl border border-white">
-      <div className="w-full mx-auto">
-        <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+    <div className="w-[50%] h-screen bg-transparent rounded-3xl">
+      <div className="h-full w-full mx-auto flex flex-col items-stretch gap-2">
+        
+        <div className="bg-white/80 border border-white backdrop-blur-xl rounded-3xl shadow-md overflow-hidden">
           {/* Upload Form */}
-          <div className="p-6 border-b">
-            <form onSubmit={analyseResearchJournal} className="space-y-4">
-              <h1 className="text-2xl font-bold text-purple-800">
-                Chemistry Research Paper Analyzer
+          <form onSubmit={analyseResearchJournal} className="space-y-2 pb-3 flex flex-col items-center">
+
+              <h1 className="flex items-center gap-2 text-2xl font-bold text-purple-800 border-b border-white px-6 py-3 w-full">
+                <span><WandSparkles size={32}/></span>
+                Chemistry Research Journal Analyzer
               </h1>
               
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
+              <div className="space-y-2 p-3">
+                <label className="block text-sm font-medium text-gray-500">
                   Upload Research Paper (PDF)
                 </label>
                 <input
@@ -126,8 +130,8 @@ const ResearchPaperAnalyzer = () => {
                   accept=".pdf"
                   onChange={handleFileChange}
                   className="block w-full text-sm text-gray-500 
-                           file:mr-4 file:py-2 file:px-4 file:rounded-full 
-                           file:border-0 file:text-sm file:font-semibold 
+                           file:mr-4 file:py-2 file:px-4 file:rounded-md 
+                           file:border-2 file:outline-none file:cursor-pointer file:border-purple-500 file:text-sm file:font-semibold 
                            file:bg-purple-50 file:text-purple-700 
                            hover:file:bg-purple-100 
                            transition-all duration-150"
@@ -143,7 +147,7 @@ const ResearchPaperAnalyzer = () => {
               <button
                 type="submit"
                 disabled={!file || loading}
-                className={`flex items-center justify-center gap-2 w-full
+                className={`flex items-center justify-center gap-2 
                           rounded-full py-2 px-6 font-semibold
                           transition-all duration-150
                           ${
@@ -158,29 +162,31 @@ const ResearchPaperAnalyzer = () => {
                     Processing Paper...
                   </>
                 ) : (
-                  'Analyze Paper'
+                  <>
+                  <Sparkles />
+                  Analyze Paper
+                  </>
                 )}
               </button>
-            </form>
-          </div>
+          </form>
+        </div>
 
-          {/* Analysis Results with Enhanced Styling */}
-          {analysis && (
-            <div className="p-6 bg-white">
+        {/* Analysis Results with Enhanced Styling */}
+        {analysis && (
+            <div className="flex-1 p-3 bg-white/80 backdrop-blur-xl border border-white rounded-3xl w-full">
               <div className="prose prose-purple max-w-none 
                             prose-headings:break-words
                             prose-p:whitespace-pre-wrap prose-p:break-words
                             prose-li:whitespace-pre-wrap prose-li:break-words">
-                <ReactMarkdown 
+                {/* <ReactMarkdown 
                   components={MarkdownComponents}
                   className="analysis-content"
                 >
                   {analysis}
-                </ReactMarkdown>
+                </ReactMarkdown> */}
               </div>
             </div>
           )}
-        </div>
       </div>
     </div>
   );
