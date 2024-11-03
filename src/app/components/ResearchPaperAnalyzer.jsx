@@ -125,18 +125,18 @@ const ResearchPaperAnalyzer = () => {
     ),
     // Handle lists
     ul: ({ children }) => (
-      <ul className="list-disc pl-6 break-words">
+      <ul className="list-disc pl-6 flex flex-col gap-1 items-start break-words">
         {children}
       </ul>
     ),
     ol: ({ children }) => (
-      <ol className="list-decimal pl-6 break-words">
+      <ol className="list-disc flex flex-col gap-1 items-start pl-6 break-words">
         {children}
       </ol>
     ),
     // Handle list items
     li: ({ children }) => (
-      <li className="whitespace-pre-wrap break-words leading-relaxed">
+      <li className="whitespace-pre-wrap break-words">
         {children}
       </li>
     ),

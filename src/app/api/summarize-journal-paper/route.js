@@ -147,6 +147,8 @@ When formatting your response, make sure to:
 5. Maintain clear section boundaries with markdown headers
 6. Include relevant units for all numerical values
 
+NOTE: Render Chemical reactions as text only, write the chemical reactions using text, prefix and suffix. Use only ASCII format mentioned above, Don't write the complete name like: Benzene, instead write: c6h6 with prefixes and suffixes for bonds.
+
 `;
 
 
