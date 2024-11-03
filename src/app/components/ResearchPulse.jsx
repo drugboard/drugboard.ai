@@ -107,12 +107,11 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
   }
 
   return (
-    <section id="research-pulse" className='lg:h-screen z-10 flex items-start gap-3 w-full'>
+    <div id="research-pulse" className='lg:h-screen z-10 w-[50%] flex flex-col rounded-2xl border border-white'>
 
       {/* Research Pulse Header Band */}
-        <div className="flex flex-col h-full w-[50%] rounded-2xl">
 
-            <div className="z-20 px-3 py-2 flex items-center rounded-t-2xl justify-between text-[#020617] bg-white/80 border border-white shadow-xl">
+            <div className="z-20 px-3 py-2 flex items-center rounded-t-2xl justify-between text-[#020617] bg-white/80 border-b border-white shadow-md">
               
               <div className='flex items-center gap-2 text-[#020617]'>
                 <Brain strokeWidth={2}/>
@@ -141,14 +140,7 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
             </div>
 
             <PostEditorModal isOpen={isOpen} onOpenChange={onOpenChange} />
-        </div>
-
-      
-
-        <div className='border border-white bg-white/80 h-[500px] w-[50%] rounded-2xl'>
-        </div>
-
-    </section>
+    </div>
 
   )
 }

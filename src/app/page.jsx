@@ -12,13 +12,12 @@ import {GraduationCap} from 'lucide-react';
 import Header from './components/Header';
 import AppWriteAuth from '@/services/backend/appwrite/auth.service';
 import { isObjEmpty } from '@/utils/Obj.util';
+import RegisteredConferences from './components/RegisteredConferences';
 
 const Home = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
-  const [selected, setSelected] = useState("smartstream");
-
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(()=>{
     const getCurrentUser = async() => {
@@ -53,6 +52,8 @@ const Home = () => {
                     <Tabs
                       color="secondary" variant="bordered"
                       radius="full"
+                      className="flex items-center justify-center w-full"
+
                       size="lg"
                       aria-label="Tabs form"
                       selectedKey={selected}
@@ -86,7 +87,12 @@ const Home = () => {
                     </div>
                   </div>
                 </section> */}
-                <ResearchPulse currentUserData={currentUser} setCurrentUserData={setCurrentUser}/>
+                <section className='w-full flex gap-3'>
+                  <ResearchPulse currentUserData={currentUser} setCurrentUserData={setCurrentUser}/>
+                  <div className='flex flex-col items-stretch gap-3 h-screen p-3 w-[50%] rounded-3xl border border-white bg-white/80'>
+                  
+                  </div>
+                </section>
                 <KnowledgePathways />
               </main>
             </div>
