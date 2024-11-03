@@ -1,20 +1,6 @@
-// app/api/process-paper/route.ts
+// app/api/summarize-journal-paper/route.js
 import { NextResponse } from 'next/server';
-import { PDFDocument } from 'pdf-lib';
 
-// Helper function to extract text from PDF
-async function extractTextFromPDF(pdfBuffer) {
-  const pdfDoc = await PDFDocument.load(pdfBuffer);
-  const pages = pdfDoc.getPages();
-  let fullText = '';
-  
-  for (const page of pages) {
-    const textContent = await page.getTextContent();
-    fullText += textContent + '\n';
-  }
-  
-  return fullText;
-}
 
 const SYSTEM_PROMPT = `You are a chemistry research paper analyzer. Your task is to analyze the provided research paper and create a structured summary following these rules:
 
@@ -39,9 +25,9 @@ const SYSTEM_PROMPT = `You are a chemistry research paper analyzer. Your task is
    - Include relevant bibliography
 
 Format the output as follows:
-Give me the response in the Markdown format with the following sections, Use bold, italic, ordered, unordered lists, h2, h3,h4 tags in appropriate places and format the every section in beautiful heirarchy.
+Give me the response in the Markdown format with the following sections, Use bold, italic, ordered, unordered lists, h2, h3,h4 tags in appropriate places and format the every section in beautiful hierarchy.
 
-SECTION 1: Summarize the whole research: abstract, intro, main research, findings, observations in third person perspective. (1 page, 2000 tokes)
+SECTION 1: Summarize the whole research: abstract, intro, main research, findings, observations in third person perspective. (1 page, 2000 tokens)
 SECTION 2: Chemical Reactions Overview (1 page, 2000 tokens)
 SECTION 3: Detailed Reaction Analysis (2 pages, 8000 tokens)
 SECTION 4: Research Perspective, Future Scope and Bibliography (2 pages, 6000 tokens)
@@ -50,7 +36,6 @@ Total length should be 5-6 pages, with clear section breaks and formatted text.`
 
 export async function POST(request) {
   try {
-    // Get the PDF file from the request
     const formData = await request.formData();
     const file = formData.get('file');
     
@@ -69,7 +54,7 @@ export async function POST(request) {
 
     // Prepare AI API request
     const aiRequest = {
-      model: `${process.env.PPLX_AI_RESEARCH_PAPER_SUMMARIZER_MODEL_CHAT}`, // or your preferred AI model
+      model: process.env.PPLX_AI_RESEARCH_PAPER_SUMMARIZER_MODEL_CHAT,
       messages: [
         {
           role: "system",
@@ -84,8 +69,8 @@ export async function POST(request) {
       max_tokens: 35000
     };
 
-    // Make API call to your preferred AI provider
-    const aiResponse = await fetch('YOUR_AI_PROVIDER_ENDPOINT', {
+    // Make API call to Perplexity AI
+    const aiResponse = await fetch('https://api.perplexity.ai/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -93,6 +78,10 @@ export async function POST(request) {
       },
       body: JSON.stringify(aiRequest)
     });
+
+    if (!aiResponse.ok) {
+      throw new Error(`AI API error: ${aiResponse.statusText}`);
+    }
 
     const analysis = await aiResponse.json();
 
@@ -104,7 +93,7 @@ export async function POST(request) {
   } catch (error) {
     console.error('Error processing PDF:', error);
     return NextResponse.json(
-      { error: 'Error processing the PDF file' },
+      { error: error.message || 'Error processing the PDF file' },
       { status: 500 }
     );
   }
