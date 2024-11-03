@@ -49,53 +49,58 @@ const ResearchPaperAnalyzer = () => {
       // console.log(text);
       allTextArr.push(text);
     }
-    console.log(allTextArr)
+    // console.log(allTextArr)
     let allText = allTextArr.join('\n\n');
     setTextFromPDF(allText);
-    console.log(allText.length);
+    console.log("Text Length: ",allText.length);
     return allText;
   }
 
   const analyseResearchJournal = async(event) => {
     event.preventDefault();
     if (!file) return;
-
-    setLoading(true);
+  
+    setLoading(true); // Set loading at the start
     setError(null);
-
+  
     try {
       if(file !== undefined && file.type=="application/pdf") {
-        let fr = new FileReader();
-        fr.readAsDataURL(file);
-        fr.onload = async() => {
-          let res = fr.result;
-          let allText = await extractTextFromPDF(res, false)
-          const formData = new FormData();
-          console.log("Text: ", allText);
-    
-          formData.append('textFromPDF', allText);
-    
-          const response = await fetch('/api/summarize-journal-paper', {
-            method: 'POST',
-            body: formData,
-          });
-    
-          // Store the JSON response first
-          const data = await response.json();
-          
-          if (!response.ok) {
-            throw new Error(data.error || 'Failed to process paper');
-          }
-    
-          setAnalysis(data.analysis);
-          console.log(data);
+        // Create a Promise wrapper for FileReader
+        const readFileAsync = () => new Promise((resolve) => {
+          let fr = new FileReader();
+          fr.onload = () => resolve(fr.result);
+          fr.readAsDataURL(file);
+        });
+  
+        // Await the file reading
+        const res = await readFileAsync();
+        
+        // Extract text from PDF
+        const allText = await extractTextFromPDF(res, false);
+        const formData = new FormData();
+        formData.append('textFromPDF', allText);
+  
+        // Make API request
+        const response = await fetch('/api/summarize-journal-paper', {
+          method: 'POST',
+          body: formData,
+        });
+  
+        // Handle response
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to process paper');
         }
+  
+        setAnalysis(data.analysis);
+        console.log(data);
       }
     } catch (err) {
       setError(err.message || 'Error processing the paper. Please try again.');
       console.error(err);
     } finally {
-      setLoading(false);
+      setLoading(false); // Set loading to false only at the very end
     }
   };
 
