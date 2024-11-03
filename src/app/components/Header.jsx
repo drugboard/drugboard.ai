@@ -2,17 +2,17 @@
 import React, { useEffect, useState } from 'react'
 import FloatingNavBar from '@/components/global/FloatingNavBar';
 import ProfileCard from '@/components/ui/Home/ProfileCard';
-import {BellRing, MessageCircleMore, MoonIcon, SunIcon} from 'lucide-react';
+import {BellRing, MessageCircleMore, MoonIcon, Settings, Store, SunIcon} from 'lucide-react';
 import {Button, Switch, Tooltip} from "@nextui-org/react";
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import PrimaryButton from '@/components/global/PrimaryButton';
 import { Key } from 'lucide-react';
 import AppWriteAuth from '@/services/backend/appwrite/auth.service';
 import { destURL, srcURL } from '@/services/backend/constants';
-import { Atom } from 'lucide-react';
 import Link from 'next/link';
-import { Sparkles } from 'lucide-react';
 import { isObjEmpty } from '@/utils/Obj.util';
+import { Sparkles } from 'lucide-react';
+import { Atom } from 'lucide-react';
 
 const Header = ({isDarkMode, setIsDarkMode}) => {
   const [isUnlockingDrugboard, setIsUnlockingDrugboard] = useState(false);
@@ -20,6 +20,8 @@ const Header = ({isDarkMode, setIsDarkMode}) => {
   const auth = new AppWriteAuth();
   const [currentUser, setCurrentUser] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
+  
+  const pathName = usePathname();
 
   useEffect(()=>{
     const getCurrentUser = async() => {
@@ -82,7 +84,8 @@ const Header = ({isDarkMode, setIsDarkMode}) => {
 
         <FloatingNavBar />
 
-        <div className='flex items-center gap-3'>
+        <div className='flex items-center gap-1'>
+        
             <Switch
                 isSelected={isDarkMode}
                 onValueChange={setIsDarkMode}
@@ -101,8 +104,27 @@ const Header = ({isDarkMode, setIsDarkMode}) => {
 
           <div className='flex items-center gap-5 p-2 bg-white/80 border-2 border-white rounded-full'>
             {
+
               currentUser &&
               <div className='flex items-center gap-3'>
+                {
+                  pathName.startsWith("/pharma-market") && (
+                    <>
+                      {
+                        !currentUser?.prefs?.isVendor
+                          ? (
+                            <PrimaryButton onClick={() => router.push("/vendor-dashboard")} color="secondary" startContent={<Store size={20}/>} radius="full" className="text-lg border-2 border-[#5B21B6] hover:bg-[#5B21B6] px-6 py-3 text-white shadow-lg">
+                              Become Vendor
+                            </PrimaryButton>
+                          ) : (
+                            <PrimaryButton onClick={() => router.push("/vendor-dashboard")} color="secondary" startContent={<Settings size={20}/>} radius="full" className="text-lg border-2 border-[#5B21B6] hover:bg-[#5B21B6] px-6 py-3 text-white shadow-lg">
+                              Vendor Dashboard
+                            </PrimaryButton>
+                          ) 
+                      }
+                    </>
+                  )
+                }
                 <Tooltip showArrow={true} content="Messages" color='secondary' className='font-semibold'>
                   <Button isIconOnly radius='full' variant="bordered" color="secondary" aria-label="Messages">
                     <MessageCircleMore size={24} className="cursor-pointer text-purple-700" />

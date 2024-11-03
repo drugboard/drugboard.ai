@@ -57,7 +57,7 @@ const FloatingNavBar = () => {
     return (
         <nav className="z-30 fixed top-6 left-1/2 -translate-x-1/2 -traslate-y-1/2  p-2 bg-white/80 border border-white backdrop-blur-2xl shadow-xl rounded-full flex items-center gap-3">
             {navLinks?.map((navItem) => {
-                const isActive = pathName.startsWith('/' + navItem?.href);
+                const isActive = pathName.startsWith(navItem?.href);
                 const IconComponent = iconComponents[navItem.icon];
 
                 return (

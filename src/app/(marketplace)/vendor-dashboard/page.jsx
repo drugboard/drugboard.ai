@@ -1,35 +1,42 @@
 "use client";
+import AppWriteAuth from "@/services/backend/appwrite/auth.service";
 import { isObjEmpty } from "@/utils/Obj.util";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const VendorDashboardPage = () => {
-  
-  const [vendor, setvendor] = useState({});
+
   const [isDashboardLoading, setIsDashboardLoading] = useState(true);
-
-  useEffect(()=>{
-    const vendor = {
-      name: "Sundeeep Dasari",
-      email: "sundeeepdev@gmail.com",
-      phone: "+916305309431"
-    }
-    const timeoutId = setTimeout(()=>setvendor(vendor), 5000);
-
-    return () => {
-      // Cleaup the timeout function...
-      clearTimeout(timeoutId);
-    }
-  },[]);
+  const [currentUser, setCurrentuser] = useState(null);
 
   const navigate = useRouter();
 
   useEffect(()=>{
-    if(!isObjEmpty(vendor)){
-      return setIsDashboardLoading(false);
+    const getCurrentUser = async() => {
+      try{
+        const auth = new AppWriteAuth();
+        const user = await auth.getUser();
+        if(!isObjEmpty(user)){
+          setCurrentuser(user);
+          console.log(user);
+        }
+      }catch(error){
+        console.error(error);
+      }
     }
-    return navigate.replace('/vendor-dashboard/authentication');
-  }, [vendor]);
+    getCurrentUser();
+  }, [])
+
+  useEffect(()=>{
+    if(currentUser){
+      console.log(currentUser?.prefs?.isVendor);
+      if(currentUser?.prefs?.isVendor){
+        setIsDashboardLoading(false);
+      }else{
+        navigate.replace("/vendor-dashboard/authentication");
+      }
+    }
+  }, [currentUser]);
 
 
   return (

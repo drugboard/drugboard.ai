@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const PharmaMarketPage = () => {
 
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   return (
     <div className={`flex flex-col gap-3 p-3 ${isDarkMode ? "bg-dark" : "bg-light"} bg-cover bg-center bg-fixed h-screen w-full overflow-auto`}>

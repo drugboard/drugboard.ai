@@ -29,7 +29,7 @@ const KnowledgePathways = () => {
 
  
   return (
-    <section id="knowledge-pathways" className='w-1/2 min-h-screen flex flex-col items-stretch bg-white/80 rounded-3xl border border-white'>
+    <section id="knowledge-pathways" className='w-full min-h-screen flex flex-col items-stretch bg-white/80 rounded-3xl border border-white'>
         <div className="w-full px-3 py-2 flex items-center justify-between border-b-2 border-white">
             <div className="flex items-center gap-1 text-black">
                 <GraduationCap />
