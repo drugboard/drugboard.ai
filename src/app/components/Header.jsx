@@ -1,6 +1,6 @@
 "use client"
-import React, { useState } from 'react'
-import FloatingNavBar from '@/components/ui/Home/FloatingNavBar';
+import React, { useEffect, useState } from 'react'
+import FloatingNavBar from '@/components/global/FloatingNavBar';
 import ProfileCard from '@/components/ui/Home/ProfileCard';
 import {BellRing, MessageCircleMore} from 'lucide-react';
 import {Button, Tooltip} from "@nextui-org/react";
@@ -12,11 +12,34 @@ import { destURL, srcURL } from '@/services/backend/constants';
 import { Atom } from 'lucide-react';
 import Link from 'next/link';
 import { Sparkles } from 'lucide-react';
+import { isObjEmpty } from '@/utils/Obj.util';
 
-const Header = ({setCurrentUser, currentUser}) => {
+const Header = () => {
   const [isUnlockingDrugboard, setIsUnlockingDrugboard] = useState(false);
   const router = useRouter();
   const auth = new AppWriteAuth();
+  const [currentUser, setCurrentUser] = useState(null);
+  const [pageLoading, setPageLoading] = useState(true);
+
+  useEffect(()=>{
+    const getCurrentUser = async() => {
+      try {
+        const auth = new AppWriteAuth();
+        const user = await auth.getUser();
+        if(!isObjEmpty(user)){
+          setCurrentUser(user);
+          console.log(user);
+        }
+        setPageLoading(false);
+      } catch (error) {
+        // navigate.push("/onboarding");
+        setPageLoading(false);
+        console.log("Error Type: ",error.type);
+        console.log("Error: ",error);
+      }
+   }
+    getCurrentUser();
+  }, [])
 
   const unlockDrugboard = async() => {
 
@@ -39,15 +62,17 @@ const Header = ({setCurrentUser, currentUser}) => {
 
         <div className='flex items-center justify-center gap-6 px-3 border-2 border-white bg-white/80 rounded-3xl'>
           <Link href="/" className='cursor-grab'>
-            <img className='h-[80px] object-contain' src="/drugboardLogo.png" alt="drugboard.ai" />
+            <img className='max-h-[80px] object-contain' src="/drugboardLogo.png" alt="drugboard.ai" />
           </Link>
 
-          <div className='flex items-center gap-1 mt-2'>
+          {/* <div className='flex items-center gap-1 mt-2'>
             <Atom strokeWidth={3} className='mt-0.5'/>
             <h2 className='font-bold text-2xl'>Scientific Collaboration</h2>
             <Sparkles strokeWidth={3} className='mt-0.5'/>
-          </div>
+          </div> */}
         </div>
+
+        <FloatingNavBar />
 
         <div className='flex items-center gap-5 p-3 bg-white/80 border-2 border-white rounded-full'>
 

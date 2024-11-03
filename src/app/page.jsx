@@ -24,17 +24,6 @@ const Home = () => {
         const auth = new AppWriteAuth();
         const user = await auth.getUser();
         if(!isObjEmpty(user)){
-          // if(!isObjEmpty(user) && !user?.prefs?.username) {
-          //   const prefs = {
-          //     username: user.email.replace("@gmail.com", ""),
-          //     profileImage: "https://cdn-icons-png.flaticon.com/512/7725/7725433.png",
-          //     displayName: user.name
-          //   }
-          //   const response = await auth.updatePrefs(prefs);
-          //   console.log("User Prefs: ", user?.prefs);
-          //   console.log("updatePrefs Res: ", response);
-          //   user?.prefs = prefs;
-          // }
           setCurrentUser(user);
           console.log(user);
         }
@@ -55,7 +44,7 @@ const Home = () => {
         {
           !pageLoading ? (
             <div className="w-full flex flex-col items-stretch p-3 gap-3">
-              <Header setCurrentUser={setCurrentUser} currentUser={currentUser}/>     
+              <Header />     
               <main className='w-full flex flex-col items-center justify-center gap-[12px]'>
                 {/* <section className='h-[100vh] w-full flex flex-row gap-[12px]'>
                   <div className='h-[100vh] w-1/2 rounded-lg border-2 border-white bg-white/60 backdrop-blur-3xl p-2'>
