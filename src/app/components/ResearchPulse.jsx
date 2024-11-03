@@ -56,6 +56,29 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
     };
   }, [currentUserData]);
 
+  useEffect(() => {
+    // Check if we need to scroll to this section on mount
+    let timeoutId;
+    if (window.location.hash === '#research-pulse') {
+        const element = document.getElementById('research-pulse');
+        if (element) {
+            // Add a small delay to ensure the element is properly rendered
+            timeoutId = setTimeout(() => {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100);
+        }
+    }
+    
+    return () => {
+      if(timeoutId)
+      clearTimeout(timeoutId);
+    }
+  }, []);
+
+
   const fetchPostsData = async () => {
       if(currentUserData){
         setTimeout(()=>setIsPostsLoading(true),100);
@@ -84,7 +107,7 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
   }
 
   return (
-    <section className='lg:h-screen z-10 flex items-start gap-3 w-full'>
+    <section id="research-pulse" className='lg:h-screen z-10 flex items-start gap-3 w-full'>
 
       {/* Research Pulse Header Band */}
         <div className="flex flex-col h-full w-[50%] rounded-2xl">

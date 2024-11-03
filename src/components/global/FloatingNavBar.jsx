@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Store, BookOpenCheck } from 'lucide-react';
+import { Store, BookOpenCheck, Brain } from 'lucide-react';
 import { Tooltip } from "@nextui-org/tooltip";
 import { Button } from "@nextui-org/button";
 
 const iconComponents = {
     Store: Store,
-    BookOpenCheck: BookOpenCheck
+    BookOpenCheck: BookOpenCheck,
+    Brain: Brain
 };
 
 const navLinks = [
@@ -22,6 +23,11 @@ const navLinks = [
         icon: "BookOpenCheck",
         href: "knowledge-pathways" 
     },
+    {
+        name: "ResearchPulse",
+        icon: "Brain",
+        href: "research-pulse" 
+    },
 ];
 
 const FloatingNavBar = () => {
@@ -29,17 +35,17 @@ const FloatingNavBar = () => {
 
     const handleScroll = (e, href) => {
         // If it's the knowledge-pathways link
-        if (href === 'knowledge-pathways') {
+        if (href === 'knowledge-pathways' || href === 'research-pulse') {
             e.preventDefault();
             
             // If we're not on the home page, first navigate to home
             if (pathName !== '/') {
-                window.location.href = '/#knowledge-pathways';
+                window.location.href = `/#${href}`;
                 return;
             }
 
             // Find the element and scroll to it
-            const element = document.getElementById('knowledge-pathways');
+            const element = document.getElementById(href);
             if (element) {
                 // Add smooth scroll behavior to html element
                 document.documentElement.style.scrollBehavior = 'smooth';
@@ -49,7 +55,7 @@ const FloatingNavBar = () => {
     };
 
     return (
-        <nav className="p-2 bg-white/80 border border-white shadow-xl rounded-full flex items-center gap-3">
+        <nav className="z-30 fixed top-6 left-1/2 -translate-x-1/2 -traslate-y-1/2  p-2 bg-white/80 border border-white backdrop-blur-2xl shadow-xl rounded-full flex items-center gap-3">
             {navLinks?.map((navItem) => {
                 const isActive = pathName.startsWith('/' + navItem?.href);
                 const IconComponent = iconComponents[navItem.icon];
