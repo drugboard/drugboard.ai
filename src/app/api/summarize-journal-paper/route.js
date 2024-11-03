@@ -1,53 +1,5 @@
 // app/api/summarize-journal-paper/route.js
 import { NextResponse } from 'next/server';
-import * as pdfjs from 'pdfjs-dist';
-import { getDocument } from 'pdfjs-dist/build/pdf.js';
-
-// Initialize pdf.js worker
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
-
-async function extractTextFromPDF(arrayBuffer) {
-  if (!arrayBuffer || !(arrayBuffer instanceof ArrayBuffer)) {
-    throw new Error('Invalid PDF data provided');
-  }
-
-  try {
-    // Load the PDF document
-    const loadingTask = getDocument({ data: arrayBuffer });
-    const pdf = await loadingTask.promise;
-
-    // Array to store text from all pages
-    let textContent = [];
-
-    // Iterate through each page
-    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      const page = await pdf.getPage(pageNum);
-      const content = await page.getTextContent();
-      
-      // Extract text items and join them
-      const pageText = content.items
-        .map(item => item.str)
-        .join(' ')
-        .replace(/\s+/g, ' ') // Normalize whitespace
-        .trim();
-
-      textContent.push(pageText);
-    }
-
-    // Clean up and format the text
-    const cleanText = textContent
-      .join('\n\n')  // Add paragraph breaks between pages
-      .replace(/([.!?])\s*(?=[A-Z])/g, '$1\n') // Add line breaks after sentences
-      .replace(/\n{3,}/g, '\n\n')  // Normalize multiple line breaks
-      .trim();
-
-    return cleanText;
-
-  } catch (error) {
-    console.error('Error extracting text from PDF:', error);
-    throw new Error('Failed to extract text from PDF: ' + error.message);
-  }
-}
 
 const SYSTEM_PROMPT = `You are a chemistry research paper analyzer. Your task is to analyze the provided research paper and create a structured summary following these rules:
 
@@ -101,7 +53,7 @@ async function processWithAI(paperText) {
       }
     ],
     temperature: 0.2,
-    max_tokens: 35000
+    max_tokens: 150000
   };
 
   const aiResponse = await fetch('https://api.perplexity.ai/chat/completions', {
@@ -139,27 +91,8 @@ export async function POST(request) {
     }
 
     const formData = await request.formData();
-    const file = formData.get('file');
+    const paperText = formData.get("textFromPDF");
     
-    if (!file || !(file instanceof Blob)) {
-      return NextResponse.json(
-        { error: 'No valid PDF file provided' },
-        { status: 400 }
-      );
-    }
-
-    // Add file size validation
-    const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
-    if (file.size > MAX_FILE_SIZE) {
-      return NextResponse.json(
-        { error: 'PDF file size exceeds 10MB limit' },
-        { status: 400 }
-      );
-    }
-
-    // Process PDF directly from ArrayBuffer
-    const buffer = await file.arrayBuffer();
-    const paperText = await extractTextFromPDF(buffer);
 
     // Process with AI
     const analysis = await processWithAI(paperText);

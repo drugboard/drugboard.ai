@@ -1,17 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { WandSparkles } from 'lucide-react';
 import { Sparkles } from 'lucide-react';
+import * as pdfjsLib from 'pdfjs-dist';
 
 const ResearchPaperAnalyzer = () => {
+
+  // Initialize PDF.js worker
+  useEffect(() => {
+    // Set worker source path
+    const workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
+  }, []);
 
   const [file, setFile] = useState(null);
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const [textFromPDF, setTextFromPDF] = useState("");
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -24,6 +34,28 @@ const ResearchPaperAnalyzer = () => {
     }
   };
 
+
+  const extractTextFromPDF = async(url, pass) => {
+    let allTextArr = [];
+    let pdf;
+    pdf = await pdfjsLib.getDocument(url).promise;
+    // console.log(pdf);
+    let pages = pdf.numPages;
+    for(let i=1; i<=pages; i++){
+      let page = await pdf.getPage(i);
+      let txt = await page.getTextContent();
+      // console.log(txt);
+      let text = txt.items.map((s) => s.str).join(" ");
+      // console.log(text);
+      allTextArr.push(text);
+    }
+    console.log(allTextArr)
+    let allText = allTextArr.join('\n\n');
+    setTextFromPDF(allText);
+    console.log(allText.length);
+    return allText;
+  }
+
   const analyseResearchJournal = async (event) => {
     event.preventDefault();
     if (!file) return;
@@ -32,8 +64,17 @@ const ResearchPaperAnalyzer = () => {
     setError(null);
 
     try {
+      let allText;
+      if(file !== undefined && file.type=="application/pdf"){
+        let fr = new FileReader();
+        fr.readAsDataURL(file);
+        fr.onload = () => {
+          let res = fr.result;
+          allText = extractTextFromPDF(res, false)
+        }
+      }
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('textFromPDF', allText);
 
       const response = await fetch('/api/summarize-journal-paper', {
         method: 'POST',
@@ -47,6 +88,7 @@ const ResearchPaperAnalyzer = () => {
 
       const data = await response.json();
       setAnalysis(data.analysis);
+      console.log(data);
     } catch (err) {
       setError(err.message || 'Error processing the paper. Please try again.');
       console.error(err);
@@ -174,7 +216,7 @@ const ResearchPaperAnalyzer = () => {
 
         {/* Analysis Results with Enhanced Styling */}
         {analysis && (
-            <div className="flex-1 p-3 bg-white/80 backdrop-blur-xl border border-white rounded-3xl w-full">
+            <div className="flex-1 p-3 bg-white/80 backdrop-blur-xl border border-white rounded-3xl w-full overflow-y-auto">
               <div className="prose prose-purple max-w-none 
                             prose-headings:break-words
                             prose-p:whitespace-pre-wrap prose-p:break-words
@@ -185,6 +227,8 @@ const ResearchPaperAnalyzer = () => {
                 >
                   {analysis}
                 </ReactMarkdown>
+
+                
               </div>
             </div>
           )}
