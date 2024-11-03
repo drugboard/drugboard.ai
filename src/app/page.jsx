@@ -13,6 +13,7 @@ import Header from './components/Header';
 import AppWriteAuth from '@/services/backend/appwrite/auth.service';
 import { isObjEmpty } from '@/utils/Obj.util';
 import RegisteredConferences from './components/RegisteredConferences';
+import ResearchPaperAnalyzer from './components/ResearchPaperAnalyzer';
 
 const Home = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -89,9 +90,7 @@ const Home = () => {
                 </section> */}
                 <section className='w-full flex gap-3'>
                   <ResearchPulse currentUserData={currentUser} setCurrentUserData={setCurrentUser}/>
-                  <div className='flex flex-col items-stretch gap-3 h-screen p-3 w-[50%] rounded-3xl border border-white bg-white/80'>
-                  
-                  </div>
+                  <ResearchPaperAnalyzer />
                 </section>
                 <KnowledgePathways />
               </main>
