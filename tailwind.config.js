@@ -17,8 +17,8 @@ module.exports = {
       },
       backgroundImage: {
         "devGarrageBGImage": "url('/macBgThree.jpg')",
-        "bgLight": "url('/macBgOneV2.jpg')",
-        "bgDark": "url('/macBgThree.jpg')",
+        "light": "url('/macBgThree.jpg')",
+        "dark": "url('/macBgOneV2.jpg')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
         "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",

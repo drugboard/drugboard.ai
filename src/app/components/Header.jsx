@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import FloatingNavBar from '@/components/global/FloatingNavBar';
 import ProfileCard from '@/components/ui/Home/ProfileCard';
-import {BellRing, MessageCircleMore} from 'lucide-react';
-import {Button, Tooltip} from "@nextui-org/react";
+import {BellRing, MessageCircleMore, MoonIcon, SunIcon} from 'lucide-react';
+import {Button, Switch, Tooltip} from "@nextui-org/react";
 import { useRouter } from 'next/navigation'
 import PrimaryButton from '@/components/global/PrimaryButton';
 import { Key } from 'lucide-react';
@@ -14,7 +14,7 @@ import Link from 'next/link';
 import { Sparkles } from 'lucide-react';
 import { isObjEmpty } from '@/utils/Obj.util';
 
-const Header = () => {
+const Header = ({isDarkMode, setIsDarkMode}) => {
   const [isUnlockingDrugboard, setIsUnlockingDrugboard] = useState(false);
   const router = useRouter();
   const auth = new AppWriteAuth();
@@ -74,38 +74,56 @@ const Header = () => {
 
         <FloatingNavBar />
 
-        <div className='flex items-center gap-5 p-3 bg-white/80 border-2 border-white rounded-full'>
+        <div className='flex items-center gap-3'>
+            <Switch
+                isSelected={isDarkMode}
+                onValueChange={setIsDarkMode}
+                size="lg"
+                color="success"
+                thumbIcon={({ isSelected, className }) =>
+                  isSelected ? (
+                    <MoonIcon size={18} className={className} />
+                    
+                  ) : (
+                    <SunIcon size={18} className={className} /> 
+                  )
+                }
+              >
+            </Switch>
 
-          {
-            currentUser &&
-            <div className='flex items-center gap-3'>
-              <Tooltip showArrow={true} content="Messages" color='secondary' className='font-semibold'>
-                <Button isIconOnly radius='full' variant="bordered" color="secondary" aria-label="Messages">
-                  <MessageCircleMore size={24} className="cursor-pointer text-purple-700" />
+          <div className='flex items-center gap-5 p-3 bg-white/80 border-2 border-white rounded-full'>
+            {
+              currentUser &&
+              <div className='flex items-center gap-3'>
+                <Tooltip showArrow={true} content="Messages" color='secondary' className='font-semibold'>
+                  <Button isIconOnly radius='full' variant="bordered" color="secondary" aria-label="Messages">
+                    <MessageCircleMore size={24} className="cursor-pointer text-purple-700" />
 
-                </Button>
-              </Tooltip>
+                  </Button>
+                </Tooltip>
 
-              <Tooltip showArrow={true} content="Notifications" color='secondary' className='font-semibold'>
-                <Button isIconOnly radius='full' variant='bordered' color="secondary" aria-label="Notifications">
-                  <BellRing size={24} className="cursor-pointer text-purple-700" /> 
-                  
-                </Button>
-              </Tooltip>
-            </div>
-          }
-
-
-          <div className='px-2 flex items-center justify-center gap-2'>
-            {currentUser
-            ? <ProfileCard setCurrentUser={setCurrentUser} currentUser={currentUser}/>
-            : <div>
-            <PrimaryButton isLoading={isUnlockingDrugboard} color='secondary' startContent={<Key />} onClick={unlockDrugboard}>Unlock</PrimaryButton>
-            </div>
+                <Tooltip showArrow={true} content="Notifications" color='secondary' className='font-semibold'>
+                  <Button isIconOnly radius='full' variant='bordered' color="secondary" aria-label="Notifications">
+                    <BellRing size={24} className="cursor-pointer text-purple-700" /> 
+                    
+                  </Button>
+                </Tooltip>
+              </div>
             }
+
+
+            <div className='px-2 flex items-center justify-center gap-2'>
+              {currentUser
+              ? <ProfileCard setCurrentUser={setCurrentUser} currentUser={currentUser}/>
+              : <div>
+              <PrimaryButton isLoading={isUnlockingDrugboard} color='secondary' startContent={<Key />} onClick={unlockDrugboard}>Unlock</PrimaryButton>
+              </div>
+              }
+            </div>
+            
           </div>
-          
         </div>
+
 
     </header>
   )

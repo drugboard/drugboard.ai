@@ -34,8 +34,8 @@ html, body{
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 
-    /* background-image: url('/macBgOneV2.jpg'); */
-    background-image: url('/macBgThree.jpg');
+    background-image: url('/macBgOneV2.jpg');
+    /* background-image: url('/macBgThree.jpg'); */
     
     background-repeat: no-repeat;
     background-position: center;

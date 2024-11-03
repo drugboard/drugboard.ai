@@ -18,6 +18,8 @@ const Home = () => {
   const [pageLoading, setPageLoading] = useState(true);
   const [selected, setSelected] = useState("smartstream");
 
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
   useEffect(()=>{
     const getCurrentUser = async() => {
       try {
@@ -43,8 +45,8 @@ const Home = () => {
       <>
         {
           !pageLoading ? (
-            <div className="w-full flex flex-col items-stretch p-3 gap-3">
-              <Header />     
+            <div className={`${isDarkMode ? "bg-dark" : "bg-light"}  bg-cover bg-center bg-fixed  w-full flex flex-col items-stretch p-3 gap-3`}>
+              <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>     
               <main className='w-full flex flex-col items-center justify-center gap-[12px]'>
                 {/* <section className='h-[100vh] w-full flex flex-row gap-[12px]'>
                   <div className='h-[100vh] w-1/2 rounded-lg border-2 border-white bg-white/60 backdrop-blur-3xl p-2'>
