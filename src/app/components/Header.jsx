@@ -20,6 +20,7 @@ const Header = ({isDarkMode, setIsDarkMode}) => {
   const auth = new AppWriteAuth();
   const [currentUser, setCurrentUser] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
+  console.log(isDarkMode)
 
   useEffect(()=>{
     const getCurrentUser = async() => {
@@ -55,6 +56,14 @@ const Header = ({isDarkMode, setIsDarkMode}) => {
       console.log("Error Type: ",error.type);
       console.log("Error: ",error);
     }
+  }
+
+  const setToDarkMode = () => {
+    if(setIsDarkMode){
+      isDarkMode?setIsDarkMode(false):setIsDarkMode(true)
+      return;
+    }
+    isDarkMode.value ? isDarkMode.value = false : isDarkMode.value = true;
   }
 
   return (
