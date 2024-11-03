@@ -72,56 +72,56 @@ REMEMBER:
    Example: 
    CH3COOH + CH3OH --> CH3COOCH3 + H2O (65°C, 2h, H2SO4)
 
-4. Detailed Reaction Analysis Format:
+4. Exmample of Detailed Reaction Analysis Format:
    REACTION TITLE
    -------------
    Complete Reaction:
    A + B --> C + D (conditions)
    
-   Reactants:
-   • A (full name)
-   • B (full name)
+   ### Reactants:
+   - A (full name)
+   - B (full name)
    
-   Reagents:
-   • List catalysts
-   • List solvents
+   ### Reagents:
+   - List catalysts
+   - List solvents
    
-   Products:
-   • C (full name)
-   • D (full name)
+   ### Products:
+   - C (full name)
+   - D (full name)
    
-   Conditions:
-   • Temperature: X°C
-   • Time: Y hours
-   • Pressure: Z atm
-   • Other conditions
+   ### Conditions:
+   - Temperature: X°C
+   - Time: Y hours
+   - Pressure: Z atm
+   - Other conditions
 
-Example Complete Analysis:
+Below is the Example, How You could generate the complete analysis of a chemical reaction:
 ------------------------
 ESTER FORMATION
 -------------
 Complete Reaction:
 CH3COOH + CH3OH --> CH3COOCH3 + H2O (65°C, 2h, H2SO4)
 
-Reactants:
+### Reactants:
 - CH3COOH (Acetic acid)
 - CH3OH (Methanol)
 
-Reagents:
+### Reagents:
 - H2SO4 (Sulfuric acid) - catalyst
 - No additional solvents required
 
-Products:
+### Products:
 - CH3COOCH3 (Methyl acetate)
 - H2O (Water)
 
-Conditions:
+### Conditions:
 - Temperature: 65°C
 - Time: 2 hours
 - Catalyst: Concentrated H2SO4
 - Pressure: Atmospheric pressure
 
-Mechanism:
+## Mechanism:
 Step 1: H2SO4 + CH3COOH --> CH3C(OH)2+ + HSO4-
 Step 2: CH3C(OH)2+ + CH3OH --> CH3COOCH3 + H3O+
 
@@ -134,10 +134,10 @@ Step 2: CH3C(OH)2+ + CH3OH --> CH3COOCH3 + H3O+
    • Finding 2
    
    ### Reaction Overview
-   [Insert reaction using above formats]
+   Insert reaction using above formats. Write the chemical reactions descriptive here!
    
    ### Detailed Analysis
-   [Insert detailed analysis using above formats]
+   Insert detailed analysis using above formats, Write each and every step involved in the chemical reaction.
 
 When formatting your response, make sure to:
 1. Use consistent spacing and alignment
@@ -146,6 +146,8 @@ When formatting your response, make sure to:
 4. Use ASCII arrows consistently (--> for reactions, <--> for equilibrium)
 5. Maintain clear section boundaries with markdown headers
 6. Include relevant units for all numerical values
+
+NOTE: Never ever generate Chemical reactions as Code Format. Just generate them in the BOLDER text using Suffixes to the number of atoms.
 
 NOTE: Render Chemical reactions as text only, write the chemical reactions using text, prefix and suffix. Use only ASCII format mentioned above, Don't write the complete name like: Benzene, instead write:CH3COOCH3  with prefixes and suffixes for number of atoms. the size of no of atoms in the molecule should be down/suffix than the atom.Don't use direct names of the molecule in plain english. Use IUPAC Naming notations and Chemical Formalas.
 
