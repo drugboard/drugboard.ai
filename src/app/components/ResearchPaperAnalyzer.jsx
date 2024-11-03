@@ -64,28 +64,29 @@ const ResearchPaperAnalyzer = () => {
     setError(null);
 
     try {
-      let allText;
-      if(file !== undefined && file.type=="application/pdf"){
+      if(file !== undefined && file.type=="application/pdf") {
         let fr = new FileReader();
         fr.readAsDataURL(file);
         fr.onload = async() => {
           let res = fr.result;
-          allText = await extractTextFromPDF(res, false)
+          let allText = await extractTextFromPDF(res, false)
           const formData = new FormData();
-          
+          console.log("Text: ", allText);
+    
           formData.append('textFromPDF', allText);
-
+    
           const response = await fetch('/api/summarize-journal-paper', {
             method: 'POST',
             body: formData,
           });
-
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Failed to process paper');
-          }
-
+    
+          // Store the JSON response first
           const data = await response.json();
+          
+          if (!response.ok) {
+            throw new Error(data.error || 'Failed to process paper');
+          }
+    
           setAnalysis(data.analysis);
           console.log(data);
         }
@@ -124,12 +125,12 @@ const ResearchPaperAnalyzer = () => {
     ),
     // Handle lists
     ul: ({ children }) => (
-      <ul className="list-disc pl-6 mb-4 space-y-2 break-words">
+      <ul className="list-disc pl-6 space-y-2 break-words">
         {children}
       </ul>
     ),
     ol: ({ children }) => (
-      <ol className="list-decimal pl-6 mb-4 space-y-2 break-words">
+      <ol className="list-decimal pl-6 space-y-2 break-words">
         {children}
       </ol>
     ),

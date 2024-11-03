@@ -53,7 +53,7 @@ async function processWithAI(paperText) {
       }
     ],
     temperature: 0.2,
-    max_tokens: 150000
+    max_tokens: 75000
   };
 
   const aiResponse = await fetch('https://api.perplexity.ai/chat/completions', {
@@ -65,12 +65,12 @@ async function processWithAI(paperText) {
     body: JSON.stringify(aiRequest)
   });
 
-  if (!aiResponse.ok) {
-    const errorData = await aiResponse.json();
-    throw new Error(errorData.error || `AI API error: ${aiResponse.statusText}`);
-  }
-
+  // Parse the response once and store it
   const result = await aiResponse.json();
+
+  if (!aiResponse.ok) {
+    throw new Error(result.error || `AI API error: ${aiResponse.statusText}`);
+  }
   
   if (!result?.choices?.[0]?.message?.content) {
     throw new Error('Invalid response from AI API');
