@@ -1,39 +1,29 @@
 // app/api/summarize-journal-paper/route.js
-import extractTextFromPDF from '@/utils/extractTextFromPDF';
 import { NextResponse } from 'next/server';
+import pdf from 'pdf-parse';
 
+// PDF text extraction function
+async function extractTextFromPDF(buffer) {
+  try {
+    const options = {
+      pagerender: function(pageData) {
+        return pageData.getTextContent().then(function(textContent) {
+          return textContent.items.map(item => item.str).join(' ');
+        });
+      }
+    };
 
-const SYSTEM_PROMPT = `You are a chemistry research paper analyzer. Your task is to analyze the provided research paper and create a structured summary following these rules:
-
-1. Chemical Reactions List:
-   - Extract and list all chemical reactions mentioned in the paper
-   - Use standard IUPAC nomenclature
-   - Present reactions in a clear, equation format
-
-2. Detailed Reaction Analysis:
-   - For each reaction, provide:
-     a) Complete formulation
-     b) List of reactants
-     c) List of reagents
-     d) Products
-     e) Reaction conditions
-   - Explain each reaction in simple chemistry terms
-   - Use standard IUPAC chemical names for all molecules
-
-3. Research Analysis:
-   - Provide a comprehensive research perspective
-   - List and analyze the most cited references
-   - Include relevant bibliography
-
-Format the output as follows:
-Give me the response in the Markdown format with the following sections, Use bold, italic, ordered, unordered lists, h2, h3,h4 tags in appropriate places and format the every section in beautiful hierarchy.
-
-SECTION 1: Summarize the whole research: abstract, intro, main research, findings, observations in third person perspective. (1 page, 2000 tokens)
-SECTION 2: Chemical Reactions Overview (1 page, 2000 tokens)
-SECTION 3: Detailed Reaction Analysis (2 pages, 8000 tokens)
-SECTION 4: Research Perspective, Future Scope and Bibliography (2 pages, 6000 tokens)
-
-Total length should be 5-6 pages, with clear section breaks and formatted text.`;
+    const data = await pdf(buffer, options);
+    return data.text
+      .replace(/\s+/g, ' ')
+      .replace(/(\r\n|\n|\r)/gm, ' ')
+      .trim();
+    
+  } catch (error) {
+    console.error('Error extracting text from PDF:', error);
+    throw new Error('Failed to extract text from PDF');
+  }
+}
 
 export async function POST(request) {
   try {
@@ -47,49 +37,66 @@ export async function POST(request) {
       );
     }
 
-    // Convert file to buffer
+    // Convert file to buffer and extract text
     const buffer = await file.arrayBuffer();
-    
-    // Extract text from PDF
     const paperText = await extractTextFromPDF(buffer);
 
-    // Prepare AI API request
-    const aiRequest = {
-      model: process.env.PPLX_AI_RESEARCH_PAPER_SUMMARIZER_MODEL_CHAT,
-      messages: [
-        {
-          role: "system",
-          content: SYSTEM_PROMPT
-        },
-        {
-          role: "user",
-          content: `Please analyze the following chemistry research paper: \n\n${paperText}`
-        }
-      ],
-      temperature: 0.2,
-      max_tokens: 35000
-    };
-
-    // Make API call to Perplexity AI
-    const aiResponse = await fetch('https://api.perplexity.ai/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.PPLX_AI_API_KEY}`
-      },
-      body: JSON.stringify(aiRequest)
-    });
-
-    if (!aiResponse.ok) {
-      throw new Error(`AI API error: ${aiResponse.statusText}`);
+    // Validate extracted text
+    if (!paperText || typeof paperText !== 'string') {
+      throw new Error('Invalid text extracted from PDF');
     }
 
-    const analysis = await aiResponse.json();
+    // Prepare AI API request with error handling
+    try {
+      const aiRequest = {
+        model: process.env.PPLX_AI_RESEARCH_PAPER_SUMMARIZER_MODEL_CHAT,
+        messages: [
+          {
+            role: "system",
+            content: SYSTEM_PROMPT
+          },
+          {
+            role: "user",
+            content: `Please analyze the following chemistry research paper: \n\n${paperText}`
+          }
+        ],
+        temperature: 0.2,
+        max_tokens: 35000
+      };
 
-    return NextResponse.json({
-      success: true,
-      analysis: analysis.choices[0].message.content
-    });
+      const aiResponse = await fetch('https://api.perplexity.ai/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.PPLX_AI_API_KEY}`
+        },
+        body: JSON.stringify(aiRequest)
+      });
+
+      if (!aiResponse.ok) {
+        const errorData = await aiResponse.json();
+        throw new Error(errorData.error || `AI API error: ${aiResponse.statusText}`);
+      }
+
+      const result = await aiResponse.json();
+      
+      // Ensure we have valid content before sending response
+      if (!result?.choices?.[0]?.message?.content) {
+        throw new Error('Invalid response from AI API');
+      }
+
+      return NextResponse.json({
+        success: true,
+        analysis: result.choices[0].message.content
+      });
+
+    } catch (aiError) {
+      console.error('AI processing error:', aiError);
+      return NextResponse.json(
+        { error: 'Error processing paper with AI service' },
+        { status: 500 }
+      );
+    }
 
   } catch (error) {
     console.error('Error processing PDF:', error);

@@ -10,7 +10,7 @@ import { FileUp } from 'lucide-react';
 const ResearchPaperAnalyzer = () => {
 
   const [file, setFile] = useState(null);
-  const [analysis, setAnalysis] = useState(true);
+  const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -180,12 +180,12 @@ const ResearchPaperAnalyzer = () => {
                             prose-headings:break-words
                             prose-p:whitespace-pre-wrap prose-p:break-words
                             prose-li:whitespace-pre-wrap prose-li:break-words">
-                {/* <ReactMarkdown 
+                <ReactMarkdown 
                   components={MarkdownComponents}
                   className="analysis-content"
                 >
                   {analysis}
-                </ReactMarkdown> */}
+                </ReactMarkdown>
               </div>
             </div>
           )}
