@@ -56,7 +56,7 @@ const ResearchPaperAnalyzer = () => {
     return allText;
   }
 
-  const analyseResearchJournal = async (event) => {
+  const analyseResearchJournal = async(event) => {
     event.preventDefault();
     if (!file) return;
 
@@ -68,27 +68,28 @@ const ResearchPaperAnalyzer = () => {
       if(file !== undefined && file.type=="application/pdf"){
         let fr = new FileReader();
         fr.readAsDataURL(file);
-        fr.onload = () => {
+        fr.onload = async() => {
           let res = fr.result;
-          allText = extractTextFromPDF(res, false)
+          allText = await extractTextFromPDF(res, false)
+          const formData = new FormData();
+          
+          formData.append('textFromPDF', allText);
+
+          const response = await fetch('/api/summarize-journal-paper', {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to process paper');
+          }
+
+          const data = await response.json();
+          setAnalysis(data.analysis);
+          console.log(data);
         }
       }
-      const formData = new FormData();
-      formData.append('textFromPDF', allText);
-
-      const response = await fetch('/api/summarize-journal-paper', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to process paper');
-      }
-
-      const data = await response.json();
-      setAnalysis(data.analysis);
-      console.log(data);
     } catch (err) {
       setError(err.message || 'Error processing the paper. Please try again.');
       console.error(err);
