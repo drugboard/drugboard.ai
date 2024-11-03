@@ -5,7 +5,6 @@ import { Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { WandSparkles } from 'lucide-react';
 import { Sparkles } from 'lucide-react';
-import { FileUp } from 'lucide-react';
 
 const ResearchPaperAnalyzer = () => {
 
