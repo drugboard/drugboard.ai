@@ -5,8 +5,10 @@ import { Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { WandSparkles } from 'lucide-react';
 import { Sparkles } from 'lucide-react';
+import { FileUp } from 'lucide-react';
 
 const ResearchPaperAnalyzer = () => {
+
   const [file, setFile] = useState(null);
   const [analysis, setAnalysis] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -116,7 +118,7 @@ const ResearchPaperAnalyzer = () => {
           {/* Upload Form */}
           <form onSubmit={analyseResearchJournal} className="space-y-2 pb-3 flex flex-col items-center">
 
-              <h1 className="flex items-center gap-2 text-2xl font-bold text-purple-800 border-b border-white px-6 py-3 w-full">
+              <h1 className="flex items-center gap-2 text-2xl font-bold text-purple-600 border-b border-white px-6 py-3 w-full">
                 <span><WandSparkles size={32}/></span>
                 Chemistry Research Journal Analyzer
               </h1>

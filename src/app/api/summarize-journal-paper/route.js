@@ -1,4 +1,5 @@
 // app/api/summarize-journal-paper/route.js
+import extractTextFromPDF from '@/utils/extractTextFromPDF';
 import { NextResponse } from 'next/server';
 
 
