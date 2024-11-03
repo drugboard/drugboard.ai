@@ -27,7 +27,7 @@ const Home = () => {
         const user = await auth.getUser();
         if(!isObjEmpty(user)){
           setCurrentUser(user);
-          console.log(user);
+          // console.log(user);
         }
         setPageLoading(false);
       } catch (error) {
@@ -87,6 +87,7 @@ const Home = () => {
                   </div>
                 </section> */}
                 <ResearchPulse currentUserData={currentUser} setCurrentUserData={setCurrentUser}/>
+                <KnowledgePathways />
               </main>
             </div>
           ):

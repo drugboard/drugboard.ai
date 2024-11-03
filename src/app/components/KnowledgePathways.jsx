@@ -1,18 +1,39 @@
-import React from 'react'
-import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
+"use client";
+import React, { useEffect } from 'react'
 import {GraduationCap} from 'lucide-react';
 import ProgressCard from '@/components/ui/KnowledgePathways/ProgressCard';
 
 const KnowledgePathways = () => {
-  const [user, setUser] = React.useState(null);
+
+  useEffect(() => {
+    // Check if we need to scroll to this section on mount
+    let timeoutId;
+    if (window.location.hash === '#knowledge-pathways') {
+        const element = document.getElementById('knowledge-pathways');
+        if (element) {
+            // Add a small delay to ensure the element is properly rendered
+            timeoutId = setTimeout(() => {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100);
+        }
+    }
+    
+    return () => {
+      if(timeoutId)
+      clearTimeout(timeoutId);
+    }
+  }, []);
 
  
   return (
-    <section className='w-1/2 h-[50vh] flex flex-col items-stretch bg-white/60 backdrop-blur-3xl rounded-md border-2 border-white'>
+    <section id="knowledge-pathways" className='w-1/2 min-h-screen flex flex-col items-stretch bg-white/80 rounded-md border-2 border-white'>
         <div className="w-full px-3 py-2 flex items-center justify-between border-b-2 border-white">
-            <div className="flex items-center gap-2 text-black">
+            <div className="flex items-center gap-1 text-black">
                 <GraduationCap />
-                <h1 className="font-bold font-heading text-lg">Knowledge Pathways</h1>
+                <h1 className="font-bold text-lg">Knowledge Pathways</h1>
             </div>
        </div>
 

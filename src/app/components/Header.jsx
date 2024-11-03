@@ -20,7 +20,6 @@ const Header = ({isDarkMode, setIsDarkMode}) => {
   const auth = new AppWriteAuth();
   const [currentUser, setCurrentUser] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
-  console.log(isDarkMode)
 
   useEffect(()=>{
     const getCurrentUser = async() => {
@@ -29,7 +28,7 @@ const Header = ({isDarkMode, setIsDarkMode}) => {
         const user = await auth.getUser();
         if(!isObjEmpty(user)){
           setCurrentUser(user);
-          console.log(user);
+          // console.log(user);
         }
         setPageLoading(false);
       } catch (error) {
@@ -100,7 +99,7 @@ const Header = ({isDarkMode, setIsDarkMode}) => {
               >
             </Switch>
 
-          <div className='flex items-center gap-5 p-3 bg-white/80 border-2 border-white rounded-full'>
+          <div className='flex items-center gap-5 p-2 bg-white/80 border-2 border-white rounded-full'>
             {
               currentUser &&
               <div className='flex items-center gap-3'>
