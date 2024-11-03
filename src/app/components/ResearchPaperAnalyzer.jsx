@@ -143,12 +143,12 @@ const ResearchPaperAnalyzer = () => {
     // Handle chemical equations and code blocks
     code: ({ inline, children }) => (
       inline ? 
-        <code className="bg-gray-100 px-1 py-0.5 rounded font-mono text-sm break-words">
+        <code className="bg-gray-100 px-1 py-0.5 rounded-lg  font-sans font-medium break-words">
           {children}
         </code>
         :
-        <pre className="bg-gray-50 p-4 rounded-lg overflow-x-auto mb-4 whitespace-pre-wrap break-words">
-          <code className="font-mono text-sm">{children}</code>
+        <pre className="bg-gray-50 p-1 font-sans rounded-lg overflow-x-auto mb-2 whitespace-pre-wrap break-words">
+          <code className="font-medium font-sans">{children}</code>
         </pre>
     )
   };
