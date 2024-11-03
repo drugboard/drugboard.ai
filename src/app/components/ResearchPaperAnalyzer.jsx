@@ -125,12 +125,12 @@ const ResearchPaperAnalyzer = () => {
     ),
     // Handle lists
     ul: ({ children }) => (
-      <ul className="list-disc pl-6 space-y-2 break-words">
+      <ul className="list-disc pl-6 break-words">
         {children}
       </ul>
     ),
     ol: ({ children }) => (
-      <ol className="list-decimal pl-6 space-y-2 break-words">
+      <ol className="list-decimal pl-6 break-words">
         {children}
       </ol>
     ),
