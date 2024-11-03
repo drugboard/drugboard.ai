@@ -135,7 +135,7 @@ const ResearchPaperAnalyzer = () => {
       </ul>
     ),
     ol: ({ children }) => (
-      <ol className="list-disc flex flex-col gap-1 items-start pl-6 break-words">
+      <ol className="list-decimal flex flex-col gap-1 items-start pl-6 break-words">
         {children}
       </ol>
     ),
@@ -148,11 +148,11 @@ const ResearchPaperAnalyzer = () => {
     // Handle chemical equations and code blocks
     code: ({ inline, children }) => (
       inline ? 
-        <code className="bg-gray-100 px-1 py-0.5 rounded-lg  font-sans font-medium break-words">
+        <code className="bg-gray-100 px-1 py-0.5 rounded-3xl  font-sans font-medium break-words">
           {children}
         </code>
         :
-        <pre className="bg-gray-50 p-1 font-sans rounded-lg overflow-x-auto mb-2 whitespace-pre-wrap break-words">
+        <pre className="bg-gray-50 p-1 font-sans rounded-3xl overflow-x-auto mb-2 whitespace-pre-wrap break-words">
           <code className="font-medium font-sans">{children}</code>
         </pre>
     )
