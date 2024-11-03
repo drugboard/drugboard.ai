@@ -157,85 +157,165 @@ NOTE: Render Chemical reactions as text only, write the chemical reactions using
 
 `;
 
+const CHUNK_SIZE = 15000; // Characters per chunk
+const TIMEOUT_DURATION = 25000; 
 
-// AI processing function
-async function processWithAI(paperText) {
-  if (!process.env.PPLX_AI_API_KEY || !process.env.PPLX_AI_RESEARCH_PAPER_SUMMARIZER_MODEL_CHAT) {
-    throw new Error('Missing required environment variables');
-  }
 
-  const aiRequest = {
-    model: process.env.PPLX_AI_RESEARCH_PAPER_SUMMARIZER_MODEL_CHAT,
-    messages: [
-      {
-        role: "system",
-        content: SYSTEM_PROMPT
+
+// Update the processChunk function
+async function processChunk(chunk, prevContext = '') {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_DURATION);
+
+  try {
+    const response = await fetch('https://api.perplexity.ai/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.PPLX_AI_API_KEY}`,
+        'Accept': 'text/event-stream',
       },
-      {
-        role: "user",
-        content: `Please analyze the following chemistry research paper: \n\n${paperText}`
-      }
-    ],
-    temperature: 0.2,
-    max_tokens: 75000
-  };
+      body: JSON.stringify({
+        model: process.env.PPLX_AI_RESEARCH_PAPER_SUMMARIZER_MODEL_CHAT,
+        messages: [
+          { role: "system", content: SYSTEM_PROMPT },
+          { role: "user", content: `Continue analyzing this part of the chemistry research paper. Previous context: ${prevContext}\n\nCurrent chunk: ${chunk}` }
+        ],
+        temperature: 0.2,
+        max_tokens: 15000,
+        stream: true
+      }),
+      signal: controller.signal
+    });
 
-  const aiResponse = await fetch('https://api.perplexity.ai/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.PPLX_AI_API_KEY}`
-    },
-    body: JSON.stringify(aiRequest)
-  });
-
-  // Parse the response once and store it
-  const result = await aiResponse.json();
-
-  if (!aiResponse.ok) {
-    throw new Error(result.error || `AI API error: ${aiResponse.statusText}`);
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
   }
-  
-  if (!result?.choices?.[0]?.message?.content) {
-    throw new Error('Invalid response from AI API');
-  }
-
-  return result.choices[0].message.content;
 }
 
-// Main route handler
 export async function POST(request) {
+  const encoder = new TextEncoder();
+  
   try {
-    // Validate request
-    if (!request || !request.formData) {
-      return NextResponse.json(
-        { error: 'Invalid request format' },
-        { status: 400 }
-      );
-    }
-
     const formData = await request.formData();
     const paperText = formData.get("textFromPDF");
-    
 
-    // Process with AI
-    const analysis = await processWithAI(paperText);
+    if (!paperText) {
+      throw new Error('No text content provided');
+    }
 
-    return NextResponse.json({
-      success: true,
-      analysis
+    // Create readable stream
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          // Send initial status
+          controller.enqueue(
+            encoder.encode(`data: ${JSON.stringify({ 
+              token: "Starting analysis...\n",
+              type: "status",
+              progress: 0
+            })}\n\n`)
+          );
+
+          // Make API call
+          const aiResponse = await fetch('https://api.perplexity.ai/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${process.env.PPLX_AI_API_KEY}`
+            },
+            body: JSON.stringify({
+              model: process.env.PPLX_AI_RESEARCH_PAPER_SUMMARIZER_MODEL_CHAT,
+              messages: [
+                { role: "system", content: SYSTEM_PROMPT },
+                { role: "user", content: paperText }
+              ],
+              temperature: 0.2,
+              max_tokens: 15000,
+              stream: true
+            })
+          });
+
+          if (!aiResponse.ok) {
+            throw new Error(`AI API error: ${aiResponse.statusText}`);
+          }
+
+          const reader = aiResponse.body.getReader();
+          let processedTokens = 0;
+
+          while (true) {
+            const { done, value } = await reader.read();
+            
+            if (done) {
+              controller.enqueue(
+                encoder.encode(`data: ${JSON.stringify({ 
+                  token: "\nAnalysis complete.",
+                  type: "complete",
+                  progress: 100
+                })}\n\n`)
+              );
+              break;
+            }
+
+            const chunk = new TextDecoder().decode(value);
+            const lines = chunk.split('\n');
+
+            for (const line of lines) {
+              if (line.trim() === '' || line.includes('[DONE]')) continue;
+              
+              try {
+                if (line.startsWith('data: ')) {
+                  const data = JSON.parse(line.slice(5));
+                  if (data.choices?.[0]?.delta?.content) {
+                    processedTokens++;
+                    // Calculate progress based on processed tokens
+                    const progress = Math.min(99, Math.floor((processedTokens / 1000) * 100));
+                    
+                    controller.enqueue(
+                      encoder.encode(`data: ${JSON.stringify({ 
+                        token: data.choices[0].delta.content,
+                        type: "content",
+                        progress
+                      })}\n\n`)
+                    );
+                  }
+                }
+              } catch (e) {
+                console.error('Error processing chunk:', e);
+              }
+            }
+          }
+        } catch (error) {
+          controller.enqueue(
+            encoder.encode(`data: ${JSON.stringify({ 
+              token: `Error: ${error.message}`,
+              type: "error"
+            })}\n\n`)
+          );
+        } finally {
+          controller.close();
+        }
+      }
+    });
+
+    return new Response(stream, {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+      },
     });
 
   } catch (error) {
-    console.error('Error in PDF processing route:', error);
-    
-    const errorMessage = error.message || 'Error processing the PDF file';
-    const statusCode = error.message.includes('Missing required environment') ? 500 :
-                      error.message.includes('No valid PDF') ? 400 : 500;
-
-    return NextResponse.json(
-      { error: errorMessage },
-      { status: statusCode }
+    return new Response(
+      JSON.stringify({ error: error.message || 'Server error' }),
+      { 
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      }
     );
   }
 }
