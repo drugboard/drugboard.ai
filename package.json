@@ -1,7 +1,8 @@
 {
-  "name": "sciency",
+  "name": "drugboard.ai",
   "version": "0.1.0",
   "private": true,
+  "author": "sundeeep",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -64,8 +65,11 @@
     "next": "14.2.7",
     "nextui-cli": "^0.3.4",
     "node-appwrite": "^14.1.0",
+    "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^3.11.174",
     "react": "^18",
     "react-dom": "^18",
+    "react-markdown": "^9.0.1",
     "react-query": "^3.39.3",
     "react-toastify": "^10.0.5",
     "socket.io-client": "^4.8.0",
@@ -74,6 +78,7 @@
     "zustand": "^4.5.5"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^12.0.2",
     "postcss": "^8",
     "tailwindcss": "^3.4.1"
   }

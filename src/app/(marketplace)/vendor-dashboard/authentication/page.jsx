@@ -1,9 +1,40 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {Tabs, Tab, Input, Link, Button, Card, CardBody, CardHeader} from "@nextui-org/react";
+import AppWriteAuth from "@/services/backend/appwrite/auth.service";
+import { isObjEmpty } from "@/utils/Obj.util";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const VendorAuthenticationPage = () => {
     const [selected, setSelected] = useState("login");
+    const [currentUser, setCurrentUser] = useState(null);
+    const router = useRouter();
+
+    useEffect(()=>{
+        const getCurrentUser = async() => {
+            try {
+                const auth = new AppWriteAuth();
+                const user = await auth.getUser();
+                if(!isObjEmpty(user)){
+                    setCurrentUser(user);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        getCurrentUser();
+    },[]);
+
+    useEffect(()=>{
+        if(currentUser){
+            if(currentUser?.prefs?.isVendor){
+                router.replace("/vendor-dashboard");
+                toast.info("You are already a Vendor!")
+            }
+        }
+    },[currentUser]);
+
     return (
         <main className="h-full w-full p-6 flex gap-6">
             {/* Marketing Stuff*/}

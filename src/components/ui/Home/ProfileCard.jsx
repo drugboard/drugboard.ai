@@ -2,11 +2,14 @@
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, User} from "@nextui-org/react";
 import { toast } from 'react-toastify';
 import AppWriteAuth from '@/services/backend/appwrite/auth.service';
+import { LogOut, Settings } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const ProfileCard = ({setCurrentUser, currentUser}) => {
 
   const {name, email} = currentUser;
   const {username, displayName, profileImage} = currentUser?.prefs;
+  const router = useRouter();
 
   const auth = new AppWriteAuth();
 
@@ -21,6 +24,16 @@ const ProfileCard = ({setCurrentUser, currentUser}) => {
       console.log("Error: ", error);
       console.log("Error Type: ",error.type);
       toast.error("You have already logged out!");
+    }
+  }
+
+  const navigateToAdminDashboard = () => {
+    if(currentUser){
+      if(currentUser?.labels?.includes("admin")){
+        router.push("/dashboard");
+      }else{
+        return;
+      }
     }
   }
 
@@ -39,7 +52,7 @@ const ProfileCard = ({setCurrentUser, currentUser}) => {
             className="transition-transform text-black"
             description={(
               <p className='text-left w-[100px] line-clamp-1 text-sm transition-all duration-750 ease-in-out text-[#C026D3] hover:text-[#C026D3] hover:underline font-semibold hover:font-bold'>
-                @{username ? username : email}
+                @{username ? username : email?.replace("@gmail.ccom", "")}
               </p>
             )}
             name={(
@@ -49,8 +62,21 @@ const ProfileCard = ({setCurrentUser, currentUser}) => {
         </DropdownTrigger>
 
         <DropdownMenu aria-label="User Actions" variant="flat">
+          {
+            currentUser?.labels?.includes('admin') && (
+              <DropdownItem onClick={navigateToAdminDashboard} key="admin-dashboard" color="secondary">
+                <div className="flex items-center justify-start gap-2 font-medium">
+                  <Settings />
+                  <p>Dashboard</p>
+                </div>
+              </DropdownItem>
+            )
+          }
           <DropdownItem onClick={logOut} key="logout" color="danger">
-            Log Out
+            <div className="flex items-center justify-start gap-2 font-medium">
+              <LogOut />
+              <p>Logout</p>
+            </div>
           </DropdownItem>
         </DropdownMenu>
 

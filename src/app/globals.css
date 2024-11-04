@@ -20,6 +20,10 @@
     display: none;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 /* Hide scrollbar for IE, Edge and Firefox */
 html, body{
     -ms-overflow-style: none;  /* IE and Edge */
@@ -35,6 +39,8 @@ html, body{
     text-rendering: optimizeLegibility;
 
     background-image: url('/macBgOneV2.jpg');
+    /* background-image: url('/macBgThree.jpg'); */
+    
     background-repeat: no-repeat;
     background-position: center;
     background-size:cover;
@@ -57,3 +63,49 @@ html, body{
 .title-card{
     background: linear-gradient(to right, #f1dcdd,  #e7e2d5, #d5e3db);
 }
+
+/* app/globals.css */
+
+@layer utilities {
+    .analysis-content {
+      /* Base content styles */
+      @apply text-gray-800 leading-relaxed;
+      
+      /* Chemical equations and special formatting */
+      & pre {
+        @apply my-4 p-4 bg-gray-50 rounded-lg overflow-x-auto whitespace-pre-wrap break-words;
+      }
+      
+      & code {
+        @apply font-mono text-sm;
+      }
+      
+      /* Tables for chemical data */
+      & table {
+        @apply w-full my-4 border-collapse;
+      }
+      
+      & th, & td {
+        @apply border p-2 text-left;
+      }
+      
+      & th {
+        @apply bg-purple-50;
+      }
+      
+      /* Block quotes for important notes */
+      & blockquote {
+        @apply pl-4 border-l-4 border-purple-300 my-4 italic;
+      }
+      
+      /* Special formatting for chemical names */
+      & .chemical-name {
+        @apply font-semibold text-purple-700;
+      }
+      
+      /* Section breaks */
+      & hr {
+        @apply my-8 border-t-2 border-purple-100;
+      }
+    }
+  }

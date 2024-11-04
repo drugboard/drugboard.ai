@@ -201,7 +201,7 @@ const PostEditorModal = ({isOpen, onOpenChange}) => {
                                               base: "",
                                               label: "font-bold uppercase",
                                               innerWrapper: "bg-transparent",
-                                              input: [ "bg-transparent","text-xl font-bold break-words","placeholder:text-default-700/50"],
+                                              input: [ "bg-transparent","text-xl font-semibold break-words","placeholder:text-default-700/50"],
                                               inputWrapper: ["bg-transparent"],
 
                                               }}
@@ -221,7 +221,7 @@ const PostEditorModal = ({isOpen, onOpenChange}) => {
                                               base: "",
                                               label: "font-bold uppercase",
                                               innerWrapper: "bg-transparent",
-                                              input: [ "bg-transparent","text-md font-semibold break-words", "placeholder:text-default-700/50"],
+                                              input: [ "bg-transparent","text-md break-words", "placeholder:text-default-700/50"],
                                               inputWrapper: ["bg-transparent"],
 
                                               }}

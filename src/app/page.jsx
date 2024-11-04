@@ -12,11 +12,13 @@ import {GraduationCap} from 'lucide-react';
 import Header from './components/Header';
 import AppWriteAuth from '@/services/backend/appwrite/auth.service';
 import { isObjEmpty } from '@/utils/Obj.util';
+import RegisteredConferences from './components/RegisteredConferences';
+import ResearchPaperAnalyzer from './components/ResearchPaperAnalyzer';
 
 const Home = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
-  const [selected, setSelected] = useState("smartstream");
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(()=>{
     const getCurrentUser = async() => {
@@ -24,19 +26,8 @@ const Home = () => {
         const auth = new AppWriteAuth();
         const user = await auth.getUser();
         if(!isObjEmpty(user)){
-          // if(!isObjEmpty(user) && !user?.prefs?.username) {
-          //   const prefs = {
-          //     username: user.email.replace("@gmail.com", ""),
-          //     profileImage: "https://cdn-icons-png.flaticon.com/512/7725/7725433.png",
-          //     displayName: user.name
-          //   }
-          //   const response = await auth.updatePrefs(prefs);
-          //   console.log("User Prefs: ", user?.prefs);
-          //   console.log("updatePrefs Res: ", response);
-          //   user?.prefs = prefs;
-          // }
           setCurrentUser(user);
-          console.log(user);
+          // console.log(user);
         }
         setPageLoading(false);
       } catch (error) {
@@ -54,14 +45,16 @@ const Home = () => {
       <>
         {
           !pageLoading ? (
-            <div className="w-full flex flex-col items-stretch p-3 gap-3">
-              <Header setCurrentUser={setCurrentUser} currentUser={currentUser}/>     
+            <div className={`${isDarkMode ? "bg-dark" : "bg-light"}  bg-cover bg-center bg-fixed  w-full flex flex-col items-stretch p-3 gap-3`}>
+              <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>     
               <main className='w-full flex flex-col items-center justify-center gap-[12px]'>
                 {/* <section className='h-[100vh] w-full flex flex-row gap-[12px]'>
                   <div className='h-[100vh] w-1/2 rounded-lg border-2 border-white bg-white/60 backdrop-blur-3xl p-2'>
                     <Tabs
                       color="secondary" variant="bordered"
                       radius="full"
+                      className="flex items-center justify-center w-full"
+
                       size="lg"
                       aria-label="Tabs form"
                       selectedKey={selected}
@@ -95,7 +88,11 @@ const Home = () => {
                     </div>
                   </div>
                 </section> */}
-                <ResearchPulse currentUserData={currentUser} setCurrentUserData={setCurrentUser}/>
+                <section className='w-full flex gap-3'>
+                  <ResearchPulse currentUserData={currentUser} setCurrentUserData={setCurrentUser}/>
+                  <ResearchPaperAnalyzer />
+                </section>
+                <KnowledgePathways />
               </main>
             </div>
           ):

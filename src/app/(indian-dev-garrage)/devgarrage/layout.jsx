@@ -5,7 +5,7 @@ export const metadata = {
 
 export default function DevGarrageLayout({ children }) {
   return (
-    <div className="bg-devGarrageBGImage bg-cover bg-center bg-fixed h-screen w-full overflow-auto">
+    <div className="bg-light bg-cover bg-center bg-fixed h-screen w-full overflow-auto">
         {children}
     </div>
   );
