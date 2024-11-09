@@ -1,3 +1,4 @@
+import VendorDashboardSidebar from "./components/VendorDashboardSidebar";
 
 export const metadata = {
     title: "Vendor Dashboard ✨ Pharma Market · drugboard.ai",
@@ -6,7 +7,8 @@ export const metadata = {
 
 const VendorDashboardLayout = ({children}) => {
     return (
-        <div className="bg-light bg-cover bg-center bg-fixed h-screen w-full overflow-auto flex items-center justify-center">
+        <div className="p-3 bg-light bg-cover bg-center bg-fixed h-screen w-full overflow-auto flex items-center gap-3 justify-center">
+          <VendorDashboardSidebar />
             {children}
         </div>
       );
