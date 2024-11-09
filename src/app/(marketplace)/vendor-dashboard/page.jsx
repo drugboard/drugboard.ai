@@ -43,7 +43,7 @@ const VendorDashboardPage = () => {
 
   if (isDashboardLoading) {
     return (
-      <div className="absolute inset-x-0 inset-y-0 h-full w-full bg-light bg-cover bg-center bg-fixed flex items-center justify-center">
+      <div className="absolute inset-x-0 inset-y-0 h-full w-full backdrop-blur-3xl bg-light bg-cover bg-center bg-fixed flex items-center justify-center">
         <p className="font-heading !text-white !font-black uppercase text-5xl text-center">
           Loading...
         </p>
