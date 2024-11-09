@@ -6,7 +6,7 @@ import { LayoutDashboard } from 'lucide-react';
 
 const DashboardSidebar = () => {
   return (
-    <div className='flex flex-col items-stretch gap-3 h-full bg-white/80 border-2 border-white w-[15%] rounded-3xl'>
+    <aside className='flex flex-col items-stretch gap-3 h-full bg-white/80 border-2 border-white w-[15%] rounded-3xl'>
         <Link href="/" className="cursor-grab px-3 border-b-2 border-b-white flex items-center justify-center">
           <img className="max-h-[90px] object-contain" src="/drugboardLogo.png" alt="drugboard.ai" />
         </Link>
@@ -21,7 +21,7 @@ const DashboardSidebar = () => {
             <p>Conferences</p>
           </Link>
         </div>
-    </div>
+    </aside>
   )
 }
 
