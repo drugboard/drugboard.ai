@@ -10,7 +10,6 @@ const VendorDashboardPage = () => {
   const navigate = useRouter();
 
   useEffect(() => {
-    let isNavigating = false;
 
     const getCurrentUser = async () => {
       try {
@@ -19,15 +18,7 @@ const VendorDashboardPage = () => {
         
         if (!isObjEmpty(user)) {
           setCurrentuser(user);
-          
-          // Only redirect if user is definitely not a vendor
-          if (user?.prefs?.isVendor === false && !isNavigating) {
-            isNavigating = true;
-            navigate.replace("/vendor-onboarding");
-            return;
-          }
-          
-          setIsDashboardLoading(false);
+          return;
         }
       } catch (error) {
         console.error(error);
@@ -37,6 +28,18 @@ const VendorDashboardPage = () => {
 
     getCurrentUser();
   }, []);
+
+  useEffect(()=>{
+    if(currentUser){
+      if(!currentUser?.prefs?.isVendor){
+        navigate.replace("/vendor-onboarding");
+        return;
+      }else{
+        setIsDashboardLoading(false);
+        return;
+      }
+    }
+  },[currentUser])
 
   if (isDashboardLoading) {
     return (

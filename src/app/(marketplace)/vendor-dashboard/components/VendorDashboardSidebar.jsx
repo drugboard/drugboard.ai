@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpenCheck, Store, University } from "lucide-react";
+import { BookOpenCheck, ContactRound, Store, Truck, University } from "lucide-react";
 import Link from "next/link";
 import { LayoutDashboard } from 'lucide-react';
 import { usePathname } from "next/navigation";
@@ -11,6 +11,8 @@ const iconComponents = {
     Overview: ChartNoAxesCombined,
     Catalog: Logs,
     BookOpenCheck: BookOpenCheck,
+    Leads: ContactRound,
+    Delivery: Truck,
 };
 
 const navLinks = [
@@ -29,6 +31,16 @@ const navLinks = [
         icon: "BookOpenCheck",
         href: "/vendor-dashboard/order-book" 
     },
+    {
+        name: "Contact Leads",
+        icon: "Leads",
+        href: "/vendor-dashboard/contact-leads" 
+    },
+    {
+        name: "Deliverables",
+        icon: "Delivery",
+        href: "/vendor-dashboard/deliverables" 
+    },
 ];
 
 const VendorDashboardSidebar = () => {
@@ -40,7 +52,7 @@ const VendorDashboardSidebar = () => {
           <img className="max-h-[90px] object-contain" src="/drugboardLogo.png" alt="drugboard.ai" />
         </Link>
 
-        <nav className="p-3 flex flex-col gap-2 items-stretch">
+        <nav className="p-3 flex flex-col gap-1 items-stretch">
             {navLinks?.map((navItem) => {
                 const isActive = pathName === navItem.href;
                 const IconComponent = iconComponents[navItem.icon];
@@ -50,7 +62,7 @@ const VendorDashboardSidebar = () => {
                     <Link 
                         href={navItem.href.startsWith('/') ? navItem.href : `/#${navItem.href}`}
                         key={navItem.href}
-                        className={`flex items-start gap-2 transition-all duration-500 ease-in-out cursor-pointer p-3 rounded-md  ${isActive ? "bg-purple-600 text-white" : "text-black hover:text-purple-600" }`}
+                        className={`flex items-start gap-2 transition-all duration-500 ease-in-out cursor-pointer px-3 py-2 rounded-full font-medium text-medium ${isActive ? "bg-purple-600 text-white" : "text-black hover:text-purple-600" }`}
                     >
                         {IconComponent && (
                             <IconComponent size={24}  />

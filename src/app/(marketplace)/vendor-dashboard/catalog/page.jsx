@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import PrimaryButton from "@/components/global/PrimaryButton"
 import { PackagePlus } from "lucide-react"
