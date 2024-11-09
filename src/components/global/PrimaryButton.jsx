@@ -18,7 +18,7 @@ const PrimaryButton = ({onPress, color="secondary",type, onClick, className, ari
         isDisabled={isDisabled}
         variant={variant}
         color={color}
-        className={`${className}`}
+        className={`${className} font-medium text-medium`}
     >{children}</Button>
   )
 }
