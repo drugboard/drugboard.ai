@@ -6,6 +6,7 @@ import { isObjEmpty } from "@/utils/Obj.util";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import PrimaryButton from "@/components/global/PrimaryButton";
+import { CirclePlus, ImageUp, UserPlus } from "lucide-react";
 
 const VendorAuthenticationPage = () => {
     const [selected, setSelected] = useState("register-vendor");
@@ -55,7 +56,7 @@ const VendorAuthenticationPage = () => {
             </section>
 
             <section className="w-[40%] h-full flex items-center justify-center">
-                <Card className="rounded-3xl bg-white/80 border border-white backdrop-blur-lg max-w-full w-full h-full">
+                <Card className="rounded-3xl bg-white/80 border border-white backdrop-blur-2xl max-w-full w-full h-full">
                     <CardBody className="overflow-y-auto">
                         <Tabs
                             fullWidth
@@ -90,14 +91,20 @@ const VendorAuthenticationPage = () => {
                             <Tab key="register-vendor" title="Register As Vendor">
                                 <form className="flex flex-col items-center gap-4">
 
-                                    <Input 
-                                        name="companyName" 
-                                        fullWidth 
-                                        isRequired 
-                                        label="Company Name" 
-                                        placeholder="Enter your company name" 
-                                        type="text" 
-                                    />
+                                    <div className="flex gap-2 w-full">
+                                        <div className="transition-all duration-300 ease-in-out cursor-pointer h-[55px] w-[55px] bg-white/80 hover:bg-gray-200 rounded-xl focus:outline-lime-500 flex items-center justify-center">
+                                            <ImageUp size={32} className="text-gray-500"/>
+                                        </div>
+                                        <Input 
+                                            name="companyName" 
+                                            fullWidth 
+                                            isRequired 
+                                            label="Company Name" 
+                                            placeholder="Enter your company name" 
+                                            type="text" 
+                                            className="flex-1 w-full"
+                                        />
+                                    </div>
 
                                     <Textarea
                                         key="companyDescription"
@@ -116,7 +123,7 @@ const VendorAuthenticationPage = () => {
                                         isRequired 
                                         label="Tax Identication Number" 
                                         placeholder="Enter your Tax Identication Number" 
-                                        type="text" 
+                                        type="text"
                                     />
 
                                     <Tabs
@@ -138,6 +145,11 @@ const VendorAuthenticationPage = () => {
                                                 Retail
                                             </p>
                                         }></Tab>
+                                        <Tab key="manufacturer" title={
+                                            <p className="font-medium">
+                                                Manufacturer
+                                            </p>
+                                        }></Tab>
                                     </Tabs>
 
                                     <Input 
@@ -148,17 +160,35 @@ const VendorAuthenticationPage = () => {
                                         placeholder="Enter your Mobile Number" 
                                         type="text" 
                                     />
+
+                                    <Input 
+                                        name="foundedYear" 
+                                        fullWidth 
+                                        isRequired 
+                                        label="Founded Year" 
+                                        placeholder="Which year did you found this company?" 
+                                        type="number" 
+                                    />
+
+                                    <Input 
+                                        name="companyWebsite" 
+                                        fullWidth 
+                                        isRequired 
+                                        label="Company Website" 
+                                        placeholder="www.yourcompanydomain.com" 
+                                        type="text" 
+                                    />
                                     
                                     <p className="text-center text-small font-medium">
-                                    Are you an already, Vendor? Welcome to {" "}
-                                    <Link className="text-purple-700 cursor-pointer font-bold hover:underline" size="sm" href="/vendor-dashboard">
-                                        Vendor Dashboard
-                                    </Link>
+                                        Are you an already, Vendor? Welcome to {" "}
+                                        <Link className="text-purple-700 cursor-pointer font-bold hover:underline" size="sm" href="/vendor-dashboard">
+                                            Vendor Dashboard
+                                        </Link>
                                     </p>
                                     <div className="flex gap-2 justify-end">
-                                    <PrimaryButton fullWidth={true}>
-                                        Register As Vendor
-                                    </PrimaryButton>
+                                        <PrimaryButton startContent={<UserPlus />}>
+                                            Register As Vendor
+                                        </PrimaryButton>
                                     </div>
                                 </form>
                             </Tab>
