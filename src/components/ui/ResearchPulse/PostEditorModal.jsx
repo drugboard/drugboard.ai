@@ -239,7 +239,8 @@ const PostEditorModal = ({isOpen, onOpenChange}) => {
 
                                   <div className="flex flex-col gap-3 items-stretch p-3 h-[500px] w-[300px] rounded-3xl border-2 border-white bg-white backdrop-blur-lg">
                                       <Tabs
-                                          color="secondary" variant="bordered"
+                                          color="secondary" 
+                                          variant="bordered"
                                           radius="full"
                                           className="flex items-center justify-center w-full"
                                           size="lg"
@@ -248,10 +249,17 @@ const PostEditorModal = ({isOpen, onOpenChange}) => {
                                           onSelectionChange={setSelected}
                                           >
                                           
-                                          <Tab key={"donate-files"} title={<Tooltip showArrow={true} content="Uploads PDFs" color='success' className='font-semibold'>
-                                              <div className="flex items-center justify-center">
-                                              <BookOpenCheck/>
-                                              </div></Tooltip>
+                                          <Tab key={"donate-files"} 
+                                            title={
+                                              <Tooltip showArrow={true} 
+                                                content="Uploads PDFs" 
+                                                color='success' 
+                                                className='font-semibold'
+                                              >
+                                                <div className="flex items-center justify-center">
+                                                  <BookOpenCheck/>
+                                                </div>
+                                              </Tooltip>
                                           }>
                                           </Tab>
 

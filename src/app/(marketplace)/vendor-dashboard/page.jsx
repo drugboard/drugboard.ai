@@ -5,54 +5,57 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const VendorDashboardPage = () => {
-
   const [isDashboardLoading, setIsDashboardLoading] = useState(true);
   const [currentUser, setCurrentuser] = useState(null);
-
   const navigate = useRouter();
 
-  useEffect(()=>{
-    const getCurrentUser = async() => {
-      try{
+  useEffect(() => {
+
+    const getCurrentUser = async () => {
+      try {
         const auth = new AppWriteAuth();
         const user = await auth.getUser();
-        if(!isObjEmpty(user)){
+        
+        if (!isObjEmpty(user)) {
           setCurrentuser(user);
-          console.log(user);
+          return;
         }
-      }catch(error){
+      } catch (error) {
         console.error(error);
+        setIsDashboardLoading(false);
       }
-    }
+    };
+
     getCurrentUser();
-  }, [])
+  }, []);
 
   useEffect(()=>{
     if(currentUser){
-      console.log(currentUser?.prefs?.isVendor);
-      if(currentUser?.prefs?.isVendor){
-        setIsDashboardLoading(false);
+      if(!currentUser?.prefs?.isVendor){
+        navigate.replace("/vendor-onboarding");
+        return;
       }else{
-        navigate.replace("/vendor-dashboard/authentication");
+        setIsDashboardLoading(false);
+        return;
       }
     }
-  }, [currentUser]);
+  },[currentUser])
 
+  if (isDashboardLoading) {
+    return (
+      <div className="absolute inset-x-0 inset-y-0 h-full w-full backdrop-blur-3xl bg-light bg-cover bg-center bg-fixed flex items-center justify-center">
+        <p className="font-heading !text-white !font-black uppercase text-5xl text-center">
+          Loading...
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <>
-    {
-      !isDashboardLoading ? (
-        <main className="flex items-center justify-center h-full w-full">
-          <p className="font-heading !text-white !font-black uppercase text-5xl text-center">Vendor Dashboard</p>
-        </main>
-      )
-      : (
-      <p className="font-heading !text-white !font-black uppercase text-5xl text-center">Loading...</p>
-      ) 
-    }
-    </>
-  )
-}
+    <main className="flex items-center justify-center h-full w-[85%] bg-white/80 border border-white rounded-3xl p-3">
+      {/* Dashboard content */}
+    </main>
+  );
+};
 
 export default VendorDashboardPage;
