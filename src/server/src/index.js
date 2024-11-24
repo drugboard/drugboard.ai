@@ -1,11 +1,6 @@
-import dotenv from "dotenv"
 import drugboardServer from './app.js'
 import { PORT } from "./constants.js";
 import connectMongoDB from "./db/mongodb/index.js";
-
-dotenv.config({
-    path: './.env'
-})
 
 
 const launchDrugboardServer = async () => {
