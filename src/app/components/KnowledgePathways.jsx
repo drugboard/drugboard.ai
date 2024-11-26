@@ -152,37 +152,59 @@ const KnowledgePathways = () => {
       }
       return <code className={className} {...props}>{children}</code>;
     },
-    
-    p: ({children}) => {
-      if (!children) return null;
-      
-      const childrenArray = Array.isArray(children) ? children : [children];
-      
-      const processedChildren = childrenArray.map((child, index) => {
-        if (typeof child === 'string') {
-          // Split by chemical equations, whether they're in brackets or not
-        const parts = child.split(/(\[\\ce{[^}]+}\]|\\ce{[^}]+})/g);
-          
-          return parts.map((part, partIndex) => {
-            if (part.match(/^\[?\\ce{[^}]+}\]?$/)) {
-              return (
-                <span key={`${index}-${partIndex}`} className='katex'>
-                  {processChemicalEquation(part)}
-                </span>
-              );
-            }
-            return part;
-          });
-        }
-        return child;
-      });
 
-      return (
-        <p className="my-2">
-          {processedChildren}
-        </p>
-      );
-    }
+    p: ({ children }) => {
+      if (typeof children === 'string') {
+        // Process chemical equations in list items
+        const parts = children.split(/(\[\\ce{[^}]+}\]|\\ce{[^}]+})/g);
+        return (
+          <p className="text-gray-800">
+            {parts.map((part, index) => {
+              if (part.match(/^\[?\\ce{[^}]+}\]?$/)) {
+                return (
+                  <span key={index} className='katex'>
+                    {processChemicalEquation(part)}
+                  </span>
+                );
+              }
+              return part;
+            })}
+          </p>
+        );
+      }
+      return <p className="text-gray-700">{children}</p>;
+    },
+    
+    // p: ({children}) => {
+    //   if (!children) return null;
+      
+    //   const childrenArray = Array.isArray(children) ? children : [children];
+      
+    //   const processedChildren = childrenArray.map((child, index) => {
+    //     if (typeof child === 'string') {
+    //       // Split by chemical equations, whether they're in brackets or not
+    //     const parts = child.split(/(\[\\ce{[^}]+}\]|\\ce{[^}]+})/g);
+          
+    //       return parts.map((part, partIndex) => {
+    //         if (part.match(/^\[?\\ce{[^}]+}\]?$/)) {
+    //           return (
+    //             <span key={`${index}-${partIndex}`} className='katex'>
+    //               {processChemicalEquation(part)}
+    //             </span>
+    //           );
+    //         }
+    //         return part;
+    //       });
+    //     }
+    //     return child;
+    //   });
+
+    //   return (
+    //     <p className="my-2">
+    //       {processedChildren}
+    //     </p>
+    //   );
+    // }
   };
 
   return (
@@ -194,48 +216,47 @@ const KnowledgePathways = () => {
         </div>
       </div>
 
-      <div className='w-full flex-1 flex items-center justify-between gap-3'>
-        <div className="h-full bg-gray-100 p-8">
-          <div className="w-full mx-auto">
-            <div className="mb-8 bg-white rounded-lg shadow-md p-6">
+      <div className="flex flex-col items-stretch gap-3 p-3 h-full w-full mx-auto overflow-y-auto">
+            <div className=" bg-white rounded-2xl shadow-md p-3 flex items-stretch justify-center">
               <input
                 type="text"
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 placeholder="Enter a topic..."
-                className="w-full p-2 border rounded mb-4"
+                className="flex-1 border rounded-l-xl p-3"
                 disabled={isLoading}
               />
               <button
                 onClick={generateContent}
                 disabled={isLoading || !topic}
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-400"
+                className="bg-blue-500 px-4 text-white rounded-r-xl hover:bg-blue-600 disabled:bg-blue-400"
               >
                 {isLoading ? 'Generating...' : 'Generate Content'}
               </button>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6 prose max-w-none">
-              <ReactMarkdown
-                remarkPlugins={[remarkMath]}
-                rehypePlugins={[
-                  [rehypeKatex, {
-                    trust: true,
-                    strict: false,
-                    output: 'html',
-                    throwOnError: false,
-                    globalGroup: true,
-              
-                  }]
-                ]}
-                components={customStyles}
-                className="markdown-content"
-              >
-                {content}
-              </ReactMarkdown>
-            </div>
-          </div>
-        </div>
+            {
+              content &&
+              <div className="h-full bg-white w-full rounded-3xl shadow-md p-6 prose overflow-y-auto">
+                <ReactMarkdown
+                  remarkPlugins={[remarkMath]}
+                  rehypePlugins={[
+                    [rehypeKatex, {
+                      trust: true,
+                      strict: false,
+                      output: 'html',
+                      throwOnError: false,
+                      globalGroup: true,
+                
+                    }]
+                  ]}
+                  components={customStyles}
+                  className="prose"
+                >
+                  {content}
+                </ReactMarkdown>
+              </div>
+            }
       </div>
     </section>
   );
