@@ -1,6 +1,5 @@
 import http from "http";
 import express from "express";
-
 import cors from 'cors';
 
 const app = express();
@@ -24,6 +23,11 @@ const allowedOrigins = [
   
 app.use(cors(corsOptions));
 app.use(express.json());
+
+//All Routes Imports
+import aiRouter from "./routes/ai.routes.js";
+
+app.use("/api/v1/ai", aiRouter);
 
 app.get("/", (req, res)=>{
     res.status(200).json({
