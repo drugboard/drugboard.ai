@@ -4,6 +4,6 @@ import { answerTheQuestion, generateConversationStarters, generateRelatedQuestio
 const aiRouter = express.Router();
 
 aiRouter.get("/generateConversationStarters", generateConversationStarters)
-aiRouter.post("/answerTheQuestion", answerTheQuestion, generateRelatedQuestions);
+aiRouter.post("/answerTheQuestion", answerTheQuestion);
 
 export default aiRouter;
