@@ -8,7 +8,7 @@ const ConferencesListing = () => {
   const [selectedConferences, setSelectedConferences] = useState("all-conferences");
 
   return (
-    <div className='h-full flex flex-col items-stretch gap-2 w-[40%] rounded-3xl backdrop-blur-lg bg-white/30'>       
+    <div className='h-screen flex flex-col items-stretch gap-2 w-[50%] rounded-3xl backdrop-blur-lg bg-white/30'>       
         <Tabs
             color="secondary" 
             variant="solid"

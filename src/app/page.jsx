@@ -14,6 +14,7 @@ import AppWriteAuth from '@/services/backend/appwrite/auth.service';
 import { isObjEmpty } from '@/utils/Obj.util';
 import RegisteredConferences from './components/RegisteredConferences';
 import ResearchPaperAnalyzer from './components/ResearchPaperAnalyzer';
+import ConferencesListing from './components/ConferencesListing';
 
 const Home = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -90,7 +91,7 @@ const Home = () => {
                 </section> */}
                 <section className='w-full flex gap-3'>
                   <ResearchPulse currentUserData={currentUser} setCurrentUserData={setCurrentUser}/>
-                  <ResearchPaperAnalyzer />
+                  <ConferencesListing />
                 </section>
                 <KnowledgePathways />
               </main>
