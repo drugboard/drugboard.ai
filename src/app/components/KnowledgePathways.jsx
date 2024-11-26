@@ -39,7 +39,7 @@ const KnowledgePathways = () => {
       contentRef.current = '';
       setContent('');
 
-      const response = await fetch('http://localhost:8000/api/v1/ai/answerTheQuestion', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/ai/answerTheQuestion`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
