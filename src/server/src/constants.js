@@ -18,7 +18,21 @@ export const GPT_MODEL_2 = process.env.GPT_MODEL_2;
 export const GPT_MODEL_3 = process.env.GPT_MODEL_3;
 
 export const get_prompt = (TOPIC) => {
-    const PROMPT = `Please provide a comprehensive 2-page summary about "${TOPIC}" and generate using proper LaTeX notation for all chemical equations and mathematical expressions following this exact structure:
+    const PROMPT = `Please provide a comprehensive 2-page summary about "${TOPIC}"  
+    Format Requirements:
+    1. Use markdown headers (#, ##, ###) for all sections.
+    2. Include at least 2-3 chemical equations using this exact format: \n $\\ce{reactants -> products}$ \n.
+    3. Each equation must be in a separate line, wrapped in $ symbols.
+    4. Use blockquotes (>) for important statements.
+    5. Maintain logical flow and accuracy.
+    6. Highlight critical terms using bold (**term**).
+    
+    Ensure scientific accuracy and proper LaTeX formatting throughout.
+
+    Note:  Follow this strictly...
+    1. Generate the chemical reactions seperately as an entity, don't mix it with code, blockquotes, headings, paragraphs, spans or any text formating symbols of markdown, Generate the chemical reactions in the above mentioned format only as a seperate entity in the new line.
+
+    generate using proper LaTeX notation for all chemical equations and mathematical expressions following this exact structure:
 
     # Main Title: ${TOPIC}
     
@@ -38,19 +52,19 @@ export const get_prompt = (TOPIC) => {
     
     ## Technical Details
     ### Process Overview
-    [Include relevant chemical equations using LaTeX notation]
-    - Example: $\\ce{6 CO2 + 6 H2O + light -> C6H12O6 + 6 O2}$
+    [Include relevant chemical equations in the new line using LaTeX notation exactly as shown in the below]
+    - Example: \n $\\ce{6 CO2 + 6 H2O + light -> C6H12O6 + 6 O2}$ \n
     
     ### Mechanisms and Reactions
-    [Explain key mechanisms with chemical equations]
-    - Format all chemical equations like: $\\ce{2 H2O -> 2 H2 + O2}$
+    [Explain key mechanisms with chemical equations in the new line using LaTeX notation exactly as shown in the below]
+    - Format all chemical equations like: \n $\\ce{2 H2O -> 2 H2 + O2}$ \n
     - Always wrap chemical equations in $ symbols
-    - Use \\ce{} for all chemical reactions
+    - Use \n \\ce{} for all chemical reactions
     - Include reaction conditions and states:
-      - States: $\\ce{H2O(l) -> H2O(g)}$
-      - Concentrations: $\\ce{[H+] + [OH-] -> H2O}$
-      - Catalysts: $\\ce{A + B ->[catalyst] C + D}$
-      - Reversible reactions: $\\ce{A + B <=> C + D}$
+      - States: \n $\\ce{H2O(l) -> H2O(g)}$ \n
+      - Concentrations: \n $\\ce{[H+] + [OH-] -> H2O}$ \n
+      - Catalysts: \n $\\ce{A + B ->[catalyst] C + D}$ \n
+      - Reversible reactions: \n $\\ce{A + B <=> C + D}$ \n
     
     ## Applications
     ### Current Uses
@@ -73,17 +87,6 @@ export const get_prompt = (TOPIC) => {
     
     ## Conclusion
     [Summarize key points and future outlook]
-    
-    ---
-    **Format Requirements:**
-    1. Use markdown headers (#, ##, ###) for all sections.
-    2. Include at least 2-3 chemical equations using this exact format: $\\ce{reactants -> products}$.
-    3. Each equation must be in a separate line, wrapped in $ symbols.
-    4. Use blockquotes (>) for important statements.
-    5. Maintain logical flow and accuracy.
-    6. Highlight critical terms using bold (**term**).
-    
-    Ensure scientific accuracy and proper LaTeX formatting throughout.
 `    
     return PROMPT;
 }
