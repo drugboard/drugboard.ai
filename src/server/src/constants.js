@@ -18,9 +18,8 @@ export const GPT_MODEL_2 = process.env.GPT_MODEL_2;
 export const GPT_MODEL_3 = process.env.GPT_MODEL_3;
 
 export const get_prompt = (TOPIC) => {
-    const PROMPT = `
-    Please provide a comprehensive 2-page summary about "${TOPIC}" and generate using proper LaTeX notation for all chemical equations and mathematical expressions following this exact structure:
-    
+    const PROMPT = `Please provide a comprehensive 2-page summary about "${TOPIC}" and generate using proper LaTeX notation for all chemical equations and mathematical expressions following this exact structure:
+
     # Main Title: ${TOPIC}
     
     ## Introduction
@@ -40,15 +39,18 @@ export const get_prompt = (TOPIC) => {
     ## Technical Details
     ### Process Overview
     [Include relevant chemical equations using LaTeX notation]
-    Example format: $\\ce{6 CO2 + 6 H2O + light -> C6H12O6 + 6 O2}$
+    - Example: $\\ce{6 CO2 + 6 H2O + light -> C6H12O6 + 6 O2}$
     
     ### Mechanisms and Reactions
     [Explain key mechanisms with chemical equations]
     - Format all chemical equations like: $\\ce{2 H2O -> 2 H2 + O2}$
-    - All chemical equations must be wrapped in $ symbols
-    - Always use \\ce{} for chemical equations
-    - Use bullet points for step-by-step processes
-    - Include reaction conditions where relevant
+    - Always wrap chemical equations in $ symbols
+    - Use \\ce{} for all chemical reactions
+    - Include reaction conditions and states:
+      - States: $\\ce{H2O(l) -> H2O(g)}$
+      - Concentrations: $\\ce{[H+] + [OH-] -> H2O}$
+      - Catalysts: $\\ce{A + B ->[catalyst] C + D}$
+      - Reversible reactions: $\\ce{A + B <=> C + D}$
     
     ## Applications
     ### Current Uses
@@ -73,23 +75,16 @@ export const get_prompt = (TOPIC) => {
     [Summarize key points and future outlook]
     
     ---
-    Format Requirements:
-    1. Use markdown headers (#, ##, ###) for all sections
-    2. Include at least 2-3 relevant chemical equations using this exact format: $\\ce{reactants -> products}$
-    3. Add blockquotes (>) for important statements
-    4. Use bullet points for lists
-    5. Break down complex concepts into clear subsections
-    6. Maintain a logical flow between sections
-    7. Include numerical data where relevant
-    8. Highlight critical terms using bold (**term**)
-    9. For chemical equations with states or conditions:
-       - Use parentheses for states: $\\ce{H2O(l) -> H2O(g)}$
-       - Use square brackets for concentrations: $\\ce{[H+] + [OH-] -> H2O}$
-       - For reactions with catalysts: $\\ce{A + B ->[catalyst] C + D}$
-       - For reversible reactions: $\\ce{A + B <=> C + D}$
+    **Format Requirements:**
+    1. Use markdown headers (#, ##, ###) for all sections.
+    2. Include at least 2-3 chemical equations using this exact format: $\\ce{reactants -> products}$.
+    3. Each equation must be in a separate line, wrapped in $ symbols.
+    4. Use blockquotes (>) for important statements.
+    5. Maintain logical flow and accuracy.
+    6. Highlight critical terms using bold (**term**).
     
-    Please generate a well-structured response maintaining this exact formatting while ensuring scientific accuracy and clarity. Remember to always wrap chemical equations in $ symbols and use \\ce{} notation.`;
-
+    Ensure scientific accuracy and proper LaTeX formatting throughout.
+`    
     return PROMPT;
 }
 

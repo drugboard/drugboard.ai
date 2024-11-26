@@ -5,8 +5,8 @@ import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
-// Import mhchem extension for chemical equations
-import 'katex/dist/contrib/mhchem.min.js';
+// Import mhchem extension explicitly
+import 'katex/contrib/mhchem';
 
 const KnowledgePathways = () => {
   const [topic, setTopic] = useState('');
@@ -78,135 +78,162 @@ const KnowledgePathways = () => {
       setIsLoading(false);
     }
   };
+  const markdownStyles = `
+        /* Base styles for markdown content */
+        .markdown-content {
+            /* Typography */
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #374151;
+            
+            /* Spacing */
+            max-width: 100%;
+            overflow-x: hidden;
+            padding: 1rem;
+            
+            /* Headings */
+            h1, h2, h3, h4, h5, h6 {
+                margin-top: 2rem;
+                margin-bottom: 1rem;
+                font-weight: 600;
+                line-height: 1.25;
+            }
+            
+            h1 { font-size: 2em; border-bottom: 1px solid #e5e7eb; }
+            h2 { font-size: 1.5em; }
+            h3 { font-size: 1.25em; }
+            
+            /* Paragraphs and spacing */
+            p {
+                margin-bottom: 1rem;
+                line-height: 1.7;
+            }
+            
+            /* Lists */
+            ul, ol {
+                margin: 1rem 0;
+                padding-left: 2rem;
+            }
+            
+            li {
+                margin: 0.5rem 0;
+            }
+            
+            /* Blockquotes */
+            blockquote {
+                border-left: 4px solid #3b82f6;
+                margin: 1rem 0;
+                padding: 0.5rem 1rem;
+                background-color: #eff6ff;
+                color: #1e40af;
+            }
+            
+            /* Code blocks */
+            pre {
+                background-color: #f3f4f6;
+                padding: 1rem;
+                border-radius: 0.375rem;
+                overflow-x: auto;
+                margin: 1rem 0;
+            }
+            
+            /* Inline code */
+            code {
+                background-color: #f3f4f6;
+                padding: 0.2rem 0.4rem;
+                border-radius: 0.25rem;
+                font-size: 0.875em;
+            }
+            
+            /* Chemical equations and LaTeX */
+            .equation-block {
+                overflow-x: auto;
+                padding: 1rem 0;
+                margin: 1rem 0;
+                text-align: center;
+            }
+            
+            .katex-display {
+                overflow-x: auto;
+                padding: 0.5rem 0;
+                margin: 0.5rem 0 !important;
+            }
+            
+            .katex {
+                font-size: 1.1em !important;
+                text-align: left;
+            }
+            
+            /* Tables */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 1rem 0;
+            }
+            
+            th, td {
+                border: 1px solid #e5e7eb;
+                padding: 0.75rem;
+                text-align: left;
+            }
+            
+            th {
+                background-color: #f9fafb;
+            }
+            
+            /* Links */
+            a {
+                color: #2563eb;
+                text-decoration: none;
+            }
+            
+            a:hover {
+                text-decoration: underline;
+            }
+            
+            /* Images */
+            img {
+                max-width: 100%;
+                height: auto;
+                margin: 1rem 0;
+                border-radius: 0.375rem;
+            }
+        }
+    `;
 
-  const processChemicalEquation = (text) => {
-    return text.replace(/^\[(.*)\]$/, '$1')
-              .replace(/\\ce{([^}]+)}/g, (match, equation) => {
-                return match.startsWith('$') ? match : `$\\ce{${equation}}$`;
-              });
-  };
-  
-  const customStyles = {
-    h1: ({ children }) => (
-      <h1 className="text-4xl font-bold my-3 text-gray-800 border-b pb-2">
-        {children}
-      </h1>
-    ),
-
-    h2: ({ children }) => (
-      <h2 className="text-3xl font-semibold my-2 text-gray-700">
-        {children}
-      </h2>
-    ),
-
-    h3: ({ children }) => (
-      <h3 className="text-2xl font-medium my-1 text-gray-600">
-        {children}
-      </h3>
-    ),
-
-    blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-blue-500 pl-2 my-2 italic bg-blue-50 py-2 rounded-xl">
-        {children}
-      </blockquote>
-    ),
-
-    ul: ({ children }) => (
-      <ul className="list-disc pl-6 my-4 space-y-2">
-        {children}
-      </ul>
-    ),
-
-    li: ({ children }) => {
-      if (typeof children === 'string') {
-        // Process chemical equations in list items
-        const parts = children.split(/(\[\\ce{[^}]+}\]|\\ce{[^}]+})/g);
-        return (
-          <li className="text-gray-800">
-            {parts.map((part, index) => {
-              if (part.match(/^\[?\\ce{[^}]+}\]?$/)) {
-                return (
-                  <span key={index} className='katex'>
-                    {processChemicalEquation(part)}
-                  </span>
-                );
-              }
-              return part;
-            })}
+    const customStyles = {
+      h1: ({ children }) => (
+          <h1 className="text-4xl font-bold mb-6 mt-8 text-gray-800 border-b pb-2">
+              {children}
+          </h1>
+      ),
+      h2: ({ children }) => (
+          <h2 className="text-3xl font-semibold mb-4 mt-6 text-gray-700">
+              {children}
+          </h2>
+      ),
+      h3: ({ children }) => (
+          <h3 className="text-2xl font-medium mb-3 mt-4 text-gray-600">
+              {children}
+          </h3>
+      ),
+      blockquote: ({ children }) => (
+          <blockquote className="border-l-4 border-blue-500 pl-4 my-4 italic bg-blue-50 py-2 rounded">
+              {children}
+          </blockquote>
+      ),
+      ul: ({ children }) => (
+          <ul className="list-disc pl-6 my-4 space-y-2">
+              {children}
+          </ul>
+      ),
+      li: ({ children }) => (
+          <li className="text-gray-700">
+              {children}
           </li>
-        );
-      }
-      return <li className="text-gray-700">{children}</li>;
-    },
-
-    code: ({node, inline, className, children, ...props}) => {
-      const content = String(children);
-      
-      // Handle chemical equations in code blocks
-      if (inline && (content.includes('\\ce{') || content.match(/^\[.*\]$/))) {
-        return (
-          <span className='katex'>
-            {processChemicalEquation(content)}
-          </span>
-        );
-      }
-      return <code className={className} {...props}>{children}</code>;
-    },
-
-    p: ({ children }) => {
-      if (typeof children === 'string') {
-        // Process chemical equations in list items
-        const parts = children.split(/(\[\\ce{[^}]+}\]|\\ce{[^}]+})/g);
-        return (
-          <p className="text-gray-800">
-            {parts.map((part, index) => {
-              if (part.match(/^\[?\\ce{[^}]+}\]?$/)) {
-                return (
-                  <span key={index} className='katex'>
-                    {processChemicalEquation(part)}
-                  </span>
-                );
-              }
-              return part;
-            })}
-          </p>
-        );
-      }
-      return <p className="text-gray-700">{children}</p>;
-    },
-    
-    // p: ({children}) => {
-    //   if (!children) return null;
-      
-    //   const childrenArray = Array.isArray(children) ? children : [children];
-      
-    //   const processedChildren = childrenArray.map((child, index) => {
-    //     if (typeof child === 'string') {
-    //       // Split by chemical equations, whether they're in brackets or not
-    //     const parts = child.split(/(\[\\ce{[^}]+}\]|\\ce{[^}]+})/g);
-          
-    //       return parts.map((part, partIndex) => {
-    //         if (part.match(/^\[?\\ce{[^}]+}\]?$/)) {
-    //           return (
-    //             <span key={`${index}-${partIndex}`} className='katex'>
-    //               {processChemicalEquation(part)}
-    //             </span>
-    //           );
-    //         }
-    //         return part;
-    //       });
-    //     }
-    //     return child;
-    //   });
-
-    //   return (
-    //     <p className="my-2">
-    //       {processedChildren}
-    //     </p>
-    //   );
-    // }
+      ),
   };
-
   return (
     <section id="knowledge-pathways" className='w-full h-screen flex flex-col items-stretch bg-white/80 rounded-3xl border border-white'>
       <div className="w-full px-3 py-2 flex items-center justify-between border-b border-white shadow-md">
@@ -238,20 +265,13 @@ const KnowledgePathways = () => {
             {
               content &&
               <div className="h-full bg-white w-full rounded-3xl shadow-md p-6 prose overflow-y-auto">
+                <style>{markdownStyles}</style>
+                
                 <ReactMarkdown
                   remarkPlugins={[remarkMath]}
-                  rehypePlugins={[
-                    [rehypeKatex, {
-                      trust: true,
-                      strict: false,
-                      output: 'html',
-                      throwOnError: false,
-                      globalGroup: true,
-                
-                    }]
-                  ]}
-                  components={customStyles}
-                  className="prose"
+                  rehypePlugins={[rehypeKatex]}
+                   components={customStyles}
+                  className="markdown-content"
                 >
                   {content}
                 </ReactMarkdown>
