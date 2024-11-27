@@ -89,7 +89,9 @@ export const get_prompt = (TOPIC) => {
     [Summarize key points and future outlook]
 
     ---
-
+    ## Summary of the entire response to generate related questionaire
+    Generate 2 paragraph of the entire summary of above response to Generate the 7 questions that could be asked about the above response, whether it is about the individual chemical reaction preparation, or conceptual clarity, or going into the depth of the concept.
+    ---
     ## Related Question
     > Generate the 7 questions that could be asked about the above response, whether it is about the individual chemical reaction preparation, or conceptual clarity, or going into the depth of the concept. Generate the questions in the blockquote format, number the questions in the lowe case roman number casing.
 
