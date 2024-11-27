@@ -2,6 +2,7 @@ import drugboardServer from './app.js'
 import { PORT } from "./constants.js";
 // import connectMongoDB from "./db/mongodb/index.js";
 import fetch from "node-fetch";
+import moment from 'moment';
 
 const launchDrugboardServer = async () => {
     // try{
@@ -18,7 +19,7 @@ const launchDrugboardServer = async () => {
     try{
         const keepAlive = () => {
             fetch('https://drugboard-ai.onrender.com/keep-alive')
-              .then((res) => console.log('Ping successful:', new Date()))
+              .then((res) => console.log('Server is alive:', moment().format('DD-MM-YYYY HH:mm:ss')))
               .catch((err) => console.error('Ping failed:', err));
           };
           
