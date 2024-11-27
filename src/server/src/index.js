@@ -20,7 +20,7 @@ const launchDrugboardServer = async () => {
         const keepAlive = () => {
             fetch('https://drugboard-ai.onrender.com/keep-alive')
               .then((res) => console.log('Server is alive:', moment().format('DD-MM-YYYY HH:mm:ss')))
-              .catch((err) => console.error('Ping failed:', err));
+              .catch((err) => console.error(`\nServer is dead: ${moment().format('DD-MM-YYYY HH:mm:ss')}\n`, err));
           };
           
           // Ping every 30seconds

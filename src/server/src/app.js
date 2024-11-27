@@ -37,7 +37,6 @@ app.get("/", (req, res)=>{
 
 // Endpoint to keep the server alive
 app.get('/keep-alive', (req, res) => {
-  console.log("Server is running alive 🚀");
   res.status(200).json({
     isAlive: true
   });
