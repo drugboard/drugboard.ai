@@ -39,8 +39,31 @@ const Home = () => {
       }
    }
     getCurrentUser();
-  }, [])
+  }, []);
   
+  const [isServerAlive, setIsServerAlive] = useState(true);
+
+  useEffect(() => {
+    // Function to check server status
+    const checkWhetherServerIsAlive = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/keep-alive`);
+        const data = await response.json();
+        setIsServerAlive(data?.isAlive);
+      } catch (error) {
+        console.error('Server check failed:', error);
+        setIsServerAlive(false);
+      }
+    };
+
+    // Initial check and setInterval for periodic checks
+    checkWhetherServerIsAlive();
+    const interval = setInterval(checkWhetherServerIsAlive, 30000); // 60,000 ms = 1 minute
+
+    return () => {
+      clearInterval(interval); // Cleanup on unmount
+    };
+  }, []);
 
     return (
       <>
