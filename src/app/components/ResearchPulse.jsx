@@ -107,7 +107,7 @@ const ResearchPulse = ({currentUserData, setCurrentUserData}) => {
   }
 
   return (
-    <div id="research-pulse" className='lg:h-screen z-10 w-[50%] flex flex-col rounded-2xl border border-white'>
+    <div id="research-pulse" className='h-screen z-10 w-[50%] flex flex-col rounded-2xl border border-white'>
 
       {/* Research Pulse Header Band */}
 
