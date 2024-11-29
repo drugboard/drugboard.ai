@@ -32,7 +32,7 @@ const answerTheQuestion = promiseHandler(async (req, res, next) => {
             },
             {
                 role: "user",
-                content: get_prompt(topic)
+                content: topic
             }
         ],
         stream: true,
